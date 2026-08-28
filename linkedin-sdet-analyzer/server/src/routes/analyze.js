@@ -1,4 +1,5 @@
 const express = require("express");
+const requireAuth = require("../middleware/requireAuth");
 const { upload, checkImageResolution, handleUploadErrors } = require("../middleware/upload");
 const { validateChecklist } = require("../lib/checklistSchema");
 const { buildAnalysisSystemPrompt, buildAnalysisToolSchema } = require("../lib/promptBuilder");
@@ -9,6 +10,7 @@ const router = express.Router();
 
 router.post(
   "/analyze",
+  requireAuth,
   upload.single("screenshot"),
   checkImageResolution,
   handleUploadErrors,

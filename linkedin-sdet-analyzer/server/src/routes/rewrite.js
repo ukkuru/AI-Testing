@@ -1,4 +1,5 @@
 const express = require("express");
+const requireAuth = require("../middleware/requireAuth");
 const { buildRewriteSystemPrompt, buildRewriteToolSchema } = require("../lib/promptBuilder");
 const { callWithForcedTool } = require("../lib/claudeClient");
 const { validateChecklist } = require("../lib/checklistSchema");
@@ -9,7 +10,7 @@ function isNonEmptyString(v) {
   return typeof v === "string" && v.trim().length > 0;
 }
 
-router.post("/rewrite", express.json({ limit: "256kb" }), async (req, res) => {
+router.post("/rewrite", requireAuth, express.json({ limit: "256kb" }), async (req, res) => {
   try {
     const { extractedText, gapAnalysis, checklist, experienceBulletToRewrite } = req.body || {};
 

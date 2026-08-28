@@ -24,6 +24,7 @@ export async function analyzeProfile(file, checklist) {
 
   const response = await fetch(`${API_BASE}/analyze`, {
     method: "POST",
+    credentials: "include",
     body: formData,
   });
   return parseJsonOrThrow(response);
@@ -32,8 +33,49 @@ export async function analyzeProfile(file, checklist) {
 export async function requestRewrite({ extractedText, gapAnalysis, checklist, experienceBulletToRewrite }) {
   const response = await fetch(`${API_BASE}/rewrite`, {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ extractedText, gapAnalysis, checklist, experienceBulletToRewrite }),
+  });
+  return parseJsonOrThrow(response);
+}
+
+export async function fetchFramework() {
+  const response = await fetch(`${API_BASE}/framework`);
+  return parseJsonOrThrow(response);
+}
+
+export async function registerAccount(email, password) {
+  const response = await fetch(`${API_BASE}/auth/register`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+  return parseJsonOrThrow(response);
+}
+
+export async function loginAccount(email, password) {
+  const response = await fetch(`${API_BASE}/auth/login`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+  return parseJsonOrThrow(response);
+}
+
+export async function logoutAccount() {
+  const response = await fetch(`${API_BASE}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  return parseJsonOrThrow(response);
+}
+
+export async function fetchCurrentUser() {
+  const response = await fetch(`${API_BASE}/auth/me`, {
+    credentials: "include",
   });
   return parseJsonOrThrow(response);
 }

@@ -1,153 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { AlertTriangle, Sparkles, Check } from "lucide-react";
-import UploadScreen from "./components/UploadScreen";
-import ChecklistScreen from "./components/ChecklistScreen";
-import LoadingScreen from "./components/LoadingScreen";
-import ResultsDashboard from "./components/ResultsDashboard";
-import ThemeToggle from "./components/ThemeToggle";
-import { analyzeProfile } from "./api";
-import { getInitialTheme, applyTheme } from "./theme";
-
-const STEPS = ["Upload", "Checklist", "Results"];
-
-const screenVariants = {
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
-};
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import MarketingLayout from "./layouts/MarketingLayout";
+import Home from "./pages/Home";
+import Criteria from "./pages/Criteria";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import AnalyzerTool from "./pages/AnalyzerTool";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
-  const [screen, setScreen] = useState("upload"); // upload | checklist | analyzing | results
-  const [file, setFile] = useState(null);
-  const [checklist, setChecklist] = useState(null);
-  const [analysis, setAnalysis] = useState(null);
-  const [error, setError] = useState("");
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  useEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [screen]);
-
-  function currentStepIndex() {
-    if (screen === "upload") return 0;
-    if (screen === "checklist") return 1;
-    return 2;
-  }
-
-  async function handleChecklistSubmit(submittedChecklist) {
-    setChecklist(submittedChecklist);
-    setScreen("analyzing");
-    setError("");
-    try {
-      const result = await analyzeProfile(file, submittedChecklist);
-      setAnalysis(result);
-      setScreen("results");
-    } catch (err) {
-      setError(err.message || "Analysis failed. Please try again.");
-      setScreen("checklist");
-    }
-  }
-
-  function handleStartOver() {
-    setFile(null);
-    setChecklist(null);
-    setAnalysis(null);
-    setError("");
-    setScreen("upload");
-  }
-
-  const stepIdx = currentStepIndex();
-
   return (
-    <div className="app-shell">
-      <div className="app-header">
-        <div className="app-title-row">
-          <div className="app-logo">
-            <Sparkles size={18} />
-          </div>
-          <div>
-            <h1 className="app-title">LinkedIn SDET Profile Analyzer</h1>
-            <p className="app-subtitle">25-point scoring framework for QA, test automation &amp; SDET careers</p>
-          </div>
-        </div>
-
-        <div className="app-header-actions">
-          <div className="step-progress">
-            {STEPS.map((step, idx) => (
-              <React.Fragment key={step}>
-                <div className="step-progress-item">
-                  <div className={`step-dot${idx === stepIdx ? " active" : idx < stepIdx ? " done" : ""}`}>
-                    {idx < stepIdx ? <Check size={13} /> : idx + 1}
-                  </div>
-                  <span className={`step-label${idx === stepIdx ? " active" : ""}`}>{step}</span>
-                </div>
-                {idx < STEPS.length - 1 && (
-                  <div className="step-connector">
-                    <motion.div
-                      className="step-connector-fill"
-                      initial={false}
-                      animate={{ width: idx < stepIdx ? "100%" : "0%" }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-          <ThemeToggle theme={theme} onToggle={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} />
-        </div>
-      </div>
-
-      <AnimatePresence mode="wait">
-        {screen === "upload" && (
-          <motion.div key="upload" variants={screenVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.22 }}>
-            <UploadScreen
-              initialFile={file}
-              onFileReady={(f) => {
-                setFile(f);
-                setScreen("checklist");
-              }}
-            />
-          </motion.div>
-        )}
-
-        {screen === "checklist" && (
-          <motion.div key="checklist" variants={screenVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.22 }}>
-            {error && (
-              <div className="error-banner">
-                <AlertTriangle size={16} />
-                <span>{error}</span>
-              </div>
-            )}
-            <ChecklistScreen
-              initialChecklist={checklist}
-              onBack={() => setScreen("upload")}
-              onSubmit={handleChecklistSubmit}
-            />
-          </motion.div>
-        )}
-
-        {screen === "analyzing" && (
-          <motion.div key="analyzing" variants={screenVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.22 }}>
-            <LoadingScreen />
-          </motion.div>
-        )}
-
-        {screen === "results" && analysis && (
-          <motion.div key="results" variants={screenVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.22 }}>
-            <ResultsDashboard analysis={analysis} onStartOver={handleStartOver} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="footer-note">
-        Screenshots are processed in-memory only and are never stored beyond your session.
-      </div>
-    </div>
+    <Routes>
+      <Route element={<MarketingLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/criteria" element={<Criteria />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route
+        path="/app"
+        element={
+          <ProtectedRoute>
+            <AnalyzerTool />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }

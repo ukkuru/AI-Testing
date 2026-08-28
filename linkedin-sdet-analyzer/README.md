@@ -11,7 +11,9 @@ About section, and one experience bullet.
 ```
 linkedin-sdet-analyzer/
   server/   Node/Express API — talks to the Claude API server-side only
-  client/   React (Vite) frontend — Upload → Checklist → Results
+  client/   React (Vite + react-router) frontend
+            Marketing site (Home, Scoring Criteria, Contact, Login, Register)
+            + a login-gated analyzer tool (Upload → Checklist → Results)
 ```
 
 - **No image parsing library.** The screenshot is sent straight through to
@@ -23,8 +25,32 @@ linkedin-sdet-analyzer/
 - **Scoring math is computed server-side** (`server/src/lib/scoreCalculator.js`)
   from Claude's per-item 0/1 answers — the model's arithmetic is never trusted
   for the total/percentage/band.
-- **No persistent storage.** Uploads use `multer` memory storage; nothing is
-  written to disk, and nothing survives past the response.
+- **No persistent storage of screenshots.** Uploads use `multer` memory
+  storage; nothing is written to disk, and nothing survives past the response.
+  (User accounts are the one thing that *is* persisted — see below.)
+
+## Accounts & auth
+
+`POST /api/analyze` and `POST /api/rewrite` require a signed-in session — the
+marketing site's "Try Out the Tool" links route through `/app`, which redirects
+anonymous visitors to `/login` (returning them to `/app` after signing in).
+
+- **Storage:** SQLite via `better-sqlite3`, one `users` table (`server/src/db.js`),
+  file lives at `server/data/app.db` (gitignored, created on first boot).
+- **Passwords:** hashed with `bcryptjs` (12 rounds), never logged or returned.
+- **Sessions:** a JWT (`jsonwebtoken`) in an `httpOnly`, `SameSite=Lax` cookie —
+  not readable by JS, sent automatically by the browser, verified per-request
+  in `server/src/middleware/requireAuth.js`. Set `COOKIE_SECURE=true` once the
+  app is served over HTTPS.
+- **Routes:** `POST /api/auth/register`, `POST /api/auth/login`,
+  `POST /api/auth/logout`, `GET /api/auth/me` (returns `{ user: null }` rather
+  than erroring when logged out, so the frontend can silently hydrate session
+  state on load). Rate-limited separately from the analysis endpoints
+  (`AUTH_RATE_LIMIT_MAX`, default 20 / 15 min).
+- **What email is used for:** account login only — shown explicitly on the
+  registration form, next to the email field.
+- Out of scope for this pass: password reset, email verification. The auth
+  layer is straightforward to extend for those later.
 
 ## Scoring framework and the checklist
 
@@ -60,6 +86,16 @@ Keyword-strategy chips intentionally share one neutral pill style rather than
 being color-coded per category, per the design spec's "don't add a third
 accent color" rule — differentiation there comes from the group headings.
 
+## Pages
+
+| Route | Description |
+|---|---|
+| `/` | Marketing home — hero, feature grid, "how it works", score-band preview, closing CTA. |
+| `/criteria` | Full 25-point scoring framework, fetched live from `GET /api/framework`. |
+| `/contact` | TestMetry contact details. |
+| `/login` / `/register` | Auth forms. Register states explicitly that the email is used for login only. |
+| `/app` | The analyzer tool (Upload → Checklist → Results). Requires sign-in — anonymous visitors are redirected to `/login` and returned here afterward. |
+
 ## Setup
 
 ### 1. Backend
@@ -68,7 +104,9 @@ accent color" rule — differentiation there comes from the group headings.
 cd server
 npm install
 cp .env.example .env
-# edit .env and set ANTHROPIC_API_KEY
+# edit .env and set ANTHROPIC_API_KEY, then generate a JWT secret:
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+# paste the output into .env as JWT_SECRET
 npm run dev      # http://localhost:8787
 ```
 
@@ -84,17 +122,24 @@ Open http://localhost:5173.
 
 ## API
 
-- `POST /api/analyze` — multipart form: `screenshot` (png/jpg file) +
-  `checklist` (JSON string). Returns the score, section breakdown (each item
-  tagged `screenshot`/`checklist`), extracted text, gap analysis, keyword
-  strategy, and top 5 priority fixes.
-- `POST /api/rewrite` — JSON body: `extractedText` + `gapAnalysis` +
-  `checklist` from a prior `/api/analyze` response. Returns 3 rewrite angles
-  (Authority / Outcome / Niche). Never invents certifications, metrics, or
-  achievements not present in the extracted text or checklist.
+- `POST /api/analyze` *(requires sign-in)* — multipart form: `screenshot`
+  (png/jpg file) + `checklist` (JSON string). Returns the score, section
+  breakdown (each item tagged `screenshot`/`checklist`), extracted text, gap
+  analysis, keyword strategy, and top 5 priority fixes.
+- `POST /api/rewrite` *(requires sign-in)* — JSON body: `extractedText` +
+  `gapAnalysis` + `checklist` from a prior `/api/analyze` response. Returns 3
+  rewrite angles (Authority / Outcome / Niche). Never invents certifications,
+  metrics, or achievements not present in the extracted text or checklist.
+- `GET /api/framework` *(public)* — the same 25-point framework definition
+  used to build the scoring prompt, served for the public Scoring Criteria
+  page so it never drifts out of sync with what's actually scored.
+- `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`,
+  `GET /api/auth/me` — see **Accounts & auth** above.
 
-Both routes are rate-limited (default: 10 requests / 15 min / IP, configurable
-via `RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`).
+`/api/analyze` and `/api/rewrite` are rate-limited (default: 10 requests /
+15 min / IP, via `RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`); the `/api/auth/*`
+routes have their own separate, more permissive limit
+(`AUTH_RATE_LIMIT_MAX` / `AUTH_RATE_LIMIT_WINDOW_MS`).
 
 ## Upload validation
 
@@ -124,5 +169,5 @@ those buttons appear on the profile, then use a full-page capture tool
 
 ## Status
 
-Phase 1 (upload → checklist → analyze → score) and Phase 2 (AI rewrite) are
-both implemented.
+Phase 1 (upload → checklist → analyze → score), Phase 2 (AI rewrite), and
+Phase 3 (marketing site + accounts) are all implemented.
