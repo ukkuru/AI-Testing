@@ -40,8 +40,6 @@ export default function Contact() {
           </span>
           <div>
             <div className="contact-row-label">Phone</div>
-            <a href="tel:+919496216498">+91 94962 16498</a>
-            <br />
             <a href="tel:+919895780269">+91 98957 80269</a>
           </div>
         </div>
@@ -53,6 +51,8 @@ export default function Contact() {
           <div>
             <div className="contact-row-label">Email</div>
             <a href="mailto:george@testmetry.com">george@testmetry.com</a>
+            <br />
+            <a href="mailto:reachme@qpulse.sbs">reachme@qpulse.sbs</a>
           </div>
         </div>
       </div>
