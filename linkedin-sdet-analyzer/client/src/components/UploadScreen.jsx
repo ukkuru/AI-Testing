@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { UploadCloud, ImageUp, FileImage, Info, AlertTriangle, ArrowRight } from "lucide-react";
 
 const ACCEPTED_TYPES = ["image/png", "image/jpeg"];
 const MAX_BYTES = 8 * 1024 * 1024;
@@ -34,21 +36,33 @@ export default function UploadScreen({ onFileReady, initialFile }) {
 
   return (
     <div className="card">
-      <h2>Step 1 — Upload your LinkedIn profile screenshot</h2>
+      <h2>
+        <ImageUp size={19} />
+        Step 1 — Upload your LinkedIn profile screenshot
+      </h2>
 
       <div className="callout">
-        <strong>Before capturing:</strong> click "Show all skills" and "Show all recommendations" if those
-        buttons appear on your profile, so the screenshot captures the full list.
-        <div className="tool-recs">
-          <span className="tool-chip">GoFullPage</span>
-          <span className="tool-chip">Fireshot</span>
-          <span className="tool-chip">Browser's native full-page screenshot</span>
+        <Info size={16} />
+        <div>
+          <strong>Before capturing:</strong> click &ldquo;Show all skills&rdquo; and &ldquo;Show all
+          recommendations&rdquo; if those buttons appear on your profile, so the screenshot captures the full
+          list.
+          <div className="tool-recs">
+            <span className="tool-chip">GoFullPage</span>
+            <span className="tool-chip">Fireshot</span>
+            <span className="tool-chip">Browser&apos;s native full-page screenshot</span>
+          </div>
         </div>
       </div>
 
-      {error && <div className="error-banner">{error}</div>}
+      {error && (
+        <div className="error-banner">
+          <AlertTriangle size={16} />
+          <span>{error}</span>
+        </div>
+      )}
 
-      <div
+      <motion.div
         className={`upload-dropzone${dragging ? " dragging" : ""}`}
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => {
@@ -57,6 +71,8 @@ export default function UploadScreen({ onFileReady, initialFile }) {
         }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
+        whileHover={{ scale: 1.005 }}
+        whileTap={{ scale: 0.995 }}
       >
         <input
           ref={inputRef}
@@ -66,22 +82,31 @@ export default function UploadScreen({ onFileReady, initialFile }) {
         />
         {file ? (
           <>
-            <div>{file.name}</div>
+            <div className="file-chip">
+              <FileImage size={15} />
+              {file.name}
+            </div>
             <div className="upload-hint">{Math.round(file.size / 1024)} KB — click to replace</div>
-            <img src={previewUrl} alt="Screenshot preview" className="preview-thumb" />
+            <div className="preview-thumb-wrap">
+              <img src={previewUrl} alt="Screenshot preview" className="preview-thumb" />
+            </div>
           </>
         ) : (
           <>
-            <div>Click to choose a file or drag it here</div>
+            <div className="upload-icon-circle">
+              <UploadCloud size={26} />
+            </div>
+            <div className="upload-cta">Click to choose a file or drag it here</div>
             <div className="upload-hint">.png or .jpg only, single full-page screenshot, max 8MB</div>
           </>
         )}
-      </div>
+      </motion.div>
 
       <div className="btn-row">
         <span />
         <button className="btn" disabled={!file} onClick={() => onFileReady(file)}>
           Continue to checklist
+          <ArrowRight size={15} />
         </button>
       </div>
     </div>

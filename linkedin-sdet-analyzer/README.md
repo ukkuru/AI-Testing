@@ -39,6 +39,18 @@ hard-truth diagnosis, gap analysis, and keyword strategy (e.g. "you post
 The UI labels this clearly so self-reported input is never blended silently
 into the verified score.
 
+## UI
+
+React + [Framer Motion](https://www.framer.com/motion/) for transitions/stagger
+animations, [lucide-react](https://lucide.dev/) for icons, Inter + Plus Jakarta
+Sans (Google Fonts, with system-font fallbacks if that request is blocked).
+Light/dark theme is applied via a `data-theme` attribute set before React
+mounts (no flash of the wrong theme), toggled from the header, and persisted
+to `localStorage`. The RGB score-band colors from the framework spec are used
+as-is in both themes (they're semantic, not decorative, so they don't get
+re-themed) — everything else (surfaces, borders, text, keyword-category
+colors) has separate light/dark tokens in `client/src/styles.css`.
+
 ## Setup
 
 ### 1. Backend
