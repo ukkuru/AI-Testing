@@ -42,14 +42,23 @@ into the verified score.
 ## UI
 
 React + [Framer Motion](https://www.framer.com/motion/) for transitions/stagger
-animations, [lucide-react](https://lucide.dev/) for icons, Inter + Plus Jakarta
-Sans (Google Fonts, with system-font fallbacks if that request is blocked).
+animations and [lucide-react](https://lucide.dev/) for icons. Visual language
+follows a Slacc-inspired design system: a deep aubergine primary (`#4a154b`),
+cream/lavender surfaces, blue inline links, and pill-shaped buttons/tags, with
+Inter substituted for the system's proprietary display and body fonts (Google
+Fonts, with a system-font fallback if that request is blocked). Tokens live in
+`client/src/styles.css`.
+
 Light/dark theme is applied via a `data-theme` attribute set before React
 mounts (no flash of the wrong theme), toggled from the header, and persisted
-to `localStorage`. The RGB score-band colors from the framework spec are used
-as-is in both themes (they're semantic, not decorative, so they don't get
-re-themed) — everything else (surfaces, borders, text, keyword-category
-colors) has separate light/dark tokens in `client/src/styles.css`.
+to `localStorage`. The design spec doesn't define a dark palette, so dark mode
+is an original aubergine-toned companion (deep plum background, lightened
+orchid accent) rather than a literal brand asset. The RGB score-band colors
+from the scoring framework spec are used as-is in both themes — they're
+semantic to the score, not brand decoration, so they're never re-themed.
+Keyword-strategy chips intentionally share one neutral pill style rather than
+being color-coded per category, per the design spec's "don't add a third
+accent color" rule — differentiation there comes from the group headings.
 
 ## Setup
 
