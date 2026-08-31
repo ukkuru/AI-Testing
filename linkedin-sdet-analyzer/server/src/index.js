@@ -12,6 +12,15 @@ const frameworkRouter = require("./routes/framework");
 
 const app = express();
 
+// The container is bound to 127.0.0.1 only and reached exclusively through
+// Nginx on the same host (see docker-compose.yml / DEPLOY.md), so trusting
+// exactly one hop is correct here: Express reads the real client IP from
+// X-Forwarded-For as set by that single trusted proxy, without blindly
+// trusting anything further up an attacker-supplied chain. Without this,
+// express-rate-limit can't safely key by IP behind a reverse proxy and
+// throws a validation error on every request.
+app.set("trust proxy", 1);
+
 app.use(cors({ origin: config.clientOrigin, credentials: true }));
 app.use(cookieParser());
 
