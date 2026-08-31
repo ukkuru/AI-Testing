@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -21,6 +23,19 @@ app.use("/api", frameworkRouter);
 app.use("/api", authRateLimiter, authRouter);
 app.use("/api", analysisRateLimiter, analyzeRouter);
 app.use("/api", analysisRateLimiter, rewriteRouter);
+
+// Single-container production mode: if a built client bundle is present
+// (see Dockerfile), serve it and fall back to index.html for any non-API
+// GET route so react-router client-side routes survive a hard refresh.
+// In local dev the two apps run as separate Vite/Express processes and
+// this directory never exists, so this block is a no-op there.
+const clientDistPath = path.join(__dirname, "..", "public");
+if (fs.existsSync(clientDistPath)) {
+  app.use(express.static(clientDistPath));
+  app.get(/^(?!\/api\/).*/, (req, res) => {
+    res.sendFile(path.join(clientDistPath, "index.html"));
+  });
+}
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
