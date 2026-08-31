@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { AlertTriangle, Wand2 } from "lucide-react";
+import { Wand2 } from "lucide-react";
 import ScoreGauge from "./ScoreGauge";
 import SectionBreakdown from "./SectionBreakdown";
 import GapAnalysis from "./GapAnalysis";
@@ -27,18 +27,10 @@ const item = {
 
 export default function ResultsDashboard({ analysis, onStartOver }) {
   const [showRewrite, setShowRewrite] = useState(false);
-  const { score, sections, gapAnalysis, keywordStrategy, topPriorityFixes, checklistContextNotes, lowResolutionWarning, extractedText, checklist } =
-    analysis;
+  const { score, sections, gapAnalysis, keywordStrategy, topPriorityFixes, extractedText } = analysis;
 
   return (
     <motion.div variants={container} initial="hidden" animate="show">
-      {lowResolutionWarning && (
-        <motion.div variants={item} className="warning-banner">
-          <AlertTriangle size={16} />
-          <span>{lowResolutionWarning}</span>
-        </motion.div>
-      )}
-
       <motion.div variants={item} className="card score-hero">
         <div className="score-header">
           <ScoreGauge percentage={score.percentage} hex={score.hex} />
@@ -48,7 +40,7 @@ export default function ResultsDashboard({ analysis, onStartOver }) {
               {score.level}
             </span>
             <div className="score-summary-points">
-              {score.totalEarned} / {score.totalPossible} points scored from your screenshot
+              {score.totalEarned} / {score.totalPossible} points scored from your PDF export
             </div>
           </div>
         </div>
@@ -58,7 +50,7 @@ export default function ResultsDashboard({ analysis, onStartOver }) {
         <SectionBreakdown sections={sections} />
       </motion.div>
       <motion.div variants={item}>
-        <GapAnalysis gapAnalysis={gapAnalysis} checklistContextNotes={checklistContextNotes} />
+        <GapAnalysis gapAnalysis={gapAnalysis} />
       </motion.div>
       <motion.div variants={item}>
         <KeywordStrategy keywords={keywordStrategy} />
@@ -82,13 +74,13 @@ export default function ResultsDashboard({ analysis, onStartOver }) {
             </button>
           </div>
         ) : (
-          <RewritePanel extractedText={extractedText} gapAnalysis={gapAnalysis} checklist={checklist} />
+          <RewritePanel extractedText={extractedText} gapAnalysis={gapAnalysis} />
         )}
       </motion.div>
 
       <motion.div variants={item} className="btn-row">
         <button className="btn btn-secondary" onClick={onStartOver}>
-          Analyze a different screenshot
+          Analyze a different PDF
         </button>
         <span />
       </motion.div>

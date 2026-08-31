@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { ScanEye, ListTree, Tags, FileCheck2, Check } from "lucide-react";
 
 const STEPS = [
-  { label: "Reading your profile screenshot", icon: ScanEye, duration: 2600 },
-  { label: "Scoring against the 25-point framework", icon: ListTree, duration: 3200 },
+  { label: "Reading your PDF export", icon: ScanEye, duration: 2600 },
+  { label: "Scoring against the 15-point framework", icon: ListTree, duration: 3200 },
   { label: "Building your keyword strategy", icon: Tags, duration: 2600 },
   { label: "Finalizing your report", icon: FileCheck2, duration: 999999 },
 ];
@@ -29,7 +29,7 @@ export default function LoadingScreen() {
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         />
       </div>
-      <div className="loading-title">Analyzing your profile against the QA/SDET framework…</div>
+      <div className="loading-title">Analyzing your PDF export against the QA/SDET framework…</div>
       <div className="subtle-text">This usually takes 10–20 seconds.</div>
 
       <div className="loading-steps">

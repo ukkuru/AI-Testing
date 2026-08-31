@@ -1,27 +1,15 @@
 const multer = require("multer");
-const imageSize = require("image-size");
 const config = require("../config");
 
-const ALLOWED_MIME_TYPES = new Set(["image/png", "image/jpeg"]);
+const ALLOWED_MIME_TYPES = new Set(["application/pdf"]);
 
-const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-const JPEG_SIGNATURE = Buffer.from([0xff, 0xd8, 0xff]);
+// %PDF magic bytes — verify real file content rather than trusting the
+// client-supplied mimetype, same defense-in-depth approach used previously
+// for image signatures.
+const PDF_SIGNATURE = Buffer.from([0x25, 0x50, 0x44, 0x46]); // "%PDF"
 
-/**
- * image-size sniffs real file bytes (not the declared mimetype) and has an
- * unpatched DoS in its ICNS/JXL/HEIF parsers (GHSA-w3rx-r6r6-pgpr,
- * GHSA-5p2g-fcmc-qvqq). We only ever want to hand it PNG/JPEG bytes, so we
- * verify the magic bytes ourselves first and reject anything else outright
- * rather than trusting the client-supplied mimetype.
- */
-function hasValidImageSignature(buffer) {
-  if (buffer.length >= PNG_SIGNATURE.length && buffer.subarray(0, PNG_SIGNATURE.length).equals(PNG_SIGNATURE)) {
-    return true;
-  }
-  if (buffer.length >= JPEG_SIGNATURE.length && buffer.subarray(0, JPEG_SIGNATURE.length).equals(JPEG_SIGNATURE)) {
-    return true;
-  }
-  return false;
+function hasValidPdfSignature(buffer) {
+  return buffer.length >= PDF_SIGNATURE.length && buffer.subarray(0, PDF_SIGNATURE.length).equals(PDF_SIGNATURE);
 }
 
 const storage = multer.memoryStorage();
@@ -39,27 +27,19 @@ const upload = multer({
 });
 
 /**
- * Reads image dimensions from the in-memory buffer and attaches a
- * low-resolution warning to the request if the screenshot is too small
- * to reliably assess photo/banner quality. Does not block the request.
+ * Verifies the uploaded buffer is actually a PDF before it's handed to
+ * pdf-parse. Does not block the request for anything else — the actual
+ * text-extraction failure (e.g. an encrypted or corrupt PDF) is handled
+ * where the extraction happens, in the analyze route.
  */
-function checkImageResolution(req, res, next) {
+function validatePdfSignature(req, res, next) {
   if (!req.file) {
     return next();
   }
-  if (!hasValidImageSignature(req.file.buffer)) {
-    return next(new Error("INVALID_IMAGE_DATA"));
+  if (!hasValidPdfSignature(req.file.buffer)) {
+    return next(new Error("INVALID_PDF_DATA"));
   }
-  try {
-    const dimensions = imageSize(req.file.buffer);
-    req.imageDimensions = dimensions;
-    if (!dimensions.width || dimensions.width < config.minRecommendedWidth) {
-      req.lowResolutionWarning = `Screenshot width (${dimensions.width || "unknown"}px) is below the recommended ${config.minRecommendedWidth}px. Photo/banner quality assessment may be unreliable — consider a higher-resolution full-page capture.`;
-    }
-    next();
-  } catch (err) {
-    next(new Error("INVALID_IMAGE_DATA"));
-  }
+  next();
 }
 
 function handleUploadErrors(err, req, res, next) {
@@ -78,18 +58,18 @@ function handleUploadErrors(err, req, res, next) {
   if (err.message === "UNSUPPORTED_FILE_TYPE") {
     return res.status(400).json({
       error: "UNSUPPORTED_FILE_TYPE",
-      message: "Only .png and .jpg/.jpeg screenshots are supported. PDFs and other formats are rejected.",
+      message: "Only a .pdf LinkedIn profile export is supported.",
     });
   }
 
-  if (err.message === "INVALID_IMAGE_DATA") {
+  if (err.message === "INVALID_PDF_DATA") {
     return res.status(400).json({
-      error: "INVALID_IMAGE_DATA",
-      message: "The uploaded file could not be read as a valid image.",
+      error: "INVALID_PDF_DATA",
+      message: "The uploaded file could not be read as a valid PDF.",
     });
   }
 
   return res.status(500).json({ error: "UPLOAD_FAILED", message: "Unexpected upload error." });
 }
 
-module.exports = { upload, checkImageResolution, handleUploadErrors, ALLOWED_MIME_TYPES };
+module.exports = { upload, validatePdfSignature, handleUploadErrors, ALLOWED_MIME_TYPES };

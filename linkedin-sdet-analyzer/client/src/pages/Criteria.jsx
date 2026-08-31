@@ -4,25 +4,21 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   AlertTriangle,
-  Camera,
-  Rss,
+  Signpost,
   FileText,
   Briefcase,
   GraduationCap,
-  Quote,
   Trophy,
   Info,
 } from "lucide-react";
 import { fetchFramework } from "../api";
 
 const SECTION_ICONS = {
-  first_impression: Camera,
-  content_activity: Rss,
+  headline_positioning: Signpost,
   about_section: FileText,
   experience: Briefcase,
   credentials: GraduationCap,
-  recommendations: Quote,
-  accomplishments_network: Trophy,
+  accomplishments: Trophy,
 };
 
 export default function Criteria() {
@@ -38,11 +34,11 @@ export default function Criteria() {
   return (
     <div className="criteria-page">
       <section className="criteria-hero">
-        <h1 className="section-heading">The 25-point QA/SDET scoring framework</h1>
+        <h1 className="section-heading">The 15-point QA/SDET scoring framework</h1>
         <p className="section-lead">
-          Every point is assessed directly from your screenshot — nothing is scored from unverifiable claims. Each
-          item is worth exactly 1 point, scored present (1) or missing (0). Your total, out of 25, maps to one of 5
-          RGB score bands.
+          Every point is assessed directly from the text of your LinkedIn "Save to PDF" export — nothing is scored
+          from unverifiable claims. Each item is worth exactly 1 point, scored present (1) or missing (0). Your
+          total, out of 15, maps to one of 5 RGB score bands.
         </p>
         <Link to="/app" className="btn btn-lg">
           Try Out the Tool
@@ -68,10 +64,10 @@ export default function Criteria() {
       <div className="callout">
         <Info size={16} />
         <div>
-          <strong>Screenshot vs. checklist:</strong> all 25 points are scored from what's visible in your screenshot.
-          The 4-item engagement checklist (posting frequency, content variety, engagement habits, group memberships)
-          is self-reported context used to sharpen the diagnosis and keyword strategy — it never adds or subtracts
-          points, and the UI always labels which is which.
+          <strong>Why 15, not 25:</strong> all points are scored from text that's actually present in LinkedIn's own
+          "Save to PDF" export. That export doesn't include your banner image, Featured section, company logos,
+          Recommendations, or the verified-badge indicator — so nothing is scored from those, and nothing is ever
+          guessed.
         </div>
       </div>
 
@@ -113,7 +109,7 @@ export default function Criteria() {
 
       <section className="cta-band">
         <h2>Know exactly where you stand</h2>
-        <p>Run your profile through the full 25-point framework in under a minute.</p>
+        <p>Run your profile through the full 15-point framework in under a minute.</p>
         <Link to="/app" className="btn btn-lg btn-on-band">
           Try Out the Tool
           <ArrowRight size={16} />

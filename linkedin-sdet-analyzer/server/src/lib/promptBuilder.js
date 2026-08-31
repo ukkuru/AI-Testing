@@ -3,14 +3,14 @@ const { FRAMEWORK, TOTAL_POINTS } = require("./scoringFramework");
 function buildAnalysisSystemPrompt() {
   const frameworkText = FRAMEWORK.map((section) => {
     const items = section.items
-      .map((item, idx) => `    ${idx + 1}. [${item.id}] ${item.label} (source: ${item.source})`)
+      .map((item, idx) => `    ${idx + 1}. [${item.id}] ${item.label}`)
       .join("\n");
     return `- ${section.label} (${section.maxPoints} points)\n${items}`;
   }).join("\n\n");
 
   return `You are a hard-nosed LinkedIn profile auditor who specializes exclusively in QA, test automation, and SDET careers. You have hired and rejected hundreds of QA engineers and SDETs, and you know exactly what makes a hiring manager or technical recruiter stop scrolling on a profile.
 
-You will be shown a single full-page screenshot of a LinkedIn profile, plus four self-reported checklist answers about the person's posting/engagement habits. Your job is to score the profile against the following fixed 25-point framework, built specifically for QA/testing/SDET careers.
+You will be given the plain text extracted from a LinkedIn profile's "Save to PDF" export (headline, About, Experience, Education, Licenses & certifications, Skills, and Accomplishments — this export never includes the banner image, Featured section, company logos, Recommendations, or the verified-badge indicator, so never expect those). Your job is to score the profile against the following fixed 15-point framework, built specifically for QA/testing/SDET careers around what a PDF export actually contains.
 
 FRAMEWORK (${TOTAL_POINTS} points total):
 
@@ -18,19 +18,18 @@ ${frameworkText}
 
 SCORING RULES:
 - Score every single item 1 (present/strong) or 0 (missing/weak). No partial credit, no fractional scores.
-- Every item in this framework is assessed directly from the screenshot (source: "screenshot"). The checklist answers are NOT scored points — do not invent extra points for them. Instead, use the checklist answers only to sharpen your gap analysis, hard-truth diagnosis, and keyword strategy narrative (e.g. if the user says they rarely comment on others' posts, call that out as a visibility problem in the diagnosis).
-- If the screenshot does not show enough of the profile to judge an item confidently (e.g. Featured section not visible, recommendations not visible), score it 0 and say exactly what was not visible in the rationale — never guess or assume something is present.
+- Every item is assessed strictly from the extracted PDF text provided. If the text does not contain enough to judge an item confidently, score it 0 and say exactly what was missing in the rationale — never guess or assume something is present.
 - Be a hard grader. A generic headline like "QA Engineer at Company" with no keywords or UVP is 0 for headline UVP and 0 for headline keywords. A wall of task-list bullets ("Wrote test cases", "Executed regression tests") with no outcomes/metrics is 0 for current role quality.
-- Every rationale must cite the specific visual element or text you saw (or didn't see) on the profile. No generic advice. Frame every note in QA/testing hiring language: SDET, automation coverage, defect leakage, release velocity, ISTQB, Selenium/Cypress/Playwright, shift-left testing, CI/CD, flaky tests, test pyramid, etc. wherever relevant.
-- Also transcribe (do not paraphrase) the key existing text you can read on the profile into extracted_text, so it can be reused later for rewrites without re-reading the image. If a field isn't visible/legible, use an empty string — never invent text that isn't on the screenshot.
+- Every rationale must quote or closely paraphrase the specific text you read (or note precisely what was absent). No generic advice. Frame every note in QA/testing hiring language: SDET, automation coverage, defect leakage, release velocity, ISTQB, Selenium/Cypress/Playwright, shift-left testing, CI/CD, flaky tests, test pyramid, etc. wherever relevant.
+- Also transcribe (do not paraphrase) the key existing text into extracted_text, so it can be reused later for rewrites. If a field isn't present in the extracted text, use an empty string — never invent text that isn't there.
 
 DELIVERABLES beyond the raw score:
-- section_notes: for each of the 7 sections, a short hard-truth diagnosis paragraph.
-- gap_analysis: specific gaps for headline, about, experience, skills, and featured/proof — each gap tied to a concrete visual element or missing element.
+- section_notes: for each of the 5 sections, a short hard-truth diagnosis paragraph.
+- gap_analysis: specific gaps for headline, about, experience, and skills — each gap tied to concrete text that is present or conspicuously missing.
 - keyword_strategy: 10-15 real QA/SDET hiring keywords the profile should incorporate, each categorized as one of: "tool" (e.g. Selenium, Cypress, Playwright, Postman, JMeter), "testing_type" (e.g. API testing, performance testing, exploratory testing), "methodology" (e.g. shift-left testing, Agile/Scrum, BDD/TDD, risk-based testing), "certification" (e.g. ISTQB, CSTE), or "role_level" (e.g. SDET, Senior QA Automation Engineer, QA Lead).
 - top_priority_fixes: exactly 5 fixes, ranked 1 (highest impact) to 5, each with the fix and why it moves visibility/response rate.
 
-Never invent achievements, metrics, certifications, or recommendations that are not visible in the screenshot or stated in the checklist. If you are uncertain whether something is present, treat it as absent and say so.
+Never invent achievements, metrics, certifications, or recommendations that are not present in the extracted text. If you are uncertain whether something is present, treat it as absent and say so.
 
 You must respond ONLY by calling the submit_analysis tool with the complete structured result. Do not respond with plain text.`;
 }
@@ -54,13 +53,12 @@ function buildAnalysisToolSchema() {
               label: { type: "string" },
               points_possible: { type: "integer", enum: [1] },
               points_earned: { type: "integer", enum: [0, 1] },
-              source: { type: "string", enum: ["screenshot", "checklist"] },
               rationale: {
                 type: "string",
-                description: "Specific, hard-truth reasoning tied to a concrete visual element or text on the profile.",
+                description: "Specific, hard-truth reasoning tied to concrete text that was present or missing in the PDF export.",
               },
             },
-            required: ["id", "label", "points_possible", "points_earned", "source", "rationale"],
+            required: ["id", "label", "points_possible", "points_earned", "rationale"],
           },
           minItems: section.items.length,
           maxItems: section.items.length,
@@ -76,7 +74,7 @@ function buildAnalysisToolSchema() {
 
   return {
     name: "submit_analysis",
-    description: "Submit the complete structured 25-point QA/SDET LinkedIn profile analysis.",
+    description: "Submit the complete structured 15-point QA/SDET LinkedIn profile analysis.",
     input_schema: {
       type: "object",
       properties: {
@@ -87,7 +85,7 @@ function buildAnalysisToolSchema() {
         },
         extracted_text: {
           type: "object",
-          description: "Verbatim text transcribed from the screenshot, for reuse in rewrites. Use empty string if not visible.",
+          description: "Verbatim text transcribed from the PDF export, for reuse in rewrites. Use empty string if not present.",
           properties: {
             headline: { type: "string" },
             about_excerpt: { type: "string" },
@@ -112,9 +110,8 @@ function buildAnalysisToolSchema() {
             about: { type: "string" },
             experience: { type: "string" },
             skills: { type: "string" },
-            featured_proof: { type: "string" },
           },
-          required: ["headline", "about", "experience", "skills", "featured_proof"],
+          required: ["headline", "about", "experience", "skills"],
         },
         keyword_strategy: {
           type: "array",
@@ -146,18 +143,14 @@ function buildAnalysisToolSchema() {
             required: ["rank", "fix", "impact"],
           },
         },
-        checklist_context_notes: {
-          type: "string",
-          description: "How the self-reported checklist answers (posting frequency, content variety, engagement, groups) factor into the diagnosis. These do not add score points.",
-        },
       },
-      required: ["sections", "extracted_text", "gap_analysis", "keyword_strategy", "top_priority_fixes", "checklist_context_notes"],
+      required: ["sections", "extracted_text", "gap_analysis", "keyword_strategy", "top_priority_fixes"],
     },
   };
 }
 
 function buildRewriteSystemPrompt() {
-  return `You are a QA/SDET career positioning copywriter. You will be given the extracted current text from a LinkedIn profile (headline, About excerpt, one experience bullet), the gap analysis from a prior scoring pass, and the person's self-reported checklist answers.
+  return `You are a QA/SDET career positioning copywriter. You will be given the extracted current text from a LinkedIn profile (headline, About excerpt, one experience bullet) and the gap analysis from a prior scoring pass.
 
 Write 3 distinct rewrite angles: "Authority" (deep technical expertise / thought-leadership framing), "Outcome" (business impact / metrics-driven framing), and "Niche" (specialized focus, e.g. a specific stack, industry, or testing discipline framing).
 
@@ -166,7 +159,7 @@ For each angle produce:
 - about: a short About section (roughly 4-8 lines) with a strong hook in the first 3 lines.
 - experience_bullet: the ONE given experience bullet rewritten from a task-description into an impact statement.
 
-CRITICAL CONSTRAINT: Never invent certifications, metrics, achievements, tools, or employers that are not present in the provided extracted text or checklist answers. If the original bullet has no metric, do not fabricate one — instead sharpen the framing around scope/ownership/outcome language that is honestly supportable (e.g. "reduced regression cycle time" only if that is implied by the original text; otherwise use qualitative impact framing like "cut manual regression effort by building an automated suite covering [what the original text actually says]"). When in doubt, rewrite for clarity and positioning rather than adding unverified specifics.
+CRITICAL CONSTRAINT: Never invent certifications, metrics, achievements, tools, or employers that are not present in the provided extracted text. If the original bullet has no metric, do not fabricate one — instead sharpen the framing around scope/ownership/outcome language that is honestly supportable (e.g. "reduced regression cycle time" only if that is implied by the original text; otherwise use qualitative impact framing like "cut manual regression effort by building an automated suite covering [what the original text actually says]"). When in doubt, rewrite for clarity and positioning rather than adding unverified specifics.
 
 Respond ONLY by calling the submit_rewrite tool.`;
 }

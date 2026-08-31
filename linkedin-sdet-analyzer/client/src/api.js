@@ -17,10 +17,9 @@ async function parseJsonOrThrow(response) {
   return body;
 }
 
-export async function analyzeProfile(file, checklist) {
+export async function analyzeProfile(file) {
   const formData = new FormData();
-  formData.append("screenshot", file);
-  formData.append("checklist", JSON.stringify(checklist));
+  formData.append("profilePdf", file);
 
   const response = await fetch(`${API_BASE}/analyze`, {
     method: "POST",
@@ -30,12 +29,12 @@ export async function analyzeProfile(file, checklist) {
   return parseJsonOrThrow(response);
 }
 
-export async function requestRewrite({ extractedText, gapAnalysis, checklist, experienceBulletToRewrite }) {
+export async function requestRewrite({ extractedText, gapAnalysis, experienceBulletToRewrite }) {
   const response = await fetch(`${API_BASE}/rewrite`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ extractedText, gapAnalysis, checklist, experienceBulletToRewrite }),
+    body: JSON.stringify({ extractedText, gapAnalysis, experienceBulletToRewrite }),
   });
   return parseJsonOrThrow(response);
 }

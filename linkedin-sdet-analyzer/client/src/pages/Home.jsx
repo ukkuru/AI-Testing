@@ -8,22 +8,21 @@ import {
   Tags,
   Wand2,
   UploadCloud,
-  ListChecks,
   Sparkles,
-  Search,
+  FileText,
   TrendingUp,
 } from "lucide-react";
 
 const FEATURES = [
   {
     icon: ScanEye,
-    title: "Vision-powered analysis",
-    body: "Upload one full-page screenshot. Claude reads it directly — your photo, banner, headline, About section, experience, skills, and recommendations — no manual data entry.",
+    title: "PDF export analysis",
+    body: "Upload your LinkedIn 'Save to PDF' export. Claude reads it directly — headline, About section, experience, education, certifications, and skills — no manual data entry.",
   },
   {
     icon: ListTree,
-    title: "A 25-point QA/SDET framework",
-    body: "Purpose-built scoring across First Impression, About, Experience, Credentials, Recommendations, and Accomplishments — graded in the language hiring managers actually use.",
+    title: "A 15-point QA/SDET framework",
+    body: "Purpose-built scoring across Headline & Positioning, About, Experience, Credentials, and Accomplishments — graded in the language hiring managers actually use.",
   },
   {
     icon: Tags,
@@ -38,9 +37,8 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { icon: UploadCloud, title: "Upload", body: "One full-page LinkedIn screenshot — PNG or JPG." },
-  { icon: ListChecks, title: "Quick checklist", body: "4 questions about your posting and engagement habits." },
-  { icon: ScanEye, title: "AI analysis", body: "Claude scores your profile against the 25-point framework." },
+  { icon: UploadCloud, title: "Upload", body: "Your LinkedIn 'Save to PDF' profile export." },
+  { icon: ScanEye, title: "AI analysis", body: "Claude scores your profile against the 15-point framework." },
   { icon: TrendingUp, title: "Score & rewrite", body: "See your gaps, keyword strategy, and request an AI rewrite." },
 ];
 
@@ -72,7 +70,7 @@ export default function Home() {
           <p className="hero-subtitle">
             Recruiters and ATS search LinkedIn for specific terms — <strong>SDET</strong>, <strong>Selenium</strong>,{" "}
             <strong>Cypress</strong>, <strong>Playwright</strong>, <strong>ISTQB</strong>, <strong>shift-left testing</strong>,{" "}
-            <strong>CI/CD</strong>. Our AI-powered LinkedIn profile analyzer scores your profile against a 25-point
+            <strong>CI/CD</strong>. Our AI-powered LinkedIn profile analyzer scores your profile against a 15-point
             framework built specifically for QA engineers, test automation specialists, and SDETs — then shows you
             exactly what to fix.
           </p>
@@ -86,8 +84,8 @@ export default function Home() {
             </Link>
           </div>
           <div className="hero-trust-note">
-            <Search size={13} />
-            No OCR, no manual entry — Claude's vision model reads your screenshot directly.
+            <FileText size={13} />
+            No manual entry — just LinkedIn's own "Save to PDF" export, read directly by Claude.
           </div>
         </motion.div>
 
@@ -212,14 +210,14 @@ export default function Home() {
           ))}
         </div>
         <Link to="/criteria" className="band-strip-link">
-          See the full 25-point scoring criteria
+          See the full 15-point scoring criteria
           <ArrowRight size={14} />
         </Link>
       </section>
 
       <section className="cta-band">
         <h2>Ready to see where your profile stands?</h2>
-        <p>Upload a screenshot, answer 4 quick questions, and get your score in under a minute.</p>
+        <p>Upload your LinkedIn PDF export and get your score in under a minute.</p>
         <Link to="/app" className="btn btn-lg btn-on-band">
           Try Out the Tool
           <ArrowRight size={16} />

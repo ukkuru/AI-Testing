@@ -46,15 +46,4 @@ async function callWithForcedTool({ system, messages, tool, maxTokens = 4096 }) 
   return { input: toolUseBlock.input, usage: response.usage, stopReason: response.stop_reason };
 }
 
-function imageBlockFromBuffer(buffer, mimeType) {
-  return {
-    type: "image",
-    source: {
-      type: "base64",
-      media_type: mimeType,
-      data: buffer.toString("base64"),
-    },
-  };
-}
-
-module.exports = { callWithForcedTool, imageBlockFromBuffer };
+module.exports = { callWithForcedTool };

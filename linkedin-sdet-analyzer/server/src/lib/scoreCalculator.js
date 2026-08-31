@@ -27,7 +27,6 @@ function computeScoredSections(sectionsInput) {
         label: itemDef.label,
         pointsPossible: 1,
         pointsEarned,
-        source: returned.source === "checklist" ? "checklist" : "screenshot",
         rationale: String(returned.rationale || "").trim(),
       };
     });

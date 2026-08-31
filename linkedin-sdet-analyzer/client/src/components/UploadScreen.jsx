@@ -1,13 +1,12 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { UploadCloud, ImageUp, FileImage, Info, AlertTriangle, ArrowRight } from "lucide-react";
+import { UploadCloud, FileText, FileCheck, Info, AlertTriangle, ArrowRight } from "lucide-react";
 
-const ACCEPTED_TYPES = ["image/png", "image/jpeg"];
+const ACCEPTED_TYPES = ["application/pdf"];
 const MAX_BYTES = 8 * 1024 * 1024;
 
 export default function UploadScreen({ onFileReady, initialFile }) {
   const [file, setFile] = useState(initialFile || null);
-  const [previewUrl, setPreviewUrl] = useState(initialFile ? URL.createObjectURL(initialFile) : null);
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState("");
   const inputRef = useRef(null);
@@ -16,7 +15,7 @@ export default function UploadScreen({ onFileReady, initialFile }) {
     setError("");
     if (!candidate) return;
     if (!ACCEPTED_TYPES.includes(candidate.type)) {
-      setError("Only .png and .jpg/.jpeg screenshots are supported (no PDFs).");
+      setError("Only a .pdf LinkedIn profile export is supported.");
       return;
     }
     if (candidate.size > MAX_BYTES) {
@@ -24,7 +23,6 @@ export default function UploadScreen({ onFileReady, initialFile }) {
       return;
     }
     setFile(candidate);
-    setPreviewUrl(URL.createObjectURL(candidate));
   }
 
   function handleDrop(e) {
@@ -37,21 +35,17 @@ export default function UploadScreen({ onFileReady, initialFile }) {
   return (
     <div className="card">
       <h2>
-        <ImageUp size={19} />
-        Step 1 — Upload your LinkedIn profile screenshot
+        <FileText size={19} />
+        Step 1 — Upload your LinkedIn PDF export
       </h2>
 
       <div className="callout">
         <Info size={16} />
         <div>
-          <strong>Before capturing:</strong> click &ldquo;Show all skills&rdquo; and &ldquo;Show all
-          recommendations&rdquo; if those buttons appear on your profile, so the screenshot captures the full
-          list.
-          <div className="tool-recs">
-            <span className="tool-chip">GoFullPage</span>
-            <span className="tool-chip">Fireshot</span>
-            <span className="tool-chip">Browser&apos;s native full-page screenshot</span>
-          </div>
+          <strong>How to export:</strong> on your LinkedIn profile, click the <strong>More</strong> button (below
+          your profile photo), then <strong>Save to PDF</strong>. That downloads a PDF with your full profile
+          text — headline, About, Experience, Education, Licenses &amp; certifications, Skills, and
+          Accomplishments.
         </div>
       </div>
 
@@ -77,19 +71,19 @@ export default function UploadScreen({ onFileReady, initialFile }) {
         <input
           ref={inputRef}
           type="file"
-          accept="image/png,image/jpeg"
+          accept="application/pdf,.pdf"
           onChange={(e) => validateAndSet(e.target.files?.[0])}
         />
         {file ? (
           <>
+            <div className="upload-icon-circle">
+              <FileCheck size={26} />
+            </div>
             <div className="file-chip">
-              <FileImage size={15} />
+              <FileText size={15} />
               {file.name}
             </div>
             <div className="upload-hint">{Math.round(file.size / 1024)} KB — click to replace</div>
-            <div className="preview-thumb-wrap">
-              <img src={previewUrl} alt="Screenshot preview" className="preview-thumb" />
-            </div>
           </>
         ) : (
           <>
@@ -97,7 +91,7 @@ export default function UploadScreen({ onFileReady, initialFile }) {
               <UploadCloud size={26} />
             </div>
             <div className="upload-cta">Click to choose a file or drag it here</div>
-            <div className="upload-hint">.png or .jpg only, single full-page screenshot, max 8MB</div>
+            <div className="upload-hint">.pdf only, LinkedIn's own "Save to PDF" export, max 8MB</div>
           </>
         )}
       </motion.div>
@@ -105,7 +99,7 @@ export default function UploadScreen({ onFileReady, initialFile }) {
       <div className="btn-row">
         <span />
         <button className="btn" disabled={!file} onClick={() => onFileReady(file)}>
-          Continue to checklist
+          Analyze my profile
           <ArrowRight size={15} />
         </button>
       </div>

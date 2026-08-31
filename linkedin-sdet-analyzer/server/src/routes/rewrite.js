@@ -2,7 +2,6 @@ const express = require("express");
 const requireAuth = require("../middleware/requireAuth");
 const { buildRewriteSystemPrompt, buildRewriteToolSchema } = require("../lib/promptBuilder");
 const { callWithForcedTool } = require("../lib/claudeClient");
-const { validateChecklist } = require("../lib/checklistSchema");
 
 const router = express.Router();
 
@@ -12,7 +11,7 @@ function isNonEmptyString(v) {
 
 router.post("/rewrite", requireAuth, express.json({ limit: "256kb" }), async (req, res) => {
   try {
-    const { extractedText, gapAnalysis, checklist, experienceBulletToRewrite } = req.body || {};
+    const { extractedText, gapAnalysis, experienceBulletToRewrite } = req.body || {};
 
     if (!extractedText || typeof extractedText !== "object") {
       return res.status(400).json({ error: "MISSING_EXTRACTED_TEXT", message: "extractedText from a prior /api/analyze call is required." });
@@ -24,31 +23,20 @@ router.post("/rewrite", requireAuth, express.json({ limit: "256kb" }), async (re
       });
     }
 
-    const checklistResult = validateChecklist(checklist);
-    if (!checklistResult.valid) {
-      return res.status(400).json({ error: "INVALID_CHECKLIST", message: checklistResult.error });
-    }
-
     const bulletToRewrite =
       isNonEmptyString(experienceBulletToRewrite) && (extractedText.experience_bullets || []).includes(experienceBulletToRewrite)
         ? experienceBulletToRewrite
         : (extractedText.experience_bullets || [])[0] || "";
 
     const userText = `Original extracted profile text:
-- Headline: ${extractedText.headline || "(not visible on screenshot)"}
-- About excerpt: ${extractedText.about_excerpt || "(not visible on screenshot)"}
+- Headline: ${extractedText.headline || "(not present in PDF export)"}
+- About excerpt: ${extractedText.about_excerpt || "(not present in PDF export)"}
 - Current role: ${extractedText.current_role_title || "(unknown)"} at ${extractedText.current_company || "(unknown)"}
 - Experience bullet to rewrite: ${bulletToRewrite || "(no experience bullet was extracted)"}
 - Skills listed: ${(extractedText.skills_listed || []).join(", ") || "(none extracted)"}
 
 Prior gap analysis:
 ${gapAnalysis ? JSON.stringify(gapAnalysis, null, 2) : "(none provided)"}
-
-Self-reported checklist context:
-- Posting frequency: ${checklistResult.checklist.postingFrequency}
-- Content format variety: ${checklistResult.checklist.contentFormatVariety}
-- Engagement habits: ${checklistResult.checklist.engagementHabits}
-- Group memberships: ${checklistResult.checklist.groupMemberships}
 
 Write the 3 rewrite angles now.`;
 

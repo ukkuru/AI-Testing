@@ -26,7 +26,7 @@ function CopyButton({ text }) {
   );
 }
 
-export default function RewritePanel({ extractedText, gapAnalysis, checklist }) {
+export default function RewritePanel({ extractedText, gapAnalysis }) {
   const [status, setStatus] = useState("idle"); // idle | loading | done | error
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
@@ -36,7 +36,7 @@ export default function RewritePanel({ extractedText, gapAnalysis, checklist }) 
     setStatus("loading");
     setError("");
     try {
-      const data = await requestRewrite({ extractedText, gapAnalysis, checklist });
+      const data = await requestRewrite({ extractedText, gapAnalysis });
       setResult(data);
       setActiveAngle(0);
       setStatus("done");
@@ -55,8 +55,7 @@ export default function RewritePanel({ extractedText, gapAnalysis, checklist }) 
         </h2>
         <p className="subtle-text">
           Generate 3 positioning angles (Authority, Outcome, Niche) for your headline, About section, and one
-          experience bullet — grounded only in what&apos;s actually on your profile and checklist, nothing
-          invented.
+          experience bullet — grounded only in what&apos;s actually on your profile, nothing invented.
         </p>
         {error && (
           <div className="error-banner">
@@ -115,11 +114,11 @@ export default function RewritePanel({ extractedText, gapAnalysis, checklist }) 
           <h3>Original</h3>
           <div className="field-block">
             <h4>Headline</h4>
-            <p>{result.original.headline || "(not visible on screenshot)"}</p>
+            <p>{result.original.headline || "(not present in PDF export)"}</p>
           </div>
           <div className="field-block">
             <h4>About</h4>
-            <p>{result.original.about || "(not visible on screenshot)"}</p>
+            <p>{result.original.about || "(not present in PDF export)"}</p>
           </div>
           <div className="field-block">
             <h4>Experience bullet</h4>

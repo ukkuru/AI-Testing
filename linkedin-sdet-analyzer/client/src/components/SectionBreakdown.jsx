@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Camera, Rss, FileText, Briefcase, GraduationCap, Quote, Trophy, ChevronDown } from "lucide-react";
+import { Signpost, FileText, Briefcase, GraduationCap, Trophy, ChevronDown } from "lucide-react";
 
 const SECTION_ICONS = {
-  first_impression: Camera,
-  content_activity: Rss,
+  headline_positioning: Signpost,
   about_section: FileText,
   experience: Briefcase,
   credentials: GraduationCap,
-  recommendations: Quote,
-  accomplishments_network: Trophy,
+  accomplishments: Trophy,
 };
 
 function bandColorForRatio(ratio) {
@@ -21,10 +19,6 @@ function bandColorForRatio(ratio) {
   return "var(--band-expert)";
 }
 
-function SourceTag({ source }) {
-  return <span className={`source-tag ${source}`}>{source}</span>;
-}
-
 function SectionItem({ item }) {
   const earned = item.pointsEarned === 1;
   return (
@@ -33,10 +27,7 @@ function SectionItem({ item }) {
         {earned ? "✓" : "✕"}
       </div>
       <div className="score-item-body">
-        <div className="score-item-label">
-          {item.label}
-          <SourceTag source={item.source} />
-        </div>
+        <div className="score-item-label">{item.label}</div>
         <div className="score-item-rationale">{item.rationale}</div>
       </div>
     </div>

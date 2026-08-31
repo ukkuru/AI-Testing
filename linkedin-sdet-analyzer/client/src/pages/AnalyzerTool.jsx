@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertTriangle, Sparkles, Check, Home, LogOut } from "lucide-react";
 import UploadScreen from "../components/UploadScreen";
-import ChecklistScreen from "../components/ChecklistScreen";
 import LoadingScreen from "../components/LoadingScreen";
 import ResultsDashboard from "../components/ResultsDashboard";
 import ThemeToggle from "../components/ThemeToggle";
@@ -11,7 +10,7 @@ import { analyzeProfile } from "../api";
 import { getInitialTheme, applyTheme } from "../theme";
 import { useAuth } from "../contexts/AuthContext";
 
-const STEPS = ["Upload", "Checklist", "Results"];
+const STEPS = ["Upload", "Results"];
 
 const screenVariants = {
   initial: { opacity: 0, y: 12 },
@@ -20,9 +19,8 @@ const screenVariants = {
 };
 
 export default function AnalyzerTool() {
-  const [screen, setScreen] = useState("upload"); // upload | checklist | analyzing | results
+  const [screen, setScreen] = useState("upload"); // upload | analyzing | results
   const [file, setFile] = useState(null);
-  const [checklist, setChecklist] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [error, setError] = useState("");
   const [theme, setTheme] = useState(getInitialTheme);
@@ -39,16 +37,15 @@ export default function AnalyzerTool() {
 
   function currentStepIndex() {
     if (screen === "upload") return 0;
-    if (screen === "checklist") return 1;
-    return 2;
+    return 1;
   }
 
-  async function handleChecklistSubmit(submittedChecklist) {
-    setChecklist(submittedChecklist);
+  async function handleFileReady(selectedFile) {
+    setFile(selectedFile);
     setScreen("analyzing");
     setError("");
     try {
-      const result = await analyzeProfile(file, submittedChecklist);
+      const result = await analyzeProfile(selectedFile);
       setAnalysis(result);
       setScreen("results");
     } catch (err) {
@@ -57,13 +54,12 @@ export default function AnalyzerTool() {
         return;
       }
       setError(err.message || "Analysis failed. Please try again.");
-      setScreen("checklist");
+      setScreen("upload");
     }
   }
 
   function handleStartOver() {
     setFile(null);
-    setChecklist(null);
     setAnalysis(null);
     setError("");
     setScreen("upload");
@@ -85,7 +81,7 @@ export default function AnalyzerTool() {
           </div>
           <div>
             <h1 className="app-title">LinkedIn SDET Profile Analyzer</h1>
-            <p className="app-subtitle">25-point scoring framework for QA, test automation &amp; SDET careers</p>
+            <p className="app-subtitle">15-point scoring framework for QA, test automation &amp; SDET careers</p>
           </div>
         </div>
 
@@ -135,29 +131,13 @@ export default function AnalyzerTool() {
       <AnimatePresence mode="wait">
         {screen === "upload" && (
           <motion.div key="upload" variants={screenVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.22 }}>
-            <UploadScreen
-              initialFile={file}
-              onFileReady={(f) => {
-                setFile(f);
-                setScreen("checklist");
-              }}
-            />
-          </motion.div>
-        )}
-
-        {screen === "checklist" && (
-          <motion.div key="checklist" variants={screenVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.22 }}>
             {error && (
               <div className="error-banner">
                 <AlertTriangle size={16} />
                 <span>{error}</span>
               </div>
             )}
-            <ChecklistScreen
-              initialChecklist={checklist}
-              onBack={() => setScreen("upload")}
-              onSubmit={handleChecklistSubmit}
-            />
+            <UploadScreen initialFile={file} onFileReady={handleFileReady} />
           </motion.div>
         )}
 
@@ -175,7 +155,7 @@ export default function AnalyzerTool() {
       </AnimatePresence>
 
       <div className="footer-note">
-        Screenshots are processed in-memory only and are never stored beyond your session.
+        PDF exports are processed in-memory only and are never stored beyond your session.
       </div>
     </div>
   );
