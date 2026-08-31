@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UserPlus, AlertTriangle, ArrowRight, ShieldCheck } from "lucide-react";
+import { UserPlus, AlertTriangle, ArrowRight, Mail } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 
 const MIN_PASSWORD_LENGTH = 8;
@@ -72,9 +72,8 @@ export default function Register() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="auth-field-note">
-              <ShieldCheck size={13} />
-              Used only for registration and signing you back in — never for marketing, and never shared with
-              anyone else.
+              <Mail size={13} />
+              Used to register and sign you back in, and to send you marketing emails and product updates.
             </div>
           </div>
 

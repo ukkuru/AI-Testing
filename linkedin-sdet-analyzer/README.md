@@ -48,8 +48,9 @@ anonymous visitors to `/login` (returning them to `/app` after signing in).
   than erroring when logged out, so the frontend can silently hydrate session
   state on load). Rate-limited separately from the analysis endpoints
   (`AUTH_RATE_LIMIT_MAX`, default 20 / 15 min).
-- **What email is used for:** account login only — shown explicitly on the
-  registration form, next to the email field.
+- **What email is used for:** login, plus marketing emails and product
+  updates — shown explicitly on the registration form, next to the email
+  field.
 - Out of scope for this pass: password reset, email verification. The auth
   layer is straightforward to extend for those later.
 
@@ -90,7 +91,7 @@ accent color" rule — differentiation there comes from the group headings.
 | `/` | Marketing home — hero, feature grid, "how it works", score-band preview, closing CTA. |
 | `/criteria` | Full 15-point scoring framework, fetched live from `GET /api/framework`. |
 | `/contact` | TestMetry contact details. |
-| `/login` / `/register` | Auth forms. Register states explicitly that the email is used for login only. |
+| `/login` / `/register` | Auth forms. Register states explicitly that the email is used for login plus marketing/product updates. |
 | `/app` | The analyzer tool (Upload → Results). Requires sign-in — anonymous visitors are redirected to `/login` and returned here afterward. |
 
 ## Setup
