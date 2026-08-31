@@ -1954,6 +1954,25 @@ h4 {
   color: var(--accent);
 }
 
+/* The card is narrow (max-width: 420px), so a ghost link and a pill button
+   side by side in .btn-row don't reliably fit on one line — the button
+   shrinks below its own label's width and wraps ("Sign" / "in"). Stack
+   them instead: full-width button first, link centered underneath. */
+.auth-card .btn-row {
+  flex-direction: column-reverse;
+  align-items: stretch;
+  gap: 14px;
+}
+
+.auth-card .btn-row .btn {
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-card .btn-row .btn-ghost {
+  text-align: center;
+}
+
 /* ---------------------------------------------------------------------- */
 /* Analyzer tool account bar                                               */
 /* ---------------------------------------------------------------------- */
