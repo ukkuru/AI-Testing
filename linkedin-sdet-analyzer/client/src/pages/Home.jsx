@@ -17,22 +17,22 @@ const FEATURES = [
   {
     icon: ScanEye,
     title: "PDF export analysis",
-    body: "Upload your LinkedIn 'Save to PDF' export. Claude reads it directly — headline, About section, experience, education, certifications, and skills — no manual data entry.",
+    body: "Upload your LinkedIn 'Save to PDF' export. Claude reads it directly: headline, About section, experience, education, certifications, and skills. No manual data entry.",
   },
   {
     icon: ListTree,
     title: "A 15-point QA/SDET framework",
-    body: "Purpose-built scoring across Headline & Positioning, About, Experience, Credentials, and Accomplishments — graded in the language hiring managers actually use.",
+    body: "Purpose-built scoring across Headline & Positioning, About, Experience, Credentials, and Accomplishments, graded in the language hiring managers actually use.",
   },
   {
     icon: Tags,
     title: "Keyword strategy for recruiter search",
-    body: "Get 10–15 real hiring keywords — SDET, Selenium, Cypress, Playwright, ISTQB, shift-left testing, CI/CD, API testing — categorized by tool, methodology, certification, and role level.",
+    body: "Get 10–15 real hiring keywords (SDET, Selenium, Cypress, Playwright, ISTQB, shift-left testing, CI/CD, API testing), categorized by tool, methodology, certification, and role level.",
   },
   {
     icon: Wand2,
     title: "3 AI rewrite angles",
-    body: "Authority, Outcome, and Niche rewrites for your headline, About hook, and one experience bullet — grounded only in what's actually on your profile.",
+    body: "Authority, Outcome, and Niche rewrites for your headline, About hook, and one experience bullet, grounded only in what's actually on your profile.",
   },
 ];
 
@@ -65,13 +65,13 @@ export default function Home() {
             Built for QA, Test Automation &amp; SDET Careers
           </span>
           <h1 className="hero-title">
-            Your LinkedIn profile should get you found — <span className="hero-title-accent">not scrolled past</span>
+            Your LinkedIn profile should get you found, <span className="hero-title-accent">not scrolled past</span>
           </h1>
           <p className="hero-subtitle">
-            Recruiters and ATS search LinkedIn for specific terms — <strong>SDET</strong>, <strong>Selenium</strong>,{" "}
+            Recruiters and ATS search LinkedIn for specific terms: <strong>SDET</strong>, <strong>Selenium</strong>,{" "}
             <strong>Cypress</strong>, <strong>Playwright</strong>, <strong>ISTQB</strong>, <strong>shift-left testing</strong>,{" "}
             <strong>CI/CD</strong>. Our AI-powered LinkedIn profile analyzer scores your profile against a 15-point
-            framework built specifically for QA engineers, test automation specialists, and SDETs — then shows you
+            framework built specifically for QA engineers, test automation specialists, and SDETs, then shows you
             exactly what to fix.
           </p>
           <div className="hero-cta-row">
@@ -85,7 +85,7 @@ export default function Home() {
           </div>
           <div className="hero-trust-note">
             <FileText size={13} />
-            No manual entry — just LinkedIn's own "Save to PDF" export, read directly by Claude.
+            No manual entry, just LinkedIn's own "Save to PDF" export, read directly by Claude.
           </div>
         </motion.div>
 
@@ -144,7 +144,7 @@ export default function Home() {
         <h2 className="section-heading">Why most QA and SDET profiles are invisible</h2>
         <p className="section-lead">
           LinkedIn profile optimization for QA engineers isn't the same as for other roles. Recruiters sourcing test
-          automation talent search for exact terms — automation coverage, defect leakage, release velocity, test
+          automation talent search for exact terms: automation coverage, defect leakage, release velocity, test
           pyramid, AI in testing. A profile that reads "QA Engineer with 5 years of experience" instead of naming
           your stack, your methodology, and your impact simply doesn't surface in that search.
         </p>

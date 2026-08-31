@@ -1,4 +1,4 @@
-# LinkedIn Profile Analyzer & Rewriter — QA / Test Automation / SDET
+# LinkedIn Profile Scorecard for Testers
 
 Scores a LinkedIn profile's own "Save to PDF" export against a 15-point
 framework built specifically for QA, test automation, and SDET careers, using

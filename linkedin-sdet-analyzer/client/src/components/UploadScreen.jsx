@@ -36,7 +36,7 @@ export default function UploadScreen({ onFileReady, initialFile }) {
     <div className="card">
       <h2>
         <FileText size={19} />
-        Step 1 — Upload your LinkedIn PDF export
+        Step 1: Upload your LinkedIn PDF export
       </h2>
 
       <div className="callout">
@@ -44,7 +44,7 @@ export default function UploadScreen({ onFileReady, initialFile }) {
         <div>
           <strong>How to export:</strong> on your LinkedIn profile, click the <strong>More</strong> button (below
           your profile photo), then <strong>Save to PDF</strong>. That downloads a PDF with your full profile
-          text — headline, About, Experience, Education, Licenses &amp; certifications, Skills, and
+          text: headline, About, Experience, Education, Licenses &amp; certifications, Skills, and
           Accomplishments.
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function UploadScreen({ onFileReady, initialFile }) {
               <FileText size={15} />
               {file.name}
             </div>
-            <div className="upload-hint">{Math.round(file.size / 1024)} KB — click to replace</div>
+            <div className="upload-hint">{Math.round(file.size / 1024)} KB, click to replace</div>
           </>
         ) : (
           <>

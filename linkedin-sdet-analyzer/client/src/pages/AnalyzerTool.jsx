@@ -80,7 +80,7 @@ export default function AnalyzerTool() {
             <Sparkles size={18} />
           </div>
           <div>
-            <h1 className="app-title">LinkedIn SDET Profile Analyzer</h1>
+            <h1 className="app-title">LinkedIn Profile Scorecard for Testers</h1>
             <p className="app-subtitle">15-point scoring framework for QA, test automation &amp; SDET careers</p>
           </div>
         </div>

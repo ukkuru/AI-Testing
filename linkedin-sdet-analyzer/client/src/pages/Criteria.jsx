@@ -36,7 +36,7 @@ export default function Criteria() {
       <section className="criteria-hero">
         <h1 className="section-heading">The 15-point QA/SDET scoring framework</h1>
         <p className="section-lead">
-          Every point is assessed directly from the text of your LinkedIn "Save to PDF" export — nothing is scored
+          Every point is assessed directly from the text of your LinkedIn "Save to PDF" export. Nothing is scored
           from unverifiable claims. Each item is worth exactly 1 point, scored present (1) or missing (0). Your
           total, out of 15, maps to one of 5 RGB score bands.
         </p>
@@ -66,7 +66,7 @@ export default function Criteria() {
         <div>
           <strong>Why 15, not 25:</strong> all points are scored from text that's actually present in LinkedIn's own
           "Save to PDF" export. That export doesn't include your banner image, Featured section, company logos,
-          Recommendations, or the verified-badge indicator — so nothing is scored from those, and nothing is ever
+          Recommendations, or the verified-badge indicator, so nothing is scored from those, and nothing is ever
           guessed.
         </div>
       </div>

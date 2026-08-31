@@ -38,7 +38,7 @@ export default function MarketingLayout() {
             <span className="app-logo">
               <Sparkles size={18} />
             </span>
-            <span className="marketing-logo-text">LinkedIn SDET Analyzer</span>
+            <span className="marketing-logo-text">LinkedIn Profile Scorecard for Testers</span>
           </Link>
 
           <nav className={`marketing-nav${menuOpen ? " open" : ""}`}>
@@ -95,7 +95,7 @@ export default function MarketingLayout() {
               <Sparkles size={16} />
             </span>
             <div>
-              <div className="marketing-footer-title">LinkedIn SDET Analyzer</div>
+              <div className="marketing-footer-title">LinkedIn Profile Scorecard for Testers</div>
               <div className="marketing-footer-tagline">by TestMetry</div>
             </div>
           </div>

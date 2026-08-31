@@ -59,5 +59,5 @@ app.listen(config.port, () => {
   if (!config.auth.jwtSecret) {
     console.warn("WARNING: JWT_SECRET is not set. /api/auth/* will fail until it is configured in server/.env");
   }
-  console.log(`LinkedIn SDET Analyzer API listening on port ${config.port}`);
+  console.log(`LinkedIn Profile Scorecard for Testers API listening on port ${config.port}`);
 });

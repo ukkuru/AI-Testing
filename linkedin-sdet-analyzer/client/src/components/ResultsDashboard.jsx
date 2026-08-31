@@ -12,7 +12,7 @@ const LEVEL_SUMMARY = {
   Passive: "Your profile is nearly invisible to recruiters searching for QA/SDET talent.",
   Developing: "The basics are there, but you're missing the signals recruiters filter on.",
   Average: "Functional, but it blends in with hundreds of similar QA profiles.",
-  Professional: "Solid foundation — a handful of targeted fixes will make you stand out.",
+  Professional: "Solid foundation. A handful of targeted fixes will make you stand out.",
   Expert: "Highly optimized for QA/SDET recruiter search and outbound sourcing.",
 };
 

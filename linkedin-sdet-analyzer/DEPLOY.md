@@ -2,7 +2,7 @@
 
 This VPS already runs another app (`webapp-app-1`, a Docker container bound to
 `127.0.0.1:3000`, served publicly at `qpulse.sbs` via Nginx + Certbot). This
-guide adds the LinkedIn SDET Analyzer as a **second, independent** container
+guide adds LinkedIn Profile Scorecard for Testers as a **second, independent** container
 on a different local port and a different (sub)domain — it never touches the
 existing container, its Nginx config, or its certificate.
 

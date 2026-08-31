@@ -9,8 +9,8 @@ export default function Contact() {
       <section className="criteria-hero">
         <h1 className="section-heading">Contact TestMetry</h1>
         <p className="section-lead">
-          LinkedIn SDET Analyzer is built by TestMetry, a software testing &amp; test automation community based in
-          Kochi, India.
+          LinkedIn Profile Scorecard for Testers is built by TestMetry, a software testing &amp; test automation
+          community based in Kochi, India.
         </p>
       </section>
 

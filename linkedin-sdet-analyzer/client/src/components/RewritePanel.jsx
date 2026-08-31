@@ -55,7 +55,7 @@ export default function RewritePanel({ extractedText, gapAnalysis }) {
         </h2>
         <p className="subtle-text">
           Generate 3 positioning angles (Authority, Outcome, Niche) for your headline, About section, and one
-          experience bullet — grounded only in what&apos;s actually on your profile, nothing invented.
+          experience bullet, grounded only in what&apos;s actually on your profile, nothing invented.
         </p>
         {error && (
           <div className="error-banner">
