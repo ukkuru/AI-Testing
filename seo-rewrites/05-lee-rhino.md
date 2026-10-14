@@ -8,11 +8,11 @@ GSC snapshot (last 28 days): 14 clicks, 1,490 impressions, avg position 7.46, CT
 * Unsupported YMYL claims: "supports reproductive health in men and women", "enhances filtration", "cleanses the body", an NCBI homepage link presented as evidence. None of it is backed, and a product sold for male vigor needs the opposite: clear safety context.
 * It ignores the real risk. Products branded "Rhino" are a known category of concern; the US FDA says it has found more than 25 "Rhino" products with hidden prescription drug ingredients, and FDA Ghana keeps a list of adulterated herbal products spiked with sildenafil. A searcher asking "is rhino tea safe" or "rhino tea side effects" gets nothing on this.
 * No direct answer to the top questions ("how long is the effect of rhino tea", "how to use", "for women"), so Google has nothing to lift into a snippet and the 0.94% CTR at position 7 shows the title is not earning the click.
-* Filler sections ("Holistic Perspective", "Environmental and Cultural Context", "Emotional Well-being") and the two internal links point to URLs that do not follow the site's date path (/best-energizing-herbal-infusions, /herbal-teas-for-detoxing-safely), so they are likely broken.
+* Filler sections (the "big picture", "cultural context" and "emotional well-being" sections) and the two internal links point to URLs that do not follow the site's date path (/best-energizing-herbal-infusions, /herbal-teas-for-detoxing-safely), so they are likely broken.
 
 ## SEO pack
 * **Title tag (56 chars):** Rhino Tea Benefits and Side Effects: Lee MF Rhino Review
-* **Meta description (151 chars):** What is really in Lee MF Rhino herbal tea? Ingredients, claimed benefits, side effects, how long it lasts and the safety warnings to know before you try it.
+* **Meta description (152 chars):** What is really in Lee MF Rhino herbal tea? Ingredients, claimed benefits, side effects, how long it lasts and safety warnings to know before you try it.
 * **H1:** Lee MF Rhino Herbal Tea: Benefits, Side Effects and an Honest Safety Check
 * **Focus keyword:** rhino tea benefits (with Lee MF Rhino herbal tea as the entity in title and H1)
 * **Secondary keywords:** lee mf rhino herbal tea, rhino tea side effects, lee mf rhino herbal tea side effects, how long is the effect of rhino tea, rhino tea for men, rhino tea ingredients, rhino tea how to use, is rhino tea safe, rhino tea for women, rhino herbal tea review
@@ -20,7 +20,7 @@ GSC snapshot (last 28 days): 14 clicks, 1,490 impressions, avg position 7.46, CT
   * All "is herbal tea a diuretic" sections (How Diuretics Work, Herbs Known for Diuretic Properties, Herbal vs Pharmaceutical Diuretics, Scientific Perspective, Hydration Myths, Supporting Detox and Kidney Health): different intent. Diuretic and peppermint queries should be served by https://teastory.blog/2025/10/26/is-herbal-tea-a-natural-diuretic-for-your-advent-calendar/ (or a dedicated diuretic post), not this one.
   * "Common Ingredients" list (ginseng, maca, green tea extract): factually wrong for this product.
   * "Supporting Circulation and Reproductive Health" and "Boosting Physical Performance": unverified health and sexual performance claims.
-  * "Holistic Perspective", "Emotional Well-being", "Environmental and Cultural Context": filler.
+  * The "big picture", "emotional well-being" and "cultural context" sections: filler.
   * All 7 old FAQs: every one was about diuretics; none matched a real Rhino query.
   * Change the URL slug? No. Keep it as instructed; the title and H1 carry the new focus.
 * **Internal links to add:**
@@ -47,7 +47,7 @@ It is not a true tea. There are no Camellia sinensis leaves listed, so it is not
 The Watsons Philippines product listing names these herbs. The list on that page looks cut off, so check your own box for the full panel.
 
 | Ingredient on the label | Common name | What it is traditionally used for | What the evidence says |
-|---|---|---|---|
+|-|-|-|-|
 | Herba Epimedii | Horny goat weed, yin yang huo | Traditional Chinese remedy for low libido, tiredness and weak bones | Contains icariin. Most studies are in animals or test tubes; good human trials are lacking |
 | Herba Cynomorii | Cynomorium, suo yang | Used in Chinese medicine as a "kidney yang" tonic | Almost no human research |
 | Rhizoma Cibotii | Cibotium fern rhizome, gou ji | Used for back pain and stiff joints | Almost no human research |

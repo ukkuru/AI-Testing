@@ -12,12 +12,12 @@ GSC snapshot (last 28 days): 1 click, 1,358 impressions, avg position 11.86, CTR
 
 ## Consolidation plan (do this when you republish)
 * **301 redirect** https://teastory.blog/2025/11/11/exploring-iced-teas-caffeine-content-and-health-effects/ to this URL. It is a weaker duplicate of the same intent. Folded in: the hot vs iced tea comparison, the white tea point, and the "homemade vs bottled" idea.
-* **301 redirect** https://teastory.blog/2025/11/11/caffeine-levels-in-sweet-tea-guide-to-brewing-storage/ to this URL, ideally to the #sweet-tea anchor. Why not keep it separate: sweet tea is black iced tea with sugar, so "how much caffeine in sweet tea" has the same answer per ounce, and the queries for it already land on this page. Half of that post is about loose leaf storage, which duplicates https://teastory.blog/2025/11/11/maximizing-loose-leaf-tea-freshness-and-longevity/. A standalone sweet tea page would be thin and would keep cannibalising this one. Folded in: the 47 mg per 8 oz black tea baseline and the brewing time point. Revisit only if a sweet tea section here starts ranking top 3 and you see separate recipe or nausea demand worth its own post.
+* **301 redirect** https://teastory.blog/2025/11/11/caffeine-levels-in-sweet-tea-guide-to-brewing-storage/ to this URL, ideally to the sweet tea section anchor (add an HTML anchor id "sweet-tea" to that H2 in WordPress). Why not keep it separate: sweet tea is black iced tea with sugar, so "how much caffeine in sweet tea" has the same answer per ounce, and the queries for it already land on this page. Half of that post is about loose leaf storage, which duplicates https://teastory.blog/2025/11/11/maximizing-loose-leaf-tea-freshness-and-longevity/. A standalone sweet tea page would be thin and would keep cannibalising this one. Folded in: the 47 mg per 8 oz black tea baseline and the brewing time point. Revisit only if a sweet tea section here starts ranking top 3 and you see separate recipe or nausea demand worth its own post.
 * Update internal links on the site that point to either old URL so they point here directly.
 
 ## SEO pack
 * **Title tag (58 chars):** Does Iced Tea Have Caffeine? mg by Brand, Sweet Tea & More
-* **Meta description (152 chars):** Yes, most iced tea has caffeine. See mg per glass for homemade black and green iced tea, sweet tea, Pure Leaf, Gold Peak, Snapple, Arizona and Starbucks.
+* **Meta description (153 chars):** Yes, most iced tea has caffeine. See mg per glass for homemade black and green iced tea, sweet tea, Pure Leaf, Gold Peak, Snapple, Arizona and Starbucks.
 * **H1:** Does Iced Tea Have Caffeine? How Much Is in Your Glass
 * **Focus keyword:** does iced tea have caffeine
 * **Secondary keywords:** how much caffeine does iced tea have, is iced tea caffeinated, caffeine in iced tea, does iced tea have a lot of caffeine, how much caffeine is in sweet tea, does sweet tea have caffeine, how much caffeine in a glass of iced tea, does top tea contain caffeine, why does sweet tea make me nauseous, does iced tea have more caffeine than coffee
@@ -51,7 +51,7 @@ The only iced teas with no caffeine are those made from herbal infusions, such a
 For homemade iced tea, the best baseline comes from brewed tea data. The Mayo Clinic lists about 47 mg for 8 oz of brewed black tea and about 28 mg for 8 oz of brewed green tea, with bottled ready to drink teas at roughly 5 to 40 mg per 8 oz.
 
 | Homemade iced tea (8 oz glass) | Typical caffeine |
-|---|---|
+|-|-|
 | Black iced tea, brewed 3 to 5 minutes | 40 to 50 mg |
 | Strong black iced tea (extra bags, long steep) | 50 to 70 mg |
 | Green iced tea | 25 to 35 mg |
@@ -75,7 +75,7 @@ Ice dilutes the tea, so each sip has a bit less caffeine, but the total amount i
 Brands print caffeine on some bottles and keep it off others. These are the figures the brands publish or print on the label. Check the bottle in your hand, since recipes and sizes change.
 
 | Drink | Serving | Caffeine | Source |
-|---|---|---|---|
+|-|-|-|-|
 | Pure Leaf Sweet Tea | 18.5 fl oz bottle | 69 mg | Caffeine line on the Pure Leaf bottle label |
 | Gold Peak Sweet Tea | 16.9 fl oz bottle | 44 mg | Coca-Cola Gold Peak product page |
 | Gold Peak Sweet Tea | 18.5 fl oz bottle | 48 mg | Caffeine line on the Gold Peak bottle label |
@@ -85,7 +85,7 @@ Brands print caffeine on some bottles and keep it off others. These are the figu
 
 Notice the spread. A bottle of Pure Leaf has close to ten times the caffeine of the same amount of Arizona Green Tea. Bottled teas also tend to be brewed lighter than homemade, so per ounce they are often lower than a strong homemade jug. If you want more on one brand, see our guide to [caffeine in Pure Leaf tea](https://teastory.blog/2025/11/11/caffeine-in-pure-leaf-tea-matcha-shelf-life-insights/).
 
-## How much caffeine is in sweet tea? {#sweet-tea}
+## How much caffeine is in sweet tea?
 
 Sweet tea is black iced tea with sugar stirred in while it is hot. Sugar has no caffeine, so sweet tea has the same caffeine per ounce as unsweetened black iced tea: roughly 40 to 50 mg per 8 oz glass when brewed normally.
 
@@ -101,14 +101,14 @@ There is no single answer, but three common culprits are worth knowing:
 
 Try a weaker brew, less sugar, and drink it with food. If nausea keeps happening, or comes with other symptoms, talk to a doctor.
 
-## Does Top Tea and other tea bag brands contain caffeine?
+## Do Top Tea and other tea bag brands contain caffeine?
 
 Any tea bag made from black or green tea leaves contains caffeine unless the pack says decaffeinated. That includes everyday black tea brands such as Top Tea. Check the ingredients line: if it says "black tea" or "tea", expect about 40 to 50 mg per cup. If it lists only herbs or fruit, it is caffeine free.
 
 ## How to make lower caffeine iced tea
 
 * **Use green or white tea** instead of black.
-* **Steep for less time.** Most caffeine comes out early, but cutting a 5 minute steep to 2 or 3 minutes trims it.
+* **Steep for less time.** Most caffeine comes out early, but shortening a 5 minute steep to 2 or 3 minutes trims it.
 * **Cold brew it.** Steeping tea in cold water in the fridge for 8 to 12 hours usually extracts somewhat less caffeine and gives a smoother taste.
 * **Choose decaf tea bags** for evening glasses.
 * **Go herbal.** Hibiscus, rooibos and peppermint make excellent caffeine free iced tea.
