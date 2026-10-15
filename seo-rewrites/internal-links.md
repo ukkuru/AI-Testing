@@ -106,3 +106,13 @@ Each post got a "Keep reading on Tea Story" section with 5 internal links, place
 * [Mint Majesty tea and its benefits](https://teastory.blog/2025/10/13/mint-majesty-tea-benefits-flavor-and-brewing-guide/)
 * [Tulsi green tea benefits](https://teastory.blog/2025/10/12/tulsi-green-tea-benefits-for-health-and-wellness/)
 * [The healthiest herbal teas](https://teastory.blog/2025/11/02/healthiest-herbal-teas-benefits-antioxidants-and-healing/)
+
+## In-text links added (15 Oct 2026, round 2)
+
+* Iced tea caffeine: "wild berry tea" in the caffeine free herbal teas paragraph -> wild berry tea benefits
+* Mint Majesty: "wild berry tea" in the iced Mint Majesty paragraph -> wild berry tea benefits
+* Tetley green tea: "a spot of tea" in the Tetley black tea paragraph -> what is a spot of tea
+* Tetley green tea: "Twinings Lemon and Ginger" in the stomach paragraph -> Twinings lemon and ginger
+* Twinings lemon and ginger: "why tea can make you feel sick on an empty stomach" in the nausea section -> vomiting after tea
+* Herbal tea and fasting: "chamomile in Tamil and how to make the tea" in the chamomile section -> chamomile in Tamil
+* Tea soil: "Camellia sinensis" in the acidic soil section -> Camellia sinensis
