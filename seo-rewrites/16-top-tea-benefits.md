@@ -33,7 +33,7 @@ According to the official Top Tea website, every variety is a blend of "100% pur
 * **Lemon and Lime**, black tea with a citrus flavour
 * **Ginger**, black tea with a ginger flavour
 
-There is no green tea or herbal version in the official range. That matters, because it means every Top Tea bag, including the ginger and lemon ones, contains caffeine. The brand also says one round bag is strong enough to make two cups.
+There is no green tea or herbal version in the official range. So every Top Tea bag, including the ginger and lemon ones, contains caffeine, and the benefits of Top Tea are the benefits of black tea. The brand also says one round bag makes two cups.
 
 ## Does Top Tea contain caffeine?
 
@@ -62,7 +62,7 @@ The US FDA says up to 400 mg of caffeine a day is generally not linked to harmfu
 
 ## Benefits of Top Tea in the body
 
-Here is what a cup of plain black tea like Top Tea can reasonably do, based on what the leaf contains and what research on black tea shows.
+Here are the health benefits of Top Tea you can reasonably expect, based on what black tea contains and what research shows.
 
 ### 1. A gentle lift in energy and focus
 
@@ -88,7 +88,7 @@ For a wider look at what different teas can and cannot do, see our guide to [the
 
 ## Does Top Tea reduce weight?
 
-Not by itself. This is the honest answer to one of the most searched questions about the benefits of Top Tea.
+Not by itself. Weight loss is the most overstated of all the benefits of Top Tea you will read about online.
 
 No study has tested Top Tea for weight loss. The best evidence on tea and weight is for green tea, which has been studied far more than black tea. A Cochrane review of 15 trials in overweight and obese adults found that green tea preparations gave only a small weight loss that was not statistically significant and "not likely to be clinically important" ([Cochrane review](https://pubmed.ncbi.nlm.nih.gov/23235664/)). Black tea has even less evidence.
 
@@ -110,13 +110,12 @@ The same compounds that give black tea its benefits can cause problems in large 
 * **Tooth staining.** Dark tea stains teeth over time. Rinsing with water after your cup helps.
 * **Acidity and heartburn.** Black tea is mildly acidic and caffeine can trigger reflux in some people. Read more in [is tea acidic?](https://teastory.blog/2025/10/12/is-tea-acidic-understanding-ph-levels-and-health-effects/)
 
-## How to get the most from a cup of Top Tea
+## How to get the most benefits of Top Tea from each cup
 
 1. Use one tagged bag per cup, or one round bag for two cups.
 2. Pour on freshly boiled water and steep for 2 to 4 minutes. Longer gives more caffeine and more bitterness.
 3. Add milk if you like, but go light on sugar.
-4. Try it cold: the brand suggests Top Tea can be served over ice with fruit juice.
-5. Keep the pack closed so the tea stays fresh.
+4. Try it cold: the brand suggests serving it over ice with fruit juice.
 
 If you want to compare Top Tea with other brands, our list of the [best black tea bags for daily use](https://teastory.blog/2025/10/12/best-black-tea-bags-for-daily-use-top-brands-and-tips/) covers what to look for on the pack.
 

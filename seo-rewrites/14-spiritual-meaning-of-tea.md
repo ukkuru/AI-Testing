@@ -34,7 +34,7 @@ Lu Yu, author of *The Classic of Tea* (the first book devoted to tea, written in
 
 Daoism shaped Chinese tea culture too. Daoist writers prized simplicity, nature and "going with the flow," and tea fitted that ideal. The Japanese writer Okakura Kakuzo went as far as saying "Teaism was Taoism in disguise" in *The Book of Tea* (1906), a short classic still worth reading. Some stories, such as a border guard offering tea to Laozi, are legends rather than history, so enjoy them as stories.
 
-## How Zen shaped tea in Japan
+## How Zen shaped the spiritual meaning of tea in Japan
 
 | Person | Dates | What he gave the Way of Tea |
 |-|-|-|
