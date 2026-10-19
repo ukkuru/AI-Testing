@@ -13,8 +13,8 @@ What they miss: none of the ranking pages names Eisai, Murata Juko or Sen no Rik
 
 ## SEO pack
 * **H1:** The Spiritual Meaning of Tea: Zen, Ritual and Everyday Calm
-* **SEO title:** Spiritual Meaning of Tea: Zen Roots, Ritual and Real Calm (58 characters)
-* **Meta description:** The spiritual meaning of tea explained: Zen monks, Sen no Rikyu, wa kei sei jaku, chai and mint tea hospitality, what L theanine does, and a 10 minute ritual. (157 characters)
+* **SEO title:** Spiritual Meaning of Tea: Zen Roots, Ritual and Real Calm (57 characters)
+* **Meta description:** The spiritual meaning of tea explained: Zen monks, Sen no Rikyu, wa kei sei jaku, chai and mint tea hospitality, what L theanine does, and a 10 minute ritual. (158 characters)
 * **Focus keyword:** spiritual meaning of tea
 * **Secondary:** spiritual tea, zen tea benefits, tea spiritual meaning, zen tea, green tea spiritual meaning, tea and spirituality, spiritual teas
 
@@ -28,11 +28,11 @@ Tea and meditation met in Chinese Buddhist monasteries. A Tang dynasty collectio
 
 By the Song dynasty, Chan monasteries had formal tea rites, a tea hall and a drum to call monks to tea. A famous Chan teacher, Zhaozhou (778 to 897), answered students' questions with the same three words: "Go drink tea." The point was that awakening is found in ordinary acts done with full attention, not in clever answers.
 
-Lu Yu, author of *The Classic of Tea* (the first book devoted to tea, written in the 8th century), was raised in a Buddhist monastery. His book treats tea making as a discipline of care, from water to fire to bowl.
+Lu Yu, who wrote *The Classic of Tea* in the 8th century, was raised in a Buddhist monastery, and his book treats tea making as a discipline of care.
 
 ### The Daoist thread
 
-Daoism shaped Chinese tea culture too. Daoist writers prized simplicity, nature and "going with the flow," and tea fitted that ideal. The Japanese writer Okakura Kakuzo went as far as saying "Teaism was Taoism in disguise" in *The Book of Tea* (1906), a short classic still worth reading. Some stories, such as a border guard offering tea to Laozi, are legends rather than history, so enjoy them as stories.
+Daoism shaped Chinese tea culture too. Daoist writers prized simplicity, nature and "going with the flow," and tea fitted that ideal. The Japanese writer Okakura Kakuzo went as far as saying "Teaism was Taoism in disguise" in *The Book of Tea* (1906), a short classic still worth reading.
 
 ## How Zen shaped the spiritual meaning of tea in Japan
 
@@ -43,7 +43,7 @@ Daoism shaped Chinese tea culture too. Daoist writers prized simplicity, nature 
 | Takeno Joo | 1502 to 1555 | Refined wabi tea and taught Rikyu |
 | Sen no Rikyu | 1522 to 1591 | Perfected chanoyu, served Oda Nobunaga and Toyotomi Hideyoshi, and gave the tea ceremony its spiritual core |
 
-Eisai first praised tea as medicine. He presented his book to the shogun Minamoto no Sanetomo in 1214, reportedly when the shogun was unwell after a night of drinking. Over the next three centuries tea moved from monk's medicine to a spiritual art.
+Eisai first praised tea as medicine, presenting his book to the shogun Minamoto no Sanetomo in 1214. Over the next three centuries tea moved from monk's medicine to a spiritual art.
 
 ### Wa kei sei jaku: the four principles
 
@@ -66,16 +66,15 @@ If you want to see these ideas in practice, read our guide to [tea ceremony etiq
 
 ## Tea spiritual meaning in other traditions
 
-Zen is not the only path. In many cultures the spiritual meaning of tea is about welcome, not meditation.
+Outside Zen, the spiritual meaning of tea is often about welcome rather than meditation.
 
 * **India.** An old Sanskrit teaching, "atithi devo bhava," says the guest is like a god. In practice, that often means a cup of chai is offered before anything else is discussed. Refusing every cup can feel like refusing the welcome. Our guide to [brewing masala chai](https://teastory.blog/2024/04/02/the-art-of-brewing-masala-chai/) shows how that everyday cup is made.
 * **Britain.** In the 1830s, the temperance movement held huge tea meetings as a sober alternative to the pub, and afternoon tea later became a social ritual, credited to Anna, Duchess of Bedford, in the 1840s. A cup of tea in a crisis is still Britain's quiet form of comfort.
 * **Morocco and the Sahara.** Green tea is brewed with fresh mint and sugar, poured from a height and served in three rounds. A saying often repeated across North Africa runs: the first glass is gentle as life, the second strong as love, the third bitter as death. Leaving before the third glass can seem rude.
-* **China today.** Gongfu tea, brewed in many short steeps in a small pot, is a slow social ritual where the host keeps every cup filled.
 
 ## Green tea spiritual meaning and "zen tea" products
 
-Green tea carries most of the spiritual meaning in East Asia, because it is the tea of Chan monasteries and of matcha in the Japanese ceremony. Its fresh green colour is often linked with renewal and clarity, though that is modern symbolism rather than old doctrine.
+Green tea carries most of the spiritual meaning of tea in East Asia, because it is the tea of Chan monasteries and of matcha in the Japanese ceremony. Its fresh green colour is often linked with renewal and clarity, though that is modern symbolism rather than old doctrine.
 
 "Zen tea" on a shop shelf has no fixed definition. Most products sold as zen tea or spiritual teas are one of three things:
 
@@ -85,7 +84,7 @@ Green tea carries most of the spiritual meaning in East Asia, because it is the 
 | Zen or calm blend | Green tea with lemongrass, mint, chamomile or spearmint | Low to moderate |
 | Herbal "spiritual" tea | Chamomile, tulsi, lavender, lemon balm | None |
 
-Read the ingredient list, not the name. A blend can be lovely, but the word "zen" is marketing.
+Read the ingredients, not the name: "zen" is marketing.
 
 ## Zen tea benefits: what the evidence really says
 
@@ -96,7 +95,7 @@ Tea does contain L theanine, an amino acid found almost only in the tea plant. H
 * **Theanine plus caffeine.** Small studies suggest the two together improve alertness and focus more than caffeine alone, which fits the "calm but awake" feeling tea drinkers describe.
 * **Black tea and stress recovery.** In a [six week University College London trial](https://www.ucl.ac.uk/news/2006/oct/black-tea-soothes-away-stress), people drinking black tea had lower cortisol after a stressful task than those drinking a placebo. One small study does not prove tea lowers stress for everyone.
 
-The ritual probably does as much as the chemistry. Slowing down, breathing and paying attention to warm water and aroma is a simple form of mindfulness. If caffeine makes you anxious, a caffeine free herbal tea brings the ritual without the stimulant.
+The ritual probably does as much as the chemistry: slowing down and paying attention is a simple form of mindfulness. If caffeine makes you anxious, a caffeine free herbal tea gives you the ritual without the stimulant.
 
 ## A simple mindful tea ritual (10 minutes)
 

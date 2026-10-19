@@ -15,8 +15,8 @@ What the SERP misses: no page in the top ten explains the full timeline from the
 
 ## SEO pack
 * **H1:** Boche Tea: What It Is, How to Buy It and What Happened to the Lucky Draw
-* **SEO title:** Boche Tea Lucky Draw and Online Shopping: 2026 Update (52 characters)
-* **Meta description:** Boche Tea explained: who sells it, how online shopping works, the lucky draw timeline from the 2024 police case to the 2026 Lok Ayukta ruling, and fake site tips. (160 characters)
+* **SEO title:** Boche Tea Lucky Draw and Online Shopping: 2026 Update (53 characters)
+* **Meta description:** Boche Tea explained: who sells it, how to shop online, the lucky draw timeline from the 2024 police case to the 2026 Lok Ayukta ruling, and fake site tips. (155 characters)
 * **Focus keyword:** boche tea
 * **Secondary:** boche tea online shopping, boche tea ticket, boche tea lucky draw website, boche tea price in kerala today, bochetea com, boche tea contact number, boche tea lucky draw time today, login lucky draw
 
@@ -41,7 +41,7 @@ A safe way to buy:
 
 Boche Tea is also sold at branded outlets and shops in Kerala and on some marketplaces. Third party listings set their own prices and may not be authorised by the brand.
 
-> Note: when we tried to load bochetea.com on 19 October 2026 the site did not respond. If it is down, check the brand's verified Facebook or Instagram pages for an update before buying anywhere else.
+> Note: bochetea.com did not respond when we checked on 19 October 2026. If it is down, check the brand's verified social pages before buying elsewhere.
 
 ## Boche Tea price in Kerala today
 
@@ -67,7 +67,7 @@ Buyers registered the coupon code to get a ticket number, which is why people se
 
 Times Kerala reported the same day that the bench also rejected a claim under the Prize Chits and Money Circulation Schemes (Banning) Act, because no separate money was charged for coupons, and that the order recorded about ₹32 crore in prizes paid. The company said the order supported its position.
 
-In short: the Lok Ayukta found no offence under current law, but the issue is not fully closed while a High Court petition is pending. We will update this page if there is a further ruling.
+In short: no offence under current law, but the matter is not fully closed while the High Court petition is pending.
 
 ## How to spot fake lucky draw sites
 
@@ -113,7 +113,7 @@ Results were announced through the brand's official website and social pages. Ig
 
 ## Bottom line
 
-Boche Tea is a Kerala tea powder brand whose free lucky draw coupons drew huge interest and a long legal fight. The Kerala Lok Ayukta found no offence under current law in September 2026, and the draw was reported dropped in April 2026. Buy only from bochetea.com or trusted outlets, check the current price there, and treat any "lucky draw" site that asks you for money or an OTP as a scam.
+Boche Tea is a Kerala tea powder brand whose free lucky draw coupons drew huge interest and a long legal fight, which the Lok Ayukta closed in the brand's favour in September 2026. Buy only from bochetea.com or trusted outlets, check the current price there, and treat any "lucky draw" site that asks you for money or an OTP as a scam.
 
 ## Notes for reviewer
 * **Verified and attributed:** police case, complaint by Wayanad District Assistant Lottery Officer, prize amounts, ₹40 per 100 g claim and Chemmanur's denial (TNIE, 19 May 2024); Lok Ayukta probe order, complainant S. Sunil Kumar, Lotteries Director's statement (The Hindu, 13 March 2026); ruling, ₹40 equal to then state lottery ticket price, scheme dropped April 2026, High Court petition pending (TNIE, 30 September 2026); Prize Chits Act, ₹32 crore prizes, company response, complaint no. 280/2025-D (Times Kerala, 30 September 2026, Malayalam with English summary); group's business sectors (Onmanorama, 8 January 2025). The 2024 TNIE story is cited but not linked to keep external links at three: https://www.newindianexpress.com/states/kerala/2024/May/19/case-against-boby-chemmanur-for-holding-boche-tea-lucky-draws
