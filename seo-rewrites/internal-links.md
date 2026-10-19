@@ -116,3 +116,15 @@ Each post got a "Keep reading on Tea Story" section with 5 internal links, place
 * Twinings lemon and ginger: "why tea can make you feel sick on an empty stomach" in the nausea section -> vomiting after tea
 * Herbal tea and fasting: "chamomile in Tamil and how to make the tea" in the chamomile section -> chamomile in Tamil
 * Tea soil: "Camellia sinensis" in the acidic soil section -> Camellia sinensis
+
+## Round 3 (19 Oct 2026): links into the 10 rewritten posts
+
+* Regions and flavour (495): Assam tea state, largest tea exporters
+* Tension Tamer (506): spiritual meaning of tea, honey citrus mint
+* Vomiting after tea (488): Top Tea benefits
+* Malt drink (1913): is tea acidic
+* Starbucks chai latte (2285): milk tea calories
+* Twinings lemon and ginger (473): tea and pregnancy
+* Iced tea caffeine (2770): tea and pregnancy
+* Mint Majesty (2234): honey citrus mint
+* Related reading boxes restored after rewrite on 210, 462, 486 (draft links removed)
