@@ -51,8 +51,117 @@
   modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
   modal.addEventListener("cancel", () => video.pause());
 
-  // Dotted grid background, shared by the hero and the close section
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hero loop: friction heatmap on a purchase request, about 17 seconds
+  const loop = document.querySelector(".loop");
+  if (loop) {
+    const stage = loop.querySelector(".loop__stage");
+    const cursor = loop.querySelector(".loop__cursor");
+    const btn = loop.querySelector(".lf__btn");
+    const status = loop.querySelector(".lf__status");
+    const text = loop.querySelector(".loop__text");
+    const time = loop.querySelector(".loop__time");
+    const bar = loop.querySelector(".loop__progress i");
+    const fields = [...loop.querySelectorAll(".lf__input span")];
+    const [vendor, cc, amount] = fields;
+    const LENGTH = 17000;
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    let start = 0;
+
+    const caption = (msg) => {
+      const s = Math.floor((performance.now() - start) / 1000);
+      time.textContent = `0:${String(s).padStart(2, "0")}`;
+      text.style.opacity = 0;
+      setTimeout(() => { text.textContent = msg; text.style.opacity = 1; }, 200);
+    };
+    const pointAt = (el, dx = 0.55, dy = 0.6) => {
+      const s = stage.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      const x = r.left - s.left + r.width * dx;
+      const y = r.top - s.top + r.height * dy;
+      cursor.style.transform = `translate(${x}px, ${y}px)`;
+      return { x, y };
+    };
+    const click = async (el) => {
+      const { x, y } = pointAt(el);
+      const ripple = document.createElement("span");
+      ripple.className = "ripple";
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      stage.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+      el.classList.add("is-press");
+      await wait(120);
+      el.classList.remove("is-press");
+    };
+    const type = async (span, ms = 45) => {
+      const box = span.parentElement;
+      pointAt(box, 0.15);
+      await wait(500);
+      box.classList.add("is-typing");
+      for (const ch of span.dataset.type) { span.textContent += ch; await wait(ms); }
+      box.classList.remove("is-typing");
+    };
+    const setStatus = (msg, cls) => { status.textContent = msg; status.className = `lf__status ${cls}`; };
+    const reset = () => {
+      fields.forEach((f) => { f.textContent = ""; });
+      loop.classList.remove("is-heat", "is-tip");
+      setStatus("", "");
+    };
+
+    if (reduceMotion) {
+      vendor.textContent = vendor.dataset.type;
+      amount.textContent = amount.dataset.type;
+      loop.classList.add("is-heat", "is-tip");
+      text.textContent = "The heatmap flags Check budget, and a tip points to the missing cost center.";
+      cursor.style.display = "none";
+    } else {
+      (async function run() {
+        for (;;) {
+          reset();
+          start = performance.now();
+          bar.style.transition = "none";
+          bar.style.width = "0";
+          void bar.offsetWidth;
+          bar.style.transition = `width ${LENGTH}ms linear`;
+          bar.style.width = "100%";
+
+          caption("A buyer fills in a purchase request and skips Cost center.");
+          await type(vendor);
+          await type(amount);
+          await wait(300);
+
+          caption("They click Check budget. Nothing happens, so they keep clicking.");
+          pointAt(btn);
+          await wait(900);
+          for (let i = 0; i < 4; i++) { await click(btn); setStatus("Budget check failed", "is-err"); await wait(380); }
+          await wait(400);
+
+          caption("The friction heatmap flags the button: 42 rage clicks this week.");
+          loop.classList.add("is-heat");
+          await wait(3200);
+
+          caption("Product Fluency pins a tip to the field that is actually missing.");
+          loop.classList.add("is-tip");
+          pointAt(cc.parentElement, 0.15);
+          await wait(1800);
+          loop.classList.remove("is-tip");
+          await type(cc, 40);
+
+          caption("Budget check passes. The request moves on and the hotspot cools.");
+          pointAt(btn);
+          await wait(900);
+          await click(btn);
+          setStatus("Within budget", "is-ok");
+          loop.classList.remove("is-heat");
+          await wait(Math.max(400, LENGTH - (performance.now() - start)));
+        }
+      })();
+    }
+  }
+
+  // Dotted grid background, shared by the hero and the close section
   const colors = ["56,189,248", "37,99,235", "244,41,139", "255,115,102"];
 
   document.querySelectorAll(".grid-bg").forEach((canvas) => {

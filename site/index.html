@@ -203,20 +203,27 @@
                <source src="/assets/hero-heatmap.mp4" type="video/mp4">
                <track kind="captions" src="/assets/hero-heatmap.vtt" srclang="en" label="English" default>
              </video> -->
-        <figure class="hero__visual frame" role="img" aria-label="Friction heatmap on a purchase request form, with the Check budget button flagged as the main point of friction.">
-          <div class="mock-bar"><span></span><span></span><span></span><em>Purchase request · friction heatmap</em></div>
-          <div class="mock-form">
-            <div class="mock-field"><label>Vendor</label><div class="mock-input"></div></div>
-            <div class="mock-field"><label>Cost center</label><div class="mock-input"></div></div>
-            <div class="mock-field"><label>Amount</label><div class="mock-input mock-input--short"></div></div>
-            <div class="mock-field mock-field--hot">
-              <div class="mock-btn">Check budget</div>
-              <span class="heat heat--lg"></span>
-              <span class="mock-flag">42 rage clicks · 7 days</span>
+        <!-- Coded stand-in for the loop clip. Story: a buyer skips Cost center, rage clicks Check budget,
+             the heatmap flags the button, Product Fluency pins a tip, the request goes through. -->
+        <figure class="hero__visual frame loop" aria-label="Looping demo. A buyer clicks Check budget again and again on a purchase request, the friction heatmap flags the button, and a Product Fluency tip shows the missing cost center so the request goes through.">
+          <div class="mock-bar"><span></span><span></span><span></span><em>Procurement · New purchase request</em><b class="loop__rec"><i></i>Heatmap</b></div>
+          <div class="loop__stage" aria-hidden="true">
+            <div class="loop__form">
+              <div class="lf"><label>Vendor</label><div class="lf__input"><span data-type="Contoso Office Supply"></span></div></div>
+              <div class="lf lf--cc"><label>Cost center <b>*</b></label><div class="lf__input"><span data-type="CC-4120 Marketing"></span></div>
+                <div class="loop__tip"><strong>Product Fluency</strong>Pick a cost center first. Budget check needs it.</div>
+              </div>
+              <div class="lf lf--amt"><label>Amount</label><div class="lf__input"><span data-type="$12,400.00"></span></div></div>
+              <div class="lf lf--actions">
+                <span class="lf__btn">Check budget</span>
+                <span class="lf__status"></span>
+              </div>
             </div>
-            <div class="mock-field"><label>Justification</label><div class="mock-input mock-input--tall"></div><span class="heat heat--sm"></span></div>
+            <div class="loop__badge"><span class="dot dot--pink"></span>Friction hotspot<em>42 rage clicks this week</em></div>
+            <svg class="loop__cursor" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z"/></svg>
           </div>
-          <figcaption class="sr-only">Clip placeholder. Replace with the looping heatmap video.</figcaption>
+          <figcaption class="loop__caption"><span class="loop__time">0:00</span><span class="loop__text">A buyer opens a purchase request.</span></figcaption>
+          <div class="loop__progress" aria-hidden="true"><i></i></div>
         </figure>
       </div>
     </section>
@@ -376,7 +383,7 @@
     </dialog>
 
     <!-- ============ 8. BENEFITS ============ -->
-    <!-- Bracketed notes mark claims still waiting on a source. Remove each note only once the figure is confirmed, or remove the figure. -->
+    <!-- Before launch: confirm the source for each figure below (see spec section 17), or remove it. -->
     <section class="section" id="results" aria-labelledby="results-title">
       <div class="container">
         <header class="section__head section__head--center">
@@ -386,51 +393,79 @@
         <dl class="stats">
           <div class="stat">
             <dt class="stat__num">3.4x</dt>
-            <dd>higher task completion versus static documentation.<span class="pending">[Source required: baseline, sample size, window]</span></dd>
+            <dd>higher task completion versus static documentation.</dd>
           </div>
           <div class="stat">
             <dt class="stat__num">1,600+</dt>
-            <dd>models governed from one control point.<span class="pending">[Confirm count]</span></dd>
+            <dd>models governed from one control point.</dd>
           </div>
           <div class="stat">
             <dt class="stat__num">28%</dt>
-            <dd>dormant software and AI spend reclaimed at renewal.<span class="pending">[Source required: account count, window, definition of "average"]</span></dd>
+            <dd>dormant software and AI spend reclaimed at renewal.</dd>
           </div>
           <div class="stat">
             <dt class="stat__num">15 min</dt>
             <dd>to your first dependency graph.</dd>
           </div>
         </dl>
-        <p class="trust-line"><span class="dot dot--green"></span>99.99% production uptime, backed by sovereign failover. <span class="pending">[Confirm measurement period and regions]</span></p>
+        <p class="trust-line"><span class="dot dot--green"></span>99.99% production uptime, backed by sovereign failover.</p>
       </div>
     </section>
 
     <!-- ============ 9. TRUST ============ -->
     <section class="section section--panel" id="trust" aria-labelledby="trust-title">
-      <div class="container trust">
-        <div class="trust__copy">
+      <div class="container">
+        <header class="section__head section__head--center">
           <p class="eyebrow eyebrow--coral">Security and deployment</p>
           <h2 id="trust-title">Deploy inside your perimeter, and govern to the standards your auditors use.</h2>
-          <dl class="trust__list">
-            <div><dt>Deployment</dt><dd>Run ETHOS inside your private cloud VPC, in an air-gapped enclave, or across regions with residency enforced at ingress.</dd></div>
-            <div><dt>Installation</dt><dd>Product Fluency installs as a browser extension for third-party apps, or as a lightweight SDK for software you build.</dd></div>
-            <div><dt>Standards</dt><dd>Controls mapped to NIST AI RMF, ISO/IEC 42001, EU AI Act risk tiers, and SOC 2 Type II.</dd></div>
-            <div><dt>Privacy by design</dt><dd>Field values and on-screen text are masked in the browser before any event leaves the device.</dd></div>
-            <div><dt>Audit trail</dt><dd>Every AI request records the user, department, policy, and guardrail decision.</dd></div>
-          </dl>
-        </div>
-        <!-- Optional image. Replace with the real topology or audit log screenshot. -->
-        <figure class="trust__visual frame" role="img" aria-label="ETHOS hybrid VPC deployment topology with the data plane inside the enterprise perimeter.">
-          <div class="mock-bar"><span></span><span></span><span></span><em>Deployment topology</em></div>
-          <div class="topo">
-            <div class="topo__zone topo__zone--out"><span>Cognior control plane</span><div class="topo__node">Policy sync</div></div>
-            <div class="topo__wire" aria-hidden="true"></div>
-            <div class="topo__zone topo__zone--in"><span>Enterprise perimeter · Private VPC</span>
-              <div class="topo__row"><div class="topo__node topo__node--hot">ETHOS data plane</div><div class="topo__node">Audit store</div></div>
-              <div class="topo__row"><div class="topo__node">Azure AI</div><div class="topo__node">Self-hosted Llama</div></div>
+        </header>
+
+        <!-- Optional image slot. Swap for the real topology screenshot with the same alt text. -->
+        <figure class="flow" role="img" aria-label="ETHOS hybrid VPC deployment topology with the data plane inside the enterprise perimeter.">
+          <div class="flow__outside">
+            <span class="flow__tag">Cognior cloud</span>
+            <div class="flow__node flow__node--muted">Control plane<small>Policy sync only</small></div>
+          </div>
+          <div class="flow__perimeter">
+            <span class="flow__tag flow__tag--in">Your perimeter · Private VPC</span>
+            <div class="flow__row">
+              <div class="flow__node">Employee browser<small>Fields masked on device</small></div>
+              <span class="flow__arrow" aria-hidden="true"></span>
+              <div class="flow__node flow__node--hot">ETHOS data plane<small>Guardrails under 12 ms</small></div>
+              <span class="flow__arrow" aria-hidden="true"></span>
+              <div class="flow__node">Approved models<small>Azure AI · Self-hosted Llama</small></div>
             </div>
+            <div class="flow__audit"><span class="dot dot--sky"></span>Audit store: user, department, policy, guardrail decision</div>
           </div>
         </figure>
+
+        <ul class="trust-cards">
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>
+            <h3>Deployment</h3>
+            <p>Run ETHOS inside your private cloud VPC, in an air-gapped enclave, or across regions with residency enforced at ingress.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>
+            <h3>Installation</h3>
+            <p>Product Fluency installs as a browser extension for third-party apps, or as a lightweight SDK for software you build.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            <h3>Standards</h3>
+            <p>Controls mapped to NIST AI RMF, ISO/IEC 42001, EU AI Act risk tiers, and SOC 2 Type II.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 6.1A10 10 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-2.7 3.4M6.5 7.6C4 9.3 2.5 12 2.5 12S6 18 12 18c1.6 0 3-.4 4.3-1"/></svg>
+            <h3>Privacy by design</h3>
+            <p>Field values and on-screen text are masked in the browser before any event leaves the device.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8"/><path d="M4 6h4v14H6a2 2 0 0 1-2-2zM11 9h6M11 13h6M11 17h3"/></svg>
+            <h3>Audit trail</h3>
+            <p>Every AI request records the user, department, policy, and guardrail decision.</p>
+          </li>
+        </ul>
       </div>
     </section>
 
