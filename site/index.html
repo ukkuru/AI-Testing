@@ -237,19 +237,25 @@
           <p class="section__lead">Enterprises buy software and AI faster than they learn to use it. Four products close that gap on one set of usage and cost data.</p>
         </header>
 
-        <div class="pillars">
+        <div class="tabs" role="tablist" aria-label="Cognior products">
+            <button class="tab tab--sky" type="button" role="tab" id="tab-product-fluency" aria-controls="panel-product-fluency" aria-selected="true"><span class="dot dot--sky"></span>Product Fluency</button>
+            <button class="tab tab--pink" type="button" role="tab" id="tab-ai-governance" aria-controls="panel-ai-governance" aria-selected="false" tabindex="-1"><span class="dot dot--pink"></span>AI Governance</button>
+            <button class="tab tab--coral" type="button" role="tab" id="tab-cloud-value" aria-controls="panel-cloud-value" aria-selected="false" tabindex="-1"><span class="dot dot--coral"></span>Cloud Value Optimization</button>
+            <button class="tab tab--blue" type="button" role="tab" id="tab-intelligent-sights" aria-controls="panel-intelligent-sights" aria-selected="false" tabindex="-1"><span class="dot dot--blue"></span>Intelligent Sights</button>
+          </div>
+          <div class="pillars">
           <!-- 6.1 Product Fluency -->
-          <article class="pillar" style="--accent: var(--sky)">
+          <article class="pillar" id="panel-product-fluency" role="tabpanel" aria-labelledby="tab-product-fluency" tabindex="0" style="--accent: var(--sky)">
             <div class="pillar__copy">
               <p class="pillar__label">Product Fluency</p>
-              <p class="pillar__pain">Users abandon new tools, and rage clicks show up as tickets and delayed rollouts.</p>
               <h3>Teach people the software while they work.</h3>
+              <p class="pillar__pain">Users abandon new tools, and rage clicks show up as tickets and delayed rollouts.</p>
               <ul class="ticks">
                 <li>Walkthroughs anchored to live screen elements, triggered by role, first login, or a feature release</li>
                 <li>Form Agents that autofill repetitive fields in 250 milliseconds</li>
                 <li>Environment Twin sandboxes where new hires rehearse on synthetic data before they touch production</li>
               </ul>
-              <a class="link-arrow" href="/product-fluency">Explore Product Fluency <span aria-hidden="true">&rarr;</span></a>
+              <a class="btn btn--outline" href="/product-fluency">Explore Product Fluency <span aria-hidden="true">&rarr;</span></a>
             </div>
             <!-- Replace with <img src="/assets/pillar-product-fluency.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Product Fluency tooltip pinned to a required field in a live procurement form."> -->
             <figure class="pillar__shot frame" role="img" aria-label="Product Fluency tooltip pinned to a required field in a live procurement form.">
@@ -265,17 +271,17 @@
           </article>
 
           <!-- 6.2 AI Governance -->
-          <article class="pillar" style="--accent: var(--pink)">
+          <article class="pillar" id="panel-ai-governance" role="tabpanel" aria-labelledby="tab-ai-governance" tabindex="0" style="--accent: var(--pink)">
             <div class="pillar__copy">
               <p class="pillar__label">AI Governance · ETHOS</p>
-              <p class="pillar__pain">Your teams use AI, and you cannot see what it does or what it returns. Shadow AI spreads with no policy behind it.</p>
               <h3>ETHOS sets one control point for every AI model.</h3>
+              <p class="pillar__pain">Your teams use AI, and you cannot see what it does or what it returns. Shadow AI spreads with no policy behind it.</p>
               <ul class="ticks">
                 <li>Inline guardrails that sanitize sensitive data and block prompt injection in under 12 milliseconds</li>
                 <li>An LLM gateway that routes across foundation, custom, and fine tuned models, with automatic failover</li>
                 <li>An immutable audit trail that ties every AI request to a user, a department, and a policy</li>
               </ul>
-              <a class="link-arrow" href="/ai-governance">Explore AI Governance <span aria-hidden="true">&rarr;</span></a>
+              <a class="btn btn--outline" href="/ai-governance">Explore AI Governance <span aria-hidden="true">&rarr;</span></a>
             </div>
             <figure class="pillar__shot frame" role="img" aria-label="ETHOS gateway log showing a blocked prompt injection and a sanitized customer identifier.">
               <div class="mock-bar"><span></span><span></span><span></span><em>ETHOS · Gateway log</em></div>
@@ -290,17 +296,17 @@
           </article>
 
           <!-- 6.3 Cloud Value Optimization -->
-          <article class="pillar" style="--accent: var(--coral)">
+          <article class="pillar" id="panel-cloud-value" role="tabpanel" aria-labelledby="tab-cloud-value" tabindex="0" style="--accent: var(--coral)">
             <div class="pillar__copy">
               <p class="pillar__label">Cloud Value Optimization</p>
-              <p class="pillar__pain">Your cloud bill grows, and nobody can say which business workload drives it.</p>
               <h3>Azure cost management that stays on plan.</h3>
+              <p class="pillar__pain">Your cloud bill grows, and nobody can say which business workload drives it.</p>
               <ul class="ticks">
                 <li>Azure FinOps discovery reads your resources without manual tagging and groups them into business applications</li>
                 <li>P95 rightsizing, reserved capacity tracking, and off hours hibernation for nonproduction environments</li>
                 <li>Unit economics that tie cloud cost to transactions, so finance and engineering agree on the forecast before the bill arrives</li>
               </ul>
-              <a class="link-arrow" href="/azure-cost-management">Explore Cloud Value Optimization <span aria-hidden="true">&rarr;</span></a>
+              <a class="btn btn--outline" href="/azure-cost-management">Explore Cloud Value Optimization <span aria-hidden="true">&rarr;</span></a>
             </div>
             <figure class="pillar__shot frame" role="img" aria-label="Azure service map showing an AKS production mesh linked to Container Registry and Azure SQL.">
               <div class="mock-bar"><span></span><span></span><span></span><em>Azure · Service map</em></div>
@@ -321,18 +327,18 @@
           </article>
 
           <!-- 6.4 Intelligent Sights -->
-          <article class="pillar" style="--accent: var(--blue)">
+          <article class="pillar" id="panel-intelligent-sights" role="tabpanel" aria-labelledby="tab-intelligent-sights" tabindex="0" style="--accent: var(--blue)">
             <div class="pillar__copy">
               <p class="pillar__label">Intelligent Sights</p>
-              <p class="pillar__pain">You pay for seats nobody uses, and no one can point to which ones.</p>
               <h3>See which software earns its seat.</h3>
+              <p class="pillar__pain">You pay for seats nobody uses, and no one can point to which ones.</p>
               <ul class="ticks">
                 <li>Software asset management that matches license records to real usage, so you find shelfware before renewal</li>
                 <li>Shadow SaaS and AI tools surfaced through identity, finance, and vendor connectors</li>
                 <li>Journey maps that show where sessions drop off, paired with heatmaps of the element causing it</li>
                 <li>AI copilot ROI measured from prompt to outcome</li>
               </ul>
-              <a class="link-arrow" href="/intelligent-sights">Explore Intelligent Sights <span aria-hidden="true">&rarr;</span></a>
+              <a class="btn btn--outline" href="/intelligent-sights">Explore Intelligent Sights <span aria-hidden="true">&rarr;</span></a>
             </div>
             <figure class="pillar__shot frame" role="img" aria-label="Intelligent Sights journey map showing 310 sessions dropping off at the Request details step.">
               <div class="mock-bar"><span></span><span></span><span></span><em>Intelligent Sights · Journey map</em></div>
