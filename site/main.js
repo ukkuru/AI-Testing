@@ -41,10 +41,15 @@
   // Video modal: the file loads only on first click, so the page never reflows
   const modal = document.getElementById("video-modal");
   const video = modal.querySelector("video");
-  document.querySelector("[data-video-open]").addEventListener("click", () => {
-    if (!video.src) video.src = video.dataset.src;
-    modal.showModal();
-    video.play().catch(() => {});
+  document.querySelectorAll("[data-video-open]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!video.src) video.src = video.dataset.src;
+      const t = Number(btn.dataset.t || 0);
+      const seek = () => { video.currentTime = t; video.play().catch(() => {}); };
+      if (video.readyState >= 1) seek();
+      else video.addEventListener("loadedmetadata", seek, { once: true });
+      modal.showModal();
+    });
   });
   const closeModal = () => { video.pause(); modal.close(); };
   modal.querySelector("[data-video-close]").addEventListener("click", closeModal);
@@ -76,109 +81,174 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Hero loop: friction heatmap on a purchase request, about 17 seconds
+  // Hero loop: five chapters on the Intelligent Sights heatmap, about 18.5 seconds
   const loop = document.querySelector(".loop");
   if (loop) {
     const stage = loop.querySelector(".loop__stage");
     const cursor = loop.querySelector(".loop__cursor");
-    const btn = loop.querySelector(".lf__btn");
-    const status = loop.querySelector(".lf__status");
+    const check = loop.querySelector(".app__check");
+    const status = loop.querySelector(".app__status");
+    const badge = loop.querySelector(".loop__badge");
+    const count = loop.querySelector(".loop__count");
+    const mode = loop.querySelector(".loop__mode");
     const text = loop.querySelector(".loop__text");
     const time = loop.querySelector(".loop__time");
-    const bar = loop.querySelector(".loop__progress i");
-    const fields = [...loop.querySelectorAll(".lf__input span")];
-    const [vendor, cc, amount] = fields;
-    const LENGTH = 17000;
+    const segs = [...loop.querySelectorAll(".loop__chapters i")];
+    const fills = [...loop.querySelectorAll(".fld i")];
+    const hot = Object.fromEntries([...loop.querySelectorAll("[data-hot]")].map((el) => [el.dataset.hot, el]));
+    const weights = { check: 0.5, search: 0.22, category: 0.16, help: 0.12 };
+    const blobs = {};
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
     let start = 0;
 
+    const center = (el, dx = 0.5, dy = 0.5) => {
+      const s = stage.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return { x: r.left - s.left + r.width * dx, y: r.top - s.top + r.height * dy, w: r.width, h: r.height };
+    };
+    for (const k of Object.keys(weights)) {
+      const b = document.createElement("span");
+      b.className = "blob";
+      stage.appendChild(b);
+      blobs[k] = b;
+    }
+    const place = () => {
+      for (const [k, b] of Object.entries(blobs)) {
+        const c = center(hot[k]);
+        b.style.left = `${c.x}px`;
+        b.style.top = `${c.y}px`;
+      }
+    };
+    const heat = (levels) => { for (const [k, v] of Object.entries(levels)) blobs[k].style.setProperty("--k", v); };
     const caption = (msg) => {
-      const s = Math.floor((performance.now() - start) / 1000);
-      time.textContent = `0:${String(s).padStart(2, "0")}`;
+      time.textContent = `0:${String(Math.floor((performance.now() - start) / 1000)).padStart(2, "0")}`;
       text.style.opacity = 0;
       setTimeout(() => { text.textContent = msg; text.style.opacity = 1; }, 200);
     };
-    const pointAt = (el, dx = 0.55, dy = 0.6) => {
-      const s = stage.getBoundingClientRect();
-      const r = el.getBoundingClientRect();
-      const x = r.left - s.left + r.width * dx;
-      const y = r.top - s.top + r.height * dy;
-      cursor.style.transform = `translate(${x}px, ${y}px)`;
-      return { x, y };
+    const chapter = (i, secs) => {
+      segs.forEach((seg, j) => {
+        seg.style.setProperty("--t", "0s");
+        seg.style.setProperty("--p", j < i ? "100%" : "0%");
+      });
+      void segs[i].offsetWidth;
+      segs[i].style.setProperty("--t", `${secs}s`);
+      segs[i].style.setProperty("--p", "100%");
+    };
+    const tally = async (from, to, ms) => {
+      const t0 = performance.now();
+      for (;;) {
+        const p = Math.min(1, (performance.now() - t0) / ms);
+        count.textContent = Math.round(from + (to - from) * p);
+        if (p === 1) return;
+        await wait(40);
+      }
+    };
+    const rain = async (ms) => {
+      const keys = Object.keys(weights);
+      const t0 = performance.now();
+      while (performance.now() - t0 < ms) {
+        let r = Math.random();
+        const k = keys.find((key) => (r -= weights[key]) < 0) || "check";
+        const c = center(hot[k]);
+        const d = document.createElement("span");
+        d.className = "dotclick";
+        d.style.left = `${c.x + (Math.random() - 0.5) * c.w * 0.8}px`;
+        d.style.top = `${c.y + (Math.random() - 0.5) * c.h * 0.9}px`;
+        stage.appendChild(d);
+        setTimeout(() => d.remove(), 700);
+        await wait(55);
+      }
+    };
+    const pointAt = (el, dx = 0.5, dy = 0.6) => {
+      const c = center(el, dx, dy);
+      cursor.style.transform = `translate(${c.x}px, ${c.y}px)`;
+      return c;
     };
     const click = async (el) => {
-      const { x, y } = pointAt(el);
-      const ripple = document.createElement("span");
-      ripple.className = "ripple";
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-      stage.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
+      const c = pointAt(el);
+      const r = document.createElement("span");
+      r.className = "ripple";
+      r.style.left = `${c.x}px`;
+      r.style.top = `${c.y}px`;
+      stage.appendChild(r);
+      setTimeout(() => r.remove(), 600);
       el.classList.add("is-press");
-      await wait(120);
+      await wait(140);
       el.classList.remove("is-press");
     };
-    const type = async (span, ms = 45) => {
-      const box = span.parentElement;
-      pointAt(box, 0.15);
-      await wait(500);
-      box.classList.add("is-typing");
-      for (const ch of span.dataset.type) { span.textContent += ch; await wait(ms); }
-      box.classList.remove("is-typing");
-    };
-    const setStatus = (msg, cls) => { status.textContent = msg; status.className = `lf__status ${cls}`; };
+    const type = async (el, ms = 38) => { for (const ch of el.dataset.fill) { el.textContent += ch; await wait(ms); } };
     const reset = () => {
-      fields.forEach((f) => { f.textContent = ""; });
-      loop.classList.remove("is-heat", "is-tip");
-      setStatus("", "");
+      loop.classList.remove("is-flag", "is-cause", "is-tip", "is-after");
+      check.classList.remove("is-ready");
+      status.classList.remove("is-on");
+      status.textContent = "";
+      mode.textContent = "Before flow";
+      count.textContent = "0";
+      fills.forEach((f) => { f.textContent = ""; });
+      fills[0].textContent = fills[0].dataset.fill;
+      fills[3].textContent = fills[3].dataset.fill;
+      heat({ check: 0, search: 0, category: 0, help: 0 });
+      cursor.style.transform = `translate(${stage.clientWidth * 0.3}px, ${stage.clientHeight * 0.9}px)`;
     };
 
     if (reduceMotion) {
-      vendor.textContent = vendor.dataset.type;
-      amount.textContent = amount.dataset.type;
-      loop.classList.add("is-heat", "is-tip");
-      text.textContent = "The heatmap flags Check budget, and a tip points to the missing cost center.";
-      cursor.style.display = "none";
+      reset();
+      place();
+      heat({ check: 1, search: 0.7, category: 0.5, help: 0.45 });
+      count.textContent = "212";
+      loop.classList.add("is-flag", "is-cause");
+      text.textContent = "Clicks pile onto Check budget before cost centre and amount are set.";
     } else {
+      window.addEventListener("resize", place);
       (async function run() {
         for (;;) {
           reset();
+          await wait(50);
+          place();
           start = performance.now();
-          bar.style.transition = "none";
-          bar.style.width = "0";
-          void bar.offsetWidth;
-          bar.style.transition = `width ${LENGTH}ms linear`;
-          bar.style.width = "100%";
 
-          caption("A buyer fills in a purchase request and skips Cost center.");
-          await type(vendor);
-          await type(amount);
-          await wait(300);
+          chapter(0, 4.5);
+          caption("Before: 100 real sessions on a purchase request.");
+          heat({ check: 1, search: 0.7, category: 0.5, help: 0.45 });
+          await rain(4500);
 
-          caption("They click Check budget. Nothing happens, so they keep clicking.");
-          pointAt(btn);
-          await wait(900);
-          for (let i = 0; i < 4; i++) { await click(btn); setStatus("Budget check failed", "is-err"); await wait(380); }
+          chapter(1, 3.5);
+          caption("Clicks pile onto Check budget. It cannot be pressed yet.");
+          loop.classList.add("is-flag");
+          await tally(0, 212, 1600);
+          await wait(1900);
+
+          chapter(2, 3);
+          caption("Intelligent Sights names the cause behind the hotspot.");
+          loop.classList.add("is-cause");
+          await wait(3000);
+
+          chapter(3, 4);
+          caption("Product Fluency pins a tip, and the button unlocks.");
+          loop.classList.remove("is-cause");
+          loop.classList.add("is-tip");
+          pointAt(fills[1], 0.3);
+          await wait(800);
+          await type(fills[1]);
+          pointAt(fills[2], 0.3);
+          await wait(700);
+          await type(fills[2], 60);
+          check.classList.add("is-ready");
+          pointAt(check);
+          await wait(800);
+          await click(check);
+          status.textContent = "Within budget";
+          status.classList.add("is-on");
           await wait(400);
 
-          caption("The friction heatmap flags the button: 42 rage clicks this week.");
-          loop.classList.add("is-heat");
-          await wait(3200);
-
-          caption("Product Fluency pins a tip to the field that is actually missing.");
-          loop.classList.add("is-tip");
-          pointAt(cc.parentElement, 0.15);
-          await wait(1800);
+          chapter(4, 3.5);
+          caption("After flow: rage clicks on Check budget fall from 212 to 18.");
           loop.classList.remove("is-tip");
-          await type(cc, 40);
-
-          caption("Budget check passes. The request moves on and the hotspot cools.");
-          pointAt(btn);
-          await wait(900);
-          await click(btn);
-          setStatus("Within budget", "is-ok");
-          loop.classList.remove("is-heat");
-          await wait(Math.max(400, LENGTH - (performance.now() - start)));
+          loop.classList.add("is-after");
+          mode.textContent = "After flow";
+          heat({ check: 0.15, search: 0.12, category: 0.2, help: 0.05 });
+          await tally(212, 18, 1400);
+          await wait(2100);
         }
       })();
     }

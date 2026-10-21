@@ -113,7 +113,7 @@
     "@type": "VideoObject",
     "name": "See Cognior run on a real workflow",
     "description": "A single purchase request moves from confusion to completion across Product Fluency, ETHOS AI Governance, Cloud Value Optimization, and Intelligent Sights.",
-    "thumbnailUrl": "https://www.cognior.com/assets/video-poster.jpg",
+    "thumbnailUrl": "https://www.cognior.com/assets/video-poster.webp",
     "uploadDate": "2026-10-21",
     "duration": "PT1M30S",
     "contentUrl": "https://www.cognior.com/assets/cognior-workflow-demo.mp4"
@@ -219,27 +219,34 @@
                <source src="/assets/hero-heatmap.mp4" type="video/mp4">
                <track kind="captions" src="/assets/hero-heatmap.vtt" srclang="en" label="English" default>
              </video> -->
-        <!-- Coded stand-in for the loop clip. Story: a buyer skips Cost center, rage clicks Check budget,
-             the heatmap flags the button, Product Fluency pins a tip, the request goes through. -->
-        <figure class="hero__visual frame loop" aria-label="Looping demo. A buyer clicks Check budget again and again on a purchase request, the friction heatmap flags the button, and a Product Fluency tip shows the missing cost center so the request goes through.">
-          <div class="mock-bar"><span></span><span></span><span></span><em>Procurement · New purchase request</em><b class="loop__rec"><i></i>Heatmap</b></div>
+        <!-- Coded stand-in for the 15 to 20 sec loop clip, built on the Intelligent Sights heatmap UI.
+             Chapters: clicks pile up, hotspot flagged, cause named, Product Fluency fix, after flow. -->
+        <figure class="hero__visual frame loop" aria-label="Looping demo. On a purchase request, clicks pile onto a disabled Check budget button. Intelligent Sights flags the hotspot and names the cause, Product Fluency pins a tip to Cost centre, and after the fix rage clicks fall from 212 to 18.">
+          <div class="mock-bar"><span></span><span></span><span></span><em>Intelligent Sights · Screen behaviour heatmap</em><b class="loop__rec"><i></i><span class="loop__mode">Before flow</span></b></div>
           <div class="loop__stage" aria-hidden="true">
-            <div class="loop__form">
-              <div class="lf"><label>Vendor</label><div class="lf__input"><span data-type="Contoso Office Supply"></span></div></div>
-              <div class="lf lf--cc"><label>Cost center <b>*</b></label><div class="lf__input"><span data-type="CC-4120 Marketing"></span></div>
-                <div class="loop__tip"><strong>Product Fluency</strong>Pick a cost center first. Budget check needs it.</div>
-              </div>
-              <div class="lf lf--amt"><label>Amount</label><div class="lf__input"><span data-type="$12,400.00"></span></div></div>
-              <div class="lf lf--actions">
-                <span class="lf__btn">Check budget</span>
-                <span class="lf__status"></span>
+            <div class="app">
+              <div class="app__nav"><span>Dashboard</span><span class="is-on">Requests</span><span>Approvals</span><span class="app__help" data-hot="help">Help</span></div>
+              <div class="app__main">
+                <div class="app__search" data-hot="search">Search help...</div>
+                <p class="app__title">New purchase request</p>
+                <div class="app__tabs"><span class="is-on">Details</span><span>Line items</span><span>Attachments</span></div>
+                <div class="app__grid">
+                  <div class="fld"><span>Request title</span><i data-fill="Q4 laptop refresh"></i></div>
+                  <div class="fld fld--cc"><span>Cost centre</span><i data-fill="CC-4120 Marketing"></i>
+                    <div class="loop__tip"><strong>Product Fluency</strong>Set cost centre and amount first. Check budget unlocks after that.</div>
+                  </div>
+                  <div class="fld fld--amt"><span>Estimated amount</span><i data-fill="$12,400"></i></div>
+                  <div class="fld" data-hot="category"><span>Category</span><i data-fill="IT hardware"></i></div>
+                </div>
+                <div class="app__actions"><span class="app__check" data-hot="check">Check budget</span><span class="app__status"></span><span class="app__submit">Submit</span></div>
               </div>
             </div>
-            <div class="loop__badge"><span class="dot dot--pink"></span>Friction hotspot<em>42 rage clicks this week</em></div>
+            <div class="loop__badge"><span class="loop__badge-k">Check budget</span><b class="loop__count">0</b><em>clicks / 100 sessions</em></div>
+            <div class="loop__insight"><strong>Intelligent Sights · Cause</strong>Users expect Check budget to work before cost centre and amount are set.</div>
             <svg class="loop__cursor" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z"/></svg>
           </div>
-          <figcaption class="loop__caption"><span class="loop__time">0:00</span><span class="loop__text">A buyer opens a purchase request.</span></figcaption>
-          <div class="loop__progress" aria-hidden="true"><i></i></div>
+          <figcaption class="loop__caption"><span class="loop__time">0:00</span><span class="loop__text">Before: 100 real sessions on a purchase request.</span></figcaption>
+          <div class="loop__chapters" aria-hidden="true"><i style="--d:4.5"></i><i style="--d:3.5"></i><i style="--d:3"></i><i style="--d:4"></i><i style="--d:3.5"></i></div>
         </figure>
       </div>
     </section>
@@ -273,16 +280,8 @@
               </ul>
               <a class="btn btn--outline" href="/product-fluency">Explore Product Fluency <span aria-hidden="true">&rarr;</span></a>
             </div>
-            <!-- Replace with <img src="/assets/pillar-product-fluency.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Product Fluency tooltip pinned to a required field in a live procurement form."> -->
-            <figure class="pillar__shot frame" role="img" aria-label="Product Fluency tooltip pinned to a required field in a live procurement form.">
-              <div class="mock-bar"><span></span><span></span><span></span><em>Procurement · New request</em></div>
-              <div class="mock-form">
-                <div class="mock-field"><label>Supplier</label><div class="mock-input"></div></div>
-                <div class="mock-field mock-field--focus"><label>GL account <b>*</b></label><div class="mock-input"></div>
-                  <div class="tooltip"><strong>Step 2 of 4</strong>Pick the GL account that matches your cost center. Ask Finance if it is missing.<span class="tooltip__btn">Next</span></div>
-                </div>
-                <div class="mock-field"><label>Delivery date</label><div class="mock-input mock-input--short"></div></div>
-              </div>
+            <figure class="pillar__shot frame" style="--shot-bg: #110914">
+              <img src="/assets/pillar-product-fluency.webp" width="1536" height="1276" loading="lazy" decoding="async" alt="Product Fluency spotlight pinned to the billing schedule field of a Salesforce CPQ deal, telling the user to select Net-45 for EMEA entities.">
             </figure>
           </article>
 
@@ -299,15 +298,8 @@
               </ul>
               <a class="btn btn--outline" href="/ai-governance">Explore AI Governance <span aria-hidden="true">&rarr;</span></a>
             </div>
-            <figure class="pillar__shot frame" role="img" aria-label="ETHOS gateway log showing a blocked prompt injection and a sanitized customer identifier.">
-              <div class="mock-bar"><span></span><span></span><span></span><em>ETHOS · Gateway log</em></div>
-              <div class="mock-log">
-                <p><time>10:42:07</time><span class="tag tag--ok">ALLOW</span>finance · gpt-4o · policy FIN-02 · 8 ms</p>
-                <p class="is-hot"><time>10:42:09</time><span class="tag tag--bad">BLOCK</span>sales · prompt injection detected · 11 ms</p>
-                <p><time>10:42:11</time><span class="tag tag--warn">MASK</span>support · customer_id &rarr; <code>[CUST_••••]</code></p>
-                <p><time>10:42:14</time><span class="tag tag--ok">ROUTE</span>legal · failover &rarr; claude · 9 ms</p>
-                <p><time>10:42:16</time><span class="tag tag--ok">ALLOW</span>hr · azure-ai · policy HR-01 · 7 ms</p>
-              </div>
+            <figure class="pillar__shot frame" style="--shot-bg: #07050e">
+              <img src="/assets/pillar-ai-governance.webp" width="1600" height="723" loading="lazy" decoding="async" alt="ETHOS orchestration map routing requests from IDEs, browsers, copilots and agents through identity, injection, PII and cache guardrails to frontier, on-premises and fast-tier models.">
             </figure>
           </article>
 
@@ -324,21 +316,8 @@
               </ul>
               <a class="btn btn--outline" href="/azure-cost-management">Explore Cloud Value Optimization <span aria-hidden="true">&rarr;</span></a>
             </div>
-            <figure class="pillar__shot frame" role="img" aria-label="Azure service map showing an AKS production mesh linked to Container Registry and Azure SQL.">
-              <div class="mock-bar"><span></span><span></span><span></span><em>Azure · Service map</em></div>
-              <svg class="mock-map" viewBox="0 0 320 200" aria-hidden="true">
-                <g stroke="currentColor" stroke-opacity=".35" stroke-width="1.2" fill="none">
-                  <path d="M160 100 L70 50"/><path d="M160 100 L70 150"/><path d="M160 100 L255 55"/><path d="M160 100 L255 150"/><path d="M255 55 L255 150"/>
-                </g>
-                <g font-family="JetBrains Mono, monospace" font-size="8" fill="#cbd5e1" text-anchor="middle">
-                  <circle cx="160" cy="100" r="30" fill="rgba(255,115,102,.18)" stroke="#ff7366" stroke-width="1.5"/>
-                  <text x="160" y="98">AKS</text><text x="160" y="108">prod-mesh</text>
-                  <circle cx="70" cy="50" r="14" fill="#0e1526" stroke="#334155"/><text x="70" y="77">Registry</text>
-                  <circle cx="70" cy="150" r="14" fill="#0e1526" stroke="#334155"/><text x="70" y="177">Key Vault</text>
-                  <circle cx="255" cy="55" r="14" fill="#0e1526" stroke="#334155"/><text x="255" y="82">Azure SQL</text>
-                  <circle cx="255" cy="150" r="14" fill="#0e1526" stroke="#334155"/><text x="255" y="177">Storage</text>
-                </g>
-              </svg>
+            <figure class="pillar__shot frame" style="--shot-bg: #303440">
+              <img src="/assets/pillar-cloud-value.webp" width="1600" height="1111" loading="lazy" decoding="async" alt="Azure tenant view with sample monthly spend and five open recommendations: rightsizing, reserved capacity, storage tiering, auto-shutdown and disk cleanup.">
             </figure>
           </article>
 
@@ -356,15 +335,8 @@
               </ul>
               <a class="btn btn--outline" href="/intelligent-sights">Explore Intelligent Sights <span aria-hidden="true">&rarr;</span></a>
             </div>
-            <figure class="pillar__shot frame" role="img" aria-label="Intelligent Sights journey map showing 310 sessions dropping off at the Request details step.">
-              <div class="mock-bar"><span></span><span></span><span></span><em>Intelligent Sights · Journey map</em></div>
-              <ol class="mock-journey">
-                <li><span>Open form</span><i style="--w:100%"></i><b>1,240</b></li>
-                <li><span>Select vendor</span><i style="--w:88%"></i><b>1,092</b></li>
-                <li class="is-hot"><span>Request details</span><i style="--w:63%"></i><b>782</b><em>&minus;310 sessions</em></li>
-                <li><span>Approve</span><i style="--w:58%"></i><b>720</b></li>
-                <li><span>Submit</span><i style="--w:55%"></i><b>684</b></li>
-              </ol>
+            <figure class="pillar__shot frame" style="--shot-bg: #040710">
+              <img src="/assets/pillar-intelligent-sights.webp" width="1600" height="1104" loading="lazy" decoding="async" alt="Intelligent Sights portfolio chart plotting license utilization against friction score, with the procurement platform flagged for redesign.">
             </figure>
           </article>
         </div>
@@ -379,18 +351,20 @@
           <h2 id="video-title">See it run on a real workflow.</h2>
           <p class="section__lead">Watch a single purchase request move from confusion to completion across all four products.</p>
           <ol class="chapters">
-            <li><time>0:00</time>Friction heatmap flags the Check budget button</li>
-            <li><time>0:15</time>Product Fluency places a tooltip</li>
-            <li><time>0:35</time>Intelligent Sights shows the drop-off step</li>
-            <li><time>0:55</time>ETHOS routes a prompt with guardrails</li>
-            <li><time>1:10</time>Cloud Value shows the dependency graph</li>
+            <li style="--c: var(--coral)"><button type="button" data-video-open data-t="0" aria-label="Play from 0:00: Friction heatmap flags the Check budget button"><time>0:00</time><span class="chapters__body"><b>Friction heatmap</b>Friction heatmap flags the Check budget button</span><em>15s</em></button></li>
+            <li style="--c: var(--sky)"><button type="button" data-video-open data-t="15" aria-label="Play from 0:15: Product Fluency places a tooltip"><time>0:15</time><span class="chapters__body"><b>Product Fluency</b>Product Fluency places a tooltip</span><em>20s</em></button></li>
+            <li style="--c: var(--blue)"><button type="button" data-video-open data-t="35" aria-label="Play from 0:35: Intelligent Sights shows the drop-off step"><time>0:35</time><span class="chapters__body"><b>Intelligent Sights</b>Intelligent Sights shows the drop-off step</span><em>20s</em></button></li>
+            <li style="--c: var(--pink)"><button type="button" data-video-open data-t="55" aria-label="Play from 0:55: ETHOS routes a prompt with guardrails"><time>0:55</time><span class="chapters__body"><b>ETHOS AI Governance</b>ETHOS routes a prompt with guardrails</span><em>15s</em></button></li>
+            <li style="--c: #fbbf24"><button type="button" data-video-open data-t="70" aria-label="Play from 1:10: Cloud Value shows the dependency graph"><time>1:10</time><span class="chapters__body"><b>Cloud Value Optimization</b>Cloud Value shows the dependency graph</span><em>20s</em></button></li>
           </ol>
           <a class="btn btn--primary" href="/book-a-walkthrough">Book a walkthrough <span aria-hidden="true">&rarr;</span></a>
         </div>
         <!-- Poster is a still from the video. The video loads only on click, inside a modal, so nothing reflows. -->
-        <button class="video__poster frame" type="button" data-video-open aria-haspopup="dialog" aria-label="Play the 90 second Cognior workflow demo">
+        <button class="video__poster frame" type="button" data-video-open data-t="0" aria-haspopup="dialog" aria-label="Play the 90 second Cognior workflow demo">
+          <img src="/assets/video-poster.webp" width="1600" height="710" loading="lazy" decoding="async" alt="">
           <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="video__meta">1:30 · Captioned</span>
+          <span class="video__scrub" aria-hidden="true"><i style="--c: var(--coral); --d: 15"></i><i style="--c: var(--sky); --d: 20"></i><i style="--c: var(--blue); --d: 20"></i><i style="--c: var(--pink); --d: 15"></i><i style="--c: #fbbf24; --d: 20"></i></span>
         </button>
       </div>
     </section>
@@ -398,7 +372,7 @@
     <dialog class="modal" id="video-modal" aria-label="Cognior workflow demo">
       <button class="modal__close" type="button" data-video-close aria-label="Close video">&times;</button>
       <div class="modal__body">
-        <video controls playsinline preload="none" poster="/assets/video-poster.jpg" data-src="/assets/cognior-workflow-demo.mp4">
+        <video controls playsinline preload="none" poster="/assets/video-poster.webp" data-src="/assets/cognior-workflow-demo.mp4">
           <track kind="captions" src="/assets/cognior-workflow-demo.vtt" srclang="en" label="English" default>
         </video>
       </div>
