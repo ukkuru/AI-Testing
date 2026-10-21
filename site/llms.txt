@@ -1,0 +1,14 @@
+# Cognior
+
+> Cognior is an enterprise digital adoption platform. It shows which software people use, governs AI and shadow AI through a single gateway, reduces Azure and SaaS waste, and guides users inside the applications they work in.
+
+## Products
+
+- [Product Fluency](https://www.cognior.com/product-fluency): In-app guidance, form automation, and sandbox rehearsal for software adoption
+- [AI Governance (ETHOS)](https://www.cognior.com/ai-governance): LLM gateway with guardrails, model routing, prompt management, and an audit trail
+- [Azure cost management](https://www.cognior.com/azure-cost-management): Read only Azure discovery, rightsizing, reservation tracking, and unit economics
+- [Intelligent Sights](https://www.cognior.com/intelligent-sights): Software asset management, usage analytics, journey maps, and AI copilot ROI
+
+## Company
+
+- [Homepage](https://www.cognior.com/): Overview of the four products and how they connect

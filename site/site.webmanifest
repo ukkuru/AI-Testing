@@ -1,0 +1,10 @@
+{
+  "name": "Cognior",
+  "short_name": "Cognior",
+  "icons": [
+    { "src": "/assets/cognior-mark.png", "sizes": "620x620", "type": "image/png" }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone"
+}

@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/cloud", "destination": "/azure-cost-management", "permanent": true },
+    { "source": "/analytics", "destination": "/intelligent-sights", "permanent": true },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "cognior.vercel.app" }],
+      "destination": "https://www.cognior.com/:path*",
+      "permanent": true
+    }
+  ]
+}
