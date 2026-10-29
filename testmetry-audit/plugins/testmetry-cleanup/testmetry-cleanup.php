@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Cleanup Redirects
  * Description: 301 redirects for merged, expired or retired posts; rewrites or removes internal links to them and to known dead or placeholder URLs. Deactivate to undo.
- * Version: 1.0.2
+ * Version: 1.0.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 function tmcr_redirects() { return array(
@@ -144,7 +144,7 @@ function tmcr_removed() { return array(
 		'/tutorials-2',
 		'/what-is-performance-engineering',
 	); }
-add_action( 'template_redirect', function () {
+add_action( 'parse_request', function () {
 	if ( is_admin() ) { return; }
 	$path = untrailingslashit( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ) );
 	$map  = tmcr_redirects();
