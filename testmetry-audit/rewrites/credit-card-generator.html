@@ -1,0 +1,86 @@
+<p>If you need card numbers to test a checkout, skip the random credit card generator. Randomly generated numbers pass a Luhn check, but real payment sandboxes such as Stripe reject them. Use the official sandbox test card numbers below instead: they work in test mode, can trigger specific declines, and can never charge anyone. Use the free checker to confirm any test number is well formed and see which brand it belongs to.</p>
+
+<h2>Official test credit card numbers (Stripe test mode)</h2>
+<p>For every card below, use any future expiry date, any 3 digit CVC (4 digits for American Express) and any postcode. These numbers only work in test mode.</p>
+<table>
+<thead><tr><th>Brand</th><th>Test card number</th><th>CVC</th></tr></thead>
+<tbody>
+<tr><td>Visa</td><td><code>4242 4242 4242 4242</code></td><td>Any 3 digits</td></tr>
+<tr><td>Mastercard</td><td><code>5555 5555 5555 4444</code></td><td>Any 3 digits</td></tr>
+<tr><td>Mastercard (2 series)</td><td><code>2223 0031 2200 3222</code></td><td>Any 3 digits</td></tr>
+<tr><td>American Express</td><td><code>3782 822463 10005</code></td><td>Any 4 digits</td></tr>
+<tr><td>Discover</td><td><code>6011 1111 1111 1117</code></td><td>Any 3 digits</td></tr>
+<tr><td>Diners Club</td><td><code>3056 9300 0902 0004</code></td><td>Any 3 digits</td></tr>
+<tr><td>JCB</td><td><code>3566 0020 2036 0505</code></td><td>Any 3 digits</td></tr>
+<tr><td>UnionPay</td><td><code>6200 0000 0000 0005</code></td><td>Any 3 digits</td></tr>
+</tbody>
+</table>
+<p>Source: <a href="https://docs.stripe.com/testing" target="_blank" rel="noopener">Stripe testing documentation</a>. Check the provider's page before a release, because lists change.</p>
+
+<h2>Test card numbers that trigger declines and 3D Secure</h2>
+<p>A happy path test is not enough. These numbers let you prove your error messages and retry logic work.</p>
+<table>
+<thead><tr><th>Scenario</th><th>Test card number</th><th>Result in Stripe</th></tr></thead>
+<tbody>
+<tr><td>Generic decline</td><td><code>4000 0000 0000 0002</code></td><td>card_declined</td></tr>
+<tr><td>Insufficient funds</td><td><code>4000 0000 0000 9995</code></td><td>insufficient_funds</td></tr>
+<tr><td>Expired card</td><td><code>4000 0000 0000 0069</code></td><td>expired_card</td></tr>
+<tr><td>Incorrect CVC</td><td><code>4000 0000 0000 0127</code></td><td>incorrect_cvc</td></tr>
+<tr><td>Processing error</td><td><code>4000 0000 0000 0119</code></td><td>processing_error</td></tr>
+<tr><td>Always requires 3D Secure</td><td><code>4000 0027 6000 3184</code></td><td>Authentication challenge on every payment</td></tr>
+</tbody>
+</table>
+
+<h2>Free Luhn checker for test card numbers</h2>
+<p>Paste a test number to see if it passes the Luhn (mod 10) check and which card brand it belongs to. It runs in your browser and nothing is sent or stored. Only use sandbox numbers here, never a real card.</p>
+
+[tm_luhn_checker]
+
+<h2>Why a random credit card generator is the wrong tool for payment testing</h2>
+<p>Most credit card generator sites produce a random number that passes the Luhn check and attach a random expiry date and CVV. That looks useful, but it causes three problems for testers.</p>
+<ul>
+<li><strong>Sandboxes reject them.</strong> Stripe, Braintree, Adyen and PayPal only accept their own published test numbers in test mode. A random number fails before your code is even exercised.</li>
+<li><strong>You cannot test failure paths.</strong> A random number cannot ask the gateway for an insufficient funds or 3D Secure response. Official test cards can, and failure paths are where most checkout bugs hide.</li>
+<li><strong>A random number might be real.</strong> A Luhn valid number with a real bank prefix can belong to an actual cardholder. Typing it into a live payment form is a real transaction attempt. Sandbox numbers carry no such risk.</li>
+</ul>
+<p>The Luhn check only proves a number is well formed. It is a typo filter, not proof that a card exists. That is why the checker above is useful for validating your form logic, but the table is what you should paste into your checkout.</p>
+
+<h2>Where to find test cards for other payment gateways</h2>
+<ul>
+<li><strong>Stripe:</strong> <a href="https://docs.stripe.com/testing" target="_blank" rel="noopener">docs.stripe.com/testing</a></li>
+<li><strong>Braintree (PayPal):</strong> the testing page in the Braintree developer documentation</li>
+<li><strong>Adyen:</strong> the test card numbers page in the Adyen docs</li>
+<li><strong>PayPal:</strong> the sandbox testing guide in the PayPal developer portal</li>
+<li><strong>Razorpay and other regional gateways:</strong> each publishes its own test cards in its test mode docs</li>
+</ul>
+<p>Each gateway's numbers only work in that gateway's sandbox, so always use the list from the provider you are integrating.</p>
+
+<h2>A payment testing checklist</h2>
+<ol>
+<li>Successful payment for every card brand you accept.</li>
+<li>Each decline type shows a clear, specific message to the shopper.</li>
+<li>3D Secure challenge passes, fails and gets abandoned without leaving a broken order.</li>
+<li>Card number field accepts spaces, rejects letters and handles 15 digit Amex numbers.</li>
+<li>Expired dates and wrong CVC lengths are caught before the request is sent.</li>
+<li>Double clicks on the pay button never create two charges.</li>
+<li>Refunds and partial refunds update the order status.</li>
+<li>No full card number appears in your logs, analytics or error reports.</li>
+</ol>
+<p>Want more ideas? See how interviewers expect you to <a href="https://testmetry.com/scenario-based-software-testing-interview/">test a payment gateway integration</a>, and keep your test cards organised with good <a href="https://testmetry.com/test-data-management/">test data management</a>.</p>
+
+<h2>Frequently asked questions</h2>
+<h3>Are these test credit card numbers free to use?</h3>
+<p>Yes. Payment providers publish them so developers can test checkouts. They only work in test mode and cannot make real purchases.</p>
+<h3>What CVV and expiry date should I use with test cards?</h3>
+<p>In Stripe test mode, use any future expiry date and any 3 digit CVC, or 4 digits for American Express.</p>
+<h3>Do credit card generator numbers work for real purchases?</h3>
+<p>No, and you should never try. Generated numbers either fail or, in rare cases, match a real person's card. Using someone else's card details is fraud.</p>
+<h3>What is the Luhn algorithm?</h3>
+<p>The Luhn algorithm, also called mod 10, is a simple checksum that catches most typing mistakes in card numbers. Passing it means the number is well formed, not that the card exists or has funds.</p>
+<h3>Can I use the same test card in every payment gateway?</h3>
+<p>Not always. 4242 4242 4242 4242 is specific to Stripe. Other gateways publish their own lists, so check the documentation for the one you use.</p>
+<h3>How do I test a declined payment?</h3>
+<p>Use a decline test number such as 4000 0000 0000 0002 in Stripe test mode. Other numbers simulate insufficient funds, an expired card or an incorrect CVC.</p>
+
+<h2>Bottom line</h2>
+<p>For payment testing, official sandbox test cards beat any random credit card generator. They work in test mode, they let you trigger the exact failure you want, and they never touch a real account. Bookmark this page for the numbers, and use the Luhn checker to validate your own form logic.</p>

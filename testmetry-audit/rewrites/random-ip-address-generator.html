@@ -1,0 +1,84 @@
+<p>A random IP address generator creates correctly formatted IPv4 or IPv6 addresses that you can use as fake test data. Use the free tool below to generate up to 1,000 random IPs at once, choose public, private or documentation ranges, and copy or download them as TXT, CSV or JSON. Everything runs in your browser, so nothing you generate is sent anywhere.</p>
+
+[tm_ip_generator]
+
+<h2>How to use this random IP address generator</h2>
+<ol>
+<li><strong>Pick the IP version.</strong> IPv4 gives you familiar addresses like 203.0.113.42. IPv6 gives you long addresses like 2001:db8:5521:2817:613d:a1aa:6920:c2ea.</li>
+<li><strong>Pick the address type.</strong> Public creates addresses in the normal internet ranges. Private creates addresses for internal networks. Documentation creates placeholders that are reserved for examples and will never belong to a real device. Custom range lets you type any IPv4 block in CIDR form, such as 10.0.0.0/24.</li>
+<li><strong>Choose how many.</strong> Anything from 1 to 1,000 per click.</li>
+<li><strong>Generate, then copy or download.</strong> Tick Show hex if you also want each IPv4 address in hexadecimal, which is handy for log parsers and packet tools.</li>
+</ol>
+
+<h2>Which address type should you choose?</h2>
+<p>This is the choice that matters most, and most random IP tools skip it. The right range depends on where the data will end up.</p>
+<table>
+<thead><tr><th>Type</th><th>IPv4 ranges used</th><th>IPv6 range used</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td>Documentation</td><td>192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24 (RFC 5737)</td><td>2001:db8::/32 (RFC 3849)</td><td>Docs, screenshots, sample configs, demo data that might leak into public</td></tr>
+<tr><td>Private</td><td>10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 (RFC 1918)</td><td>fd00::/8 (unique local)</td><td>Lab networks, Docker and Kubernetes configs, firewall rule tests</td></tr>
+<tr><td>Public</td><td>Any IPv4 address outside the reserved blocks</td><td>2000::/3 (global unicast)</td><td>Geo lookup tests, log analytics, rate limiting and allow list logic</td></tr>
+<tr><td>Custom range</td><td>Any CIDR block you enter</td><td>Not available</td><td>Simulating traffic from one subnet or one office</td></tr>
+</tbody>
+</table>
+<p>One honest warning about the public option: a random public address is correctly formatted, but it can still belong to a real company or a real person. Use public IPs as data inside your own systems. Never send traffic to them or use them in anything that touches someone else's network. When in doubt, use the documentation ranges, which exist for exactly this reason.</p>
+
+<h2>What is a fake IP address?</h2>
+<p>A fake IP address is a made up address that follows the right format but is not assigned to the device using it. Testers and developers use fake IPs as placeholder data: filling a users table, seeding an analytics dashboard, or checking that a form rejects 300.1.1.1 but accepts 198.51.100.7.</p>
+<p>A fake IP address does not hide your real one. Typing a random number into a tool does not change the address websites see when you browse. If you need privacy online, that is the job of a VPN or a proxy server, which route your traffic through a different machine. A generator only gives you data.</p>
+
+<h2>IPv4 vs IPv6 at a glance</h2>
+<table>
+<thead><tr><th></th><th>IPv4</th><th>IPv6</th></tr></thead>
+<tbody>
+<tr><td>Size</td><td>32 bits</td><td>128 bits</td></tr>
+<tr><td>Format</td><td>Four numbers from 0 to 255, separated by dots</td><td>Eight groups of hex digits, separated by colons</td></tr>
+<tr><td>Example</td><td>203.0.113.42</td><td>2001:db8::8a2e:370:7334</td></tr>
+<tr><td>Total addresses</td><td>About 4.3 billion</td><td>About 340 undecillion (2 to the power of 128)</td></tr>
+</tbody>
+</table>
+<p>If your app stores or validates IPs, test both. A surprising number of bugs come from database columns sized for IPv4 that silently cut IPv6 addresses short.</p>
+
+<h2>Testing scenarios where random IPs help</h2>
+<ul>
+<li><strong>Input validation.</strong> Mix valid addresses from the tool with invalid ones you write by hand (256.0.0.1, 1.2.3, empty strings) and confirm your forms and APIs accept and reject the right ones.</li>
+<li><strong>Load and rate limit tests.</strong> Feed a list of 1,000 IPs into a header such as X-Forwarded-For in a staging environment to check per IP throttling. Our guide to <a href="https://testmetry.com/load-testing-tools/">load testing tools</a> covers tools like JMeter and k6 that can read the CSV directly.</li>
+<li><strong>Firewall and allow list rules.</strong> Generate addresses inside and outside a custom CIDR range to prove a rule blocks exactly what it should.</li>
+<li><strong>Analytics and logging.</strong> Seed dashboards and SIEM pipelines with realistic looking traffic before real users arrive.</li>
+<li><strong>Security tool checks.</strong> Use generated lists to confirm your scanners and <a href="https://testmetry.com/tools-for-security-testing/">security testing tools</a> parse and store addresses correctly. Only scan systems you own or are authorised to test.</li>
+<li><strong>Privacy safe test data.</strong> Swap real customer IPs in copied production data for generated ones, a basic step in <a href="https://testmetry.com/test-data-management/">test data management</a>.</li>
+</ul>
+
+<h2>Generate random IPs in code</h2>
+<p>Need IPs inside an automated test? A few lines are enough.</p>
+<p><strong>Python</strong></p>
+<pre><code>import ipaddress, random
+net = ipaddress.ip_network("198.51.100.0/24")
+ips = [str(net[random.randrange(net.num_addresses)]) for _ in range(10)]
+print(ips)</code></pre>
+<p><strong>JavaScript</strong></p>
+<pre><code>const ip = () =&gt; [203, 0, 113, Math.floor(Math.random() * 256)].join(".");
+console.log(Array.from({ length: 10 }, ip));</code></pre>
+<p>If you already use the Faker library, <code>fake.ipv4()</code> in Python Faker and <code>faker.internet.ipv4()</code> in JavaScript Faker do the same job. For API tests, the CSV download from the tool above drops straight into a data driven run, as shown in our <a href="https://testmetry.com/postman-automation/">Postman automation</a> guide.</p>
+
+<h2>How to convert an IP address to hex</h2>
+<p>Convert each of the four numbers to a two digit hex value and join them. For 192.168.0.1: 192 is C0, 168 is A8, 0 is 00 and 1 is 01, so the result is C0A80001. Tick Show hex in the tool to get this for every generated address.</p>
+
+<h2>Frequently asked questions</h2>
+<h3>Is this random IP generator free?</h3>
+<p>Yes. It is free with no sign up, generates up to 1,000 addresses per click, and runs entirely in your browser.</p>
+<h3>Can a random IP address hide my identity?</h3>
+<p>No. A generated address is just text. It does not change the address your device uses online. To browse with a different IP you need a VPN, a proxy or a network that assigns you a new address.</p>
+<h3>Is it legal to use a fake IP address generator?</h3>
+<p>Generating addresses for testing, teaching and sample data is legal. Using any IP address to impersonate someone, dodge a ban or attack a system is not, whether the address came from a generator or not.</p>
+<h3>What is the safest fake IP address to use in documentation?</h3>
+<p>Use 192.0.2.x, 198.51.100.x or 203.0.113.x for IPv4 and 2001:db8:: for IPv6. These blocks are reserved for documentation, so they will never route to a real device.</p>
+<h3>Can I generate random IPs within a specific range?</h3>
+<p>Yes. Choose Custom IPv4 range and enter a CIDR block such as 10.0.0.0/24 or 172.16.5.0/28. Every address generated will fall inside that block.</p>
+<h3>Can I generate random IPv6 addresses?</h3>
+<p>Yes. Switch the version to IPv6 and pick public, private (unique local) or documentation addresses.</p>
+<h3>What formats can I download?</h3>
+<p>TXT for a plain list, CSV for spreadsheets and test tools, and JSON for code. With Show hex ticked, the CSV and JSON files include the hex value too.</p>
+
+<h2>Bottom line</h2>
+<p>For anything that could end up in public, generate documentation range IPs. For lab and network configs, use private ranges. Save public addresses for data that stays inside your own systems. The generator at the top of this page handles all three, plus custom ranges, in one click.</p>
