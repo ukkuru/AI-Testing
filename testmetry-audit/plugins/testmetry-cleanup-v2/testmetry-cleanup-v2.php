@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Testmetry Cleanup Redirects
+ * Plugin Name: Testmetry Cleanup Redirects v2
  * Description: 301 redirects for merged, expired or retired posts; rewrites or removes internal links to them and to known dead or placeholder URLs. Deactivate to undo.
- * Version: 1.0.3
+ * Version: 1.0.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
-function tmcr_redirects() { return array(
+function tmc2_redirects() { return array(
 		'/5-common-mistakes-to-avoid-in-checklist-based-testing' => 'https://testmetry.com/what-is-checklist-based-testing/',
 		'/a-comprehensive-guide-to-test-estimation-techniques' => 'https://testmetry.com/software-test-estimation-techniques/',
 		'/application-testing-service' => 'https://testmetry.com/automation-testing-service/',
@@ -30,7 +30,6 @@ function tmcr_redirects() { return array(
 		'/github-copilot-for-test-automation' => 'https://testmetry.com/github-copilot-in-test/',
 		'/how-to-manage-software-testing-defects-efficiently' => 'https://testmetry.com/software-defects/',
 		'/how-to-use-openai-operator-ai-agent' => 'https://testmetry.com/need-to-know-about-openais-operator-ai-agent/',
-		'/list-of-test-automation-tools' => 'https://testmetry.com/automation-testing-tools-for-web-apps/',
 		'/low-code-development-platform' => 'https://testmetry.com/low-code-platforms/',
 		'/mistakes-to-avoid-in-checklist-based-testing' => 'https://testmetry.com/what-is-checklist-based-testing/',
 		'/mobile-performance-testing-services' => 'https://testmetry.com/performance-testing-for-mobile-apps/',
@@ -86,7 +85,7 @@ function tmcr_redirects() { return array(
 		'/what-is-software-testing-ways' => 'https://testmetry.com/what-is-testing-in-software/',
 		'/what-is-visual-testing-in-qa' => 'https://testmetry.com/visual-testing/',
 	); }
-function tmcr_removed() { return array(
+function tmc2_removed() { return array(
 		'/2024-2',
 		'/3-key-takeaways-from-twitters-recent-downtime',
 		'/accessibility-testing-automation',
@@ -147,12 +146,12 @@ function tmcr_removed() { return array(
 add_action( 'parse_request', function () {
 	if ( is_admin() ) { return; }
 	$path = untrailingslashit( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ) );
-	$map  = tmcr_redirects();
+	$map  = tmc2_redirects();
 	if ( isset( $map[ $path ] ) ) { wp_safe_redirect( $map[ $path ], 301, 'Testmetry Cleanup' ); exit; }
 }, 1 );
 add_filter( 'the_content', function ( $content ) {
 	if ( false === stripos( $content, '<a' ) ) { return $content; }
-	$map = tmcr_redirects(); $removed = array_flip( tmcr_removed() );
+	$map = tmc2_redirects(); $removed = array_flip( tmc2_removed() );
 	return preg_replace_callback( '#<a\s[^>]*href=(["\'])([^"\']*)\1[^>]*>(.*?)</a>#is', function ( $m ) use ( $map, $removed ) {
 		$href = trim( $m[2] );
 		if ( '' === $href || preg_match( '#^(\#|mailto:|tel:|/(?!/))#i', $href ) ) { return $m[0]; }
