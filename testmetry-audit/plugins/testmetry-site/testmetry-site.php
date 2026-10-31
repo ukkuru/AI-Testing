@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Testmetry Site
  * Description: Light logo-palette theme for the whole site: one shared header and footer, a restyled blog and archive layout, and light styling for posts and pages. Markup and CSS only; post content, URLs and SEO tags are untouched. While TMS_LIVE is false it shows only when ?tmsite=1 is in the address, for testing.
- * Version: 1.0.5
+ * Version: 1.1.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'TMS_LIVE', false );
+define( 'TMS_LIVE', true );
 define( 'TMS_DIR', plugin_dir_path( __FILE__ ) );
 
 /* ---------- Always on (safe for everyone) ---------- */
@@ -199,7 +199,7 @@ function tms_chrome_css() {
 .tms-search,.tms-search summary{border:0!important;box-shadow:none!important;background:none;margin:0;min-width:0;width:auto;height:auto}
 .tms-search summary{padding:10px!important}
 .tms-header .tms-search{padding:0!important;margin:0!important}.tms-header .tms-logo{margin-bottom:0!important}
-.gtranslate_wrapper,.gt_switcher_wrapper{position:fixed!important;top:auto!important;right:auto!important;bottom:14px!important;left:14px!important;z-index:40!important}
+.gtranslate_wrapper,html body div.gt_switcher_wrapper{position:fixed!important;top:auto!important;right:auto!important;bottom:14px!important;left:14px!important;z-index:40!important}
 @media (max-width:900px){.tms-bar{padding-left:14px!important;padding-right:14px!important}.tms-logo svg{width:30px;height:30px}.tms-sub{padding:9px 12px!important}.tms-logo{font-size:20px!important}.tms-bar{gap:8px 8px!important}.tms-sub{white-space:nowrap}}
 .tms-footer{background:#0b2a5b;color:#d3dbe8;margin-top:56px}
 .tms-footer .tms-wrap{padding-top:56px;padding-bottom:28px}
@@ -236,8 +236,9 @@ body.tms:not(.tmh-body) .elementor-widget-theme-post-content a:hover,body.tms:no
 body.tms:not(.tmh-body) .elementor-breadcrumbs a,body.tms:not(.tmh-body) .elementor-breadcrumbs span,body.tms:not(.tmh-body) .rank-math-breadcrumb a{color:#0b2a5b!important}
 body.tms .elementor-breadcrumbs,body.tms .elementor-breadcrumbs *,body.tms [class*=breadcrumb] *{color:#5b6780!important}
 body.tms .elementor-breadcrumbs a,body.tms .elementor-icon-list-item a,body.tms .elementor-icon-list-text a{color:#0b2a5b!important}
-body.tms .tms-ondark,body.tms .tms-ondark *{color:#fff!important}
-body.tms .tms-ondark a{color:#f6cf4b!important}
+body.tms .jp-relatedposts-post-date,body.tms .jp-relatedposts-post-context{color:#475569!important;opacity:1!important}
+body.tms .tms-lightify,body.tms .tms-lightify>.elementor-container,body.tms .tms-lightify .elementor-background-overlay{background:#fff!important;background-image:none!important}
+body.tms .tms-lightify .elementor-background-overlay{display:none!important}
 body.tms .gt_switcher_wrapper,body.tms .gtranslate_wrapper{position:fixed!important;top:auto!important;right:auto!important;bottom:14px!important;left:14px!important;z-index:40}
 body.tms:not(.tmh-body) .elementor-post__title a,body.tms:not(.tmh-body) h2 a,body.tms:not(.tmh-body) h3 a{color:#0b2a5b!important;text-decoration:none}
 body.tms:not(.tmh-body) .elementor-post__read-more{color:#0b2a5b!important;font-weight:600;text-decoration:underline}
@@ -370,7 +371,7 @@ function tms_swap_chrome( $html, $header, $footer ) {
 }
 
 add_action( 'template_redirect', function () {
-	if ( ! tms_active() || is_feed() || is_embed() || is_404() ) { return; }
+	if ( ! tms_active() || is_feed() || is_embed() ) { return; }
 	if ( ( is_category() || is_home() || is_tag() ) ) { return; } // these use our own template
 	if ( function_exists( 'tmh_is_tm_page' ) && tmh_is_tm_page() ) { return; } // the homepage plugin builds its own
 	// Build the new markup now: output buffering callbacks cannot start buffers of their own.
@@ -404,8 +405,7 @@ add_action( 'wp_footer', function () {
 	if ( ! tms_active() || is_category() || is_home() || is_tag() || is_single() ) { return; }
 	if ( function_exists( 'tmh_is_tm_page' ) && tmh_is_tm_page() ) { return; }
 	?>
-<script nowprocket>(function(){function bg(e){while(e&&e!==document.body){var c=getComputedStyle(e).backgroundColor,m=c.match(/[\d.]+/g);if(m&&(m.length<4||+m[3]>0.5)){return m}if(getComputedStyle(e).backgroundImage!=='none'&&!/gradient/.test(getComputedStyle(e).backgroundImage)){return [0,0,0]}e=e.parentElement}return null}
-function dark(m){return m&&(0.299*m[0]+0.587*m[1]+0.114*m[2])<110}
-document.querySelectorAll('main h1,main h2,main h3,main h4,main p,main li,.elementor h1,.elementor h2,.elementor h3,.elementor h4,.elementor p,.elementor li,.elementor .elementor-heading-title').forEach(function(e){if(e.closest('.tms-header,.tms-footer,.tms-ondark'))return;var b=bg(e.parentElement);if(dark(b))e.classList.add('tms-ondark')})})();</script>
+<script nowprocket>(function(){function lum(c){var m=c.match(/[\d.]+/g);if(!m||(m.length>3&&+m[3]<0.5))return null;return 0.299*m[0]+0.587*m[1]+0.114*m[2]}
+document.querySelectorAll('.elementor-section,.e-con').forEach(function(e){if(e.closest('.tms-header,.tms-footer'))return;var cs=getComputedStyle(e),l=lum(cs.backgroundColor);var img=cs.backgroundImage!=='none'&&!/gradient/.test(cs.backgroundImage);var ov=e.querySelector(':scope>.elementor-background-overlay,:scope>.elementor-container>.elementor-background-overlay');if((l!==null&&l<110)||img||ov)e.classList.add('tms-lightify')})})();</script>
 <?php
 }, 99 );
