@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    container_name: linkedin-sdet-analyzer
+    restart: unless-stopped
+    # Bound to localhost only — Nginx on the host is the public entry
+    # point, same pattern as the other app already running on this VPS.
+    ports:
+      - "127.0.0.1:3101:8787"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/server/data
