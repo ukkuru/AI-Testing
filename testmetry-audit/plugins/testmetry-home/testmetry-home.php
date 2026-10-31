@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Home
  * Description: The testmetry.com homepage, rendered by the [tm_home] shortcode with its own CSS. Deactivate and set the front page back to Elementor to undo.
- * Version: 1.4.0
+ * Version: 1.5.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -43,8 +43,46 @@ add_action( 'wp_head', function () {
 	if ( ! tmh_is_tm_page() ) { return; }
 	echo '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
 	echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono&amp;family=Poppins:wght@600;700&amp;display=swap">';
-	echo '<style id="tmh-css">' . tmh_css() . '</style>'; // phpcs:ignore
+	echo '<style id="tmh-css">' . tmh_css() . ( ( function_exists( 'tms_active' ) && tms_active() ) ? tmh_light_css() : '' ) . '</style>'; // phpcs:ignore
 }, 5 );
+
+function tmh_light_css() {
+	return <<<'LIGHT'
+body.tmh-body.tms{background:#fff!important}
+.tmh{--bg:#fff;--bg2:#f5f7fa;--card:#fff;--line:#dbe3ef;--text:#334155;--muted:#5b6780;background:#fff;color:#334155}
+.tmh a{color:#0b2a5b}
+.tmh h1,.tmh h2,.tmh h3,.tmh summary{color:#0b2a5b}
+.tmh a:focus-visible,.tmh button:focus-visible,.tmh input:focus-visible,.tmh summary:focus-visible{outline-color:#0b2a5b}
+.tmh .tmh-eyebrow{color:#0b2a5b;background:#f6cf4b;display:inline-block;padding:5px 12px;border-radius:999px;font-weight:600}
+.tmh .tmh-btn-o{border-color:#0b2a5b;color:#0b2a5b}
+.tmh .tmh-btn-o:hover{background:#eef2f8;color:#0b2a5b}
+.tmh .tmh-btn-y,.tmh .tmh-btn-y:hover{color:#0b2a5b}
+.tmh .tmh-search input{background:#fff;color:#0b2a5b;border-color:#c7d2e3}
+.tmh .tmh-search input::placeholder{color:#7b879c}
+.tmh .tmh-search button{background:#0b2a5b;border-color:#0b2a5b;color:#fff}
+.tmh .tmh-term{box-shadow:0 18px 44px rgba(11,42,91,.18)}
+.tmh .tmh-term-body{color:#e8edf6}
+.tmh .tmh-band{background:#f5f7fa}
+.tmh .tmh-author p{color:#334155}
+.tmh .tmh-author strong a{color:#0b2a5b}
+.tmh .tmh-kicker{color:#0b2a5b;background:#f6cf4b;display:inline-block;padding:4px 10px;border-radius:999px}
+.tmh .tmh-feature,.tmh .tmh-mini{color:#334155}
+.tmh .tmh-feature p.tmh-desc{color:#5b6780}
+.tmh .tmh-mini h3{color:#0b2a5b}
+.tmh .tmh-mini span{color:#5b6780}
+.tmh .tmh-feature:hover,.tmh .tmh-mini:hover,.tmh .tmh-tile:hover,.tmh .tmh-tool:hover{border-color:#0b2a5b}
+.tmh .tmh-more{color:#0b2a5b;text-decoration:underline}
+.tmh .tmh-tile,.tmh .tmh-tool{color:#334155}
+.tmh .tmh-tool svg{stroke:#f6cf4b;background:#0b2a5b;border-radius:10px;padding:6px;width:40px;height:40px}
+.tmh .tmh-tool code{background:#0b2a5b;color:#e8edf6}
+.tmh .tmh-latest li a{color:#0b2a5b}
+.tmh .tmh-jobs{background:#f5f7fa}
+.tmh details p{color:#334155}
+.tmh .tmh-news{background:#f5f7fa}
+.tmh .tmh-news-form input[type=email]{background:#fff;color:#0b2a5b;border-color:#c7d2e3}
+.tmh .tmh-news-form button[type=submit],.tmh .tmh-news-form .wp-block-button__link{background:#f6cf4b!important;color:#0b2a5b!important}
+LIGHT;
+}
 
 function tmh_css() {
 	return <<<'CSS'
@@ -237,6 +275,7 @@ function tmh_latest_posts() {
 }
 
 add_shortcode( 'tm_home', function () {
+	$light = function_exists( 'tms_active' ) && tms_active();
 	$u    = function ( $path ) { return esc_url( home_url( $path ) ); };
 	$img  = 'https://testmetry.com/wp-content/uploads/2026/10/Test-Case-Design-with-AI.png';
 	$face = 'https://testmetry.com/wp-content/uploads/2022/12/hv-round-1663607056705-1.png';
@@ -249,6 +288,7 @@ add_shortcode( 'tm_home', function () {
 	ob_start();
 	?>
 <div class="tmh">
+<?php if ( $light ) { echo tms_header_html(); /* phpcs:ignore */ } else { ?>
 <header class="tmh-top">
 <a class="tmh-skip" href="#tmh-main">Skip to content</a>
 <div class="tmh-wrap tmh-bar">
@@ -263,6 +303,7 @@ add_shortcode( 'tm_home', function () {
 <a class="tmh-btn tmh-btn-y" href="#subscribe">Subscribe</a>
 </div>
 </header>
+<?php } ?>
 
 <main id="tmh-main">
 <div class="tmh-wrap tmh-hero">
@@ -363,7 +404,7 @@ add_shortcode( 'tm_home', function () {
 <details><summary>Where should I start with AI in test automation?</summary><p>Start small: use AI to draft test cases for one feature, then review them against a checklist. Our guide to <a href="<?php echo $u( '/test-case-design-ai/' ); ?>">test case design with AI</a> gives you 15 checks to run first.</p></details>
 </section>
 
-<section class="tmh-news" id="subscribe" aria-labelledby="h-news">
+<section class="tmh-news" id="<?php echo $light ? 'news' : 'subscribe'; ?>" aria-labelledby="h-news">
 <div class="tmh-wrap tmh-news-in">
 <div class="tmh-news-copy"><h2 id="h-news">The best of Testmetry, once a month.</h2><p>New AI software testing guides, free QA tools and testing jobs, in one short email.</p></div>
 <div class="tmh-news-form"><?php echo $news; // phpcs:ignore ?></div>
@@ -371,6 +412,7 @@ add_shortcode( 'tm_home', function () {
 </section>
 </main>
 
+<?php if ( $light ) { echo tms_footer_html(); /* phpcs:ignore */ } else { ?>
 <footer class="tmh-foot">
 <div class="tmh-wrap tmh-foot-in">
 <p>TestMetry: AI software testing and test automation guides</p>
@@ -383,6 +425,7 @@ add_shortcode( 'tm_home', function () {
 </nav>
 </div>
 </footer>
+<?php } ?>
 </div>
 	<?php
 	return ob_get_clean();
