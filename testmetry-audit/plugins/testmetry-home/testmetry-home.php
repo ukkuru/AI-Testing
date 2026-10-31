@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Home
  * Description: The testmetry.com homepage, rendered by the [tm_home] shortcode with its own CSS. Deactivate and set the front page back to Elementor to undo.
- * Version: 1.3.0
+ * Version: 1.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -150,6 +150,12 @@ background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system
 .tmh .tmh-news-copy h2{font-size:clamp(24px,3vw,28px);margin-bottom:8px}
 .tmh .tmh-news-copy p{color:var(--muted)}
 .tmh .tmh-news-form{flex:1 1 360px;min-width:0}
+.tmh .tmh-news-form form{display:flex;gap:8px;flex-wrap:wrap;margin:0}
+.tmh .tmh-news-form form p{margin:0}
+.tmh .tmh-news-form form p:has(input[type=email]){flex:1 1 220px}
+.tmh .tmh-news-form .wp-block-jetpack-subscriptions__form-elements,.tmh .tmh-news-form .jetpack_subscription_widget form{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.tmh .tmh-news-form button[type=submit],.tmh .tmh-news-form .wp-block-button__link{min-height:50px;padding:0 22px;border:0;border-radius:10px;background:var(--yellow)!important;color:var(--navy)!important;font-weight:600;font-size:16px;font-family:inherit;cursor:pointer}
+.tmh .tmh-news-form .success,.tmh .tmh-news-form .jetpack-subscribe-success,.tmh .tmh-news-form .error{color:#d3dbe8;font-size:15px;margin-top:8px}
 .tmh .tmh-news-form .wpcf7 p{display:flex;gap:8px;flex-wrap:wrap;margin:0}
 .tmh .tmh-news-form .wpcf7-form-control-wrap{flex:1 1 220px}
 .tmh .tmh-news-form input[type=email]{width:100%;min-height:50px;padding:0 14px;border:1px solid #3a4f80;background:#0a1530;color:#fff;border-radius:10px;font-size:16px;font-family:inherit}
@@ -234,7 +240,12 @@ add_shortcode( 'tm_home', function () {
 	$u    = function ( $path ) { return esc_url( home_url( $path ) ); };
 	$img  = 'https://testmetry.com/wp-content/uploads/2026/10/Test-Case-Design-with-AI.png';
 	$face = 'https://testmetry.com/wp-content/uploads/2022/12/hv-round-1663607056705-1.png';
-	$news = shortcode_exists( 'contact-form-7' ) ? do_shortcode( '[contact-form-7 id="1439"]' ) : '';
+	// Jetpack Newsletter keeps a real subscriber list and sends through WordPress.com; Contact Form 7 is only the fallback.
+	if ( shortcode_exists( 'jetpack_subscription_form' ) ) {
+		$news = do_shortcode( '[jetpack_subscription_form title="" subscribe_text="" subscribe_placeholder="you@company.com" subscribe_button="Subscribe" show_subscribers_total="false" show_only_email_and_button="true" success_message="Thanks! Check your inbox to confirm your subscription."]' );
+	} else {
+		$news = shortcode_exists( 'contact-form-7' ) ? do_shortcode( '[contact-form-7 id="1439"]' ) : '';
+	}
 	ob_start();
 	?>
 <div class="tmh">
