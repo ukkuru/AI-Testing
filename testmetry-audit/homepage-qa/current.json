@@ -1,0 +1,209 @@
+{
+ "url": "https://testmetry.com/",
+ "desktop": {
+  "perf": {
+   "ttfb": 3624,
+   "fcp": 4844,
+   "lcp": 5008,
+   "cls": 0.035,
+   "blocking_ms": 101,
+   "requests": 178,
+   "total_kb": 6600,
+   "js_kb": 466,
+   "css_kb": 339,
+   "img_kb": 4844,
+   "overflow": false,
+   "load_ms": 6532
+  },
+  "axe": [
+   {
+    "id": "aria-allowed-role",
+    "impact": "minor",
+    "n": 5,
+    "inTmh": 0,
+    "sample": [
+     "#wp-admin-bar-wp-logo :: <li role=\"group\" id=\"wp-admin-bar-wp-logo\" class=\"menupop\">",
+     "#wp-admin-bar-bp-login :: <li role=\"group\" id=\"wp-admin-bar-bp-login\"><a class=\"ab-item\" role=\"menuitem\" href=\"https://testmetry.com/wp-"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "n": 17,
+    "inTmh": 0,
+    "sample": [
+     "#menu-1-f60aadb > .menu-item-home.current-menu-item.page_item > .hfe-menu-item[href$=\"testmetry.com/\"][itemprop=\"url\"] :: <a href=\"https://testmetry.com/\" itemprop=\"url\" class=\"hfe-menu-item\">Home</a>",
+     "h1 :: <h1 class=\"elementor-heading-title elementor-size-default\">AI-Powered Software Testing and Test Automation Mad"
+    ]
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "n": 2,
+    "inTmh": 0,
+    "sample": [
+     ".elementor-6891.e-loop-item-10086[data-elementor-id=\"6891\"] > .e-con-inner > .elementor-element-3adf8f74.e-con-full[data-id=\"3adf8f74\"] > .elementor-element-16307dad.elementor-widget-heading[data-id=\"16307dad\"] > h5 :: <h5 class=\"elementor-heading-title elementor-size-default\"><a href=\"https://testmetry.com/test-case-design-ai/",
+     ".e-loop-item-10086.post-10086.category-blog > .e-con-inner > .elementor-element-7c081b52.e-con-full[data-id=\"7c081b52\"] > .elementor-element-410a892d.elementor-widget-heading[data-id=\"410a892d\"] > h5 :: <h5 class=\"elementor-heading-title elementor-size-default\"><a href=\"https://testmetry.com/test-case-design-ai/"
+    ]
+   },
+   {
+    "id": "nested-interactive",
+    "impact": "serious",
+    "n": 2,
+    "inTmh": 0,
+    "sample": [
+     "#menu-1-f60aadb > .menu-item-type-custom.menu-item-object-custom.menu-item-has-children > .hfe-has-submenu-container[role=\"button\"][aria-haspopup=\"true\"] :: <div class=\"hfe-has-submenu-container\" tabindex=\"0\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><",
+     "#menu-1-f60aadb > .menu-item-has-children.hfe-has-submenu.parent-has-child:nth-child(4) > .hfe-has-submenu-container[role=\"button\"][aria-haspopup=\"true\"] :: <div class=\"hfe-has-submenu-container\" tabindex=\"0\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">"
+    ]
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 2,
+    "inTmh": 0,
+    "sample": [
+     ".hfe-skip-link :: <a class=\"hfe-skip-link\" href=\"#content\">Skip to main content</a>",
+     ".gt_selected :: <div class=\"gt_selected\"><a href=\"#\"><img src=\"/wp-content/plugins/gtranslate/flags/svg/en.svg\" height=\"24\" wi"
+    ]
+   }
+  ],
+  "small_targets": []
+ },
+ "seo": {
+  "lang": "en-GB",
+  "title": "AI-Powered Software Testing And Test Automation Made Simple",
+  "title_len": 59,
+  "desc": "Discover how AI-powered software testing and test automation can speed up releases, boost test coverage, and simplify QA for modern engineering teams.",
+  "desc_len": 150,
+  "robots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+  "canonical": "https://testmetry.com/",
+  "viewport": "width=device-width, initial-scale=1",
+  "og_title": "AI-Powered Software Testing And Test Automation Made Simple",
+  "h1": [
+   "AI-Powered Software Testing and Test Automation Made Simple"
+  ],
+  "h2": [
+   "Test Case Design With AI: 15 Checks Before You Trust It",
+   "Popular Software Testing Blogs",
+   "Recent Software Testing & Test Automation Posts"
+  ],
+  "imgs_no_alt": [],
+  "schema": [
+   "Organization,Person,WebSite,ImageObject,WebPage,Person"
+  ],
+  "words": 625,
+  "kw": {
+   "ai software testing": 0,
+   "ai test automation": 0,
+   "ai in test automation": 0,
+   "software testing": 22,
+   "qa automation": 0,
+   "ai qa": 0,
+   "testmetry": 4
+  },
+  "links": [
+   "https://wordpress.org/",
+   "https://wordpress.org/documentation/",
+   "https://learn.wordpress.org/",
+   "https://wordpress.org/support/forums/",
+   "https://wordpress.org/support/forum/requests-and-feedback",
+   "https://testmetry.com/wp-login.php?redirect_to=https%3A%2F%2Ftestmetry.com%2F%3Fqa%3D1793413817890",
+   "https://go.elementor.com/wp-dash-report-an-issue/",
+   "#content",
+   "https://testmetry.com/",
+   "#",
+   "https://testmetry.com/my-podcasts/",
+   "https://testmetry.com/category/blog/",
+   "https://testmetry.com/automation/",
+   "https://testmetry.com/category/security/",
+   "https://testmetry.com/category/news/",
+   "https://testmetry.com/software-test-consulting-session/",
+   "https://testmetry.com/about-us/",
+   "https://testmetry.com/daily-software-testing-jobs/",
+   "https://testmetry.com/guest-post/",
+   "https://testmetry.com/tutorials-2/",
+   "https://testmetry.com/about-us/test-in-production-e-book/",
+   "https://testmetry.com/chatgpt-for-software-testing/",
+   "https://testmetry.com/software-testing-conferences/",
+   "https://testmetry.com/credit-card-generator/",
+   "#ekit_modal-popup-5a68d43",
+   "#ekit_modal-popup-332a5cf",
+   "https://testmetry.com/test-case-design-ai/",
+   "https://testmetry.com/category/development-tools/",
+   "https://testmetry.com/nutanix-vs-sangfor-hci/",
+   "https://testmetry.com/customer-experience-testing/",
+   "https://testmetry.com/software-testing-jobs-1019/",
+   "https://testmetry.com/category/test-automation/",
+   "https://testmetry.com/category/software-testing-jobs/",
+   "https://testmetry.com/software-testing-jobs-1018/",
+   "https://testmetry.com/software-testing-jobs-1017/",
+   "https://testmetry.com/software-testing-jobs-10-16-2026/",
+   "https://testmetry.com/software-testing-jobs-10-15-2026/",
+   "https://testmetry.com/phototune-ai-upscaler-how-it-works-and-what-to-expect-from-ai-photo-enlargement/",
+   "mailto:george@testmetry.com",
+   "https://goo.gl/maps/xr2Ja1i2xT71pxjL6",
+   "https://www.instagram.com/automationhangout/",
+   "https://twitter.com/testmetry",
+   "https://www.linkedin.com/in/ukkuru"
+  ],
+  "anchors_missing": []
+ },
+ "mobile": {
+  "perf": {
+   "ttfb": 3629,
+   "fcp": 4708,
+   "lcp": 4812,
+   "cls": 0,
+   "blocking_ms": 105,
+   "requests": 168,
+   "total_kb": 6989,
+   "js_kb": 465,
+   "css_kb": 339,
+   "img_kb": 5341,
+   "overflow": false,
+   "load_ms": 6334
+  },
+  "axe": [
+   {
+    "id": "aria-allowed-role",
+    "impact": "minor",
+    "n": 1,
+    "inTmh": 0,
+    "sample": [
+     "#wp-admin-bar-bp-login :: <li role=\"group\" id=\"wp-admin-bar-bp-login\"><a class=\"ab-item\" role=\"menuitem\" href=\"https://testmetry.com/wp-"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "n": 16,
+    "inTmh": 0,
+    "sample": [
+     "h1 :: <h1 class=\"elementor-heading-title elementor-size-default\">AI-Powered Software Testing and Test Automation Mad",
+     ".premium-blog-post-content :: <p class=\"premium-blog-post-content\">Test case design with AI is fast enough to be dangerous. Give a model a u"
+    ]
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "n": 2,
+    "inTmh": 0,
+    "sample": [
+     ".elementor-6891.e-loop-item-10086[data-elementor-id=\"6891\"] > .e-con-inner > .elementor-element-3adf8f74.e-con-full[data-id=\"3adf8f74\"] > .elementor-element-16307dad.elementor-widget-heading[data-id=\"16307dad\"] > h5 :: <h5 class=\"elementor-heading-title elementor-size-default\"><a href=\"https://testmetry.com/test-case-design-ai/",
+     ".e-loop-item-10086.post-10086.category-blog > .e-con-inner > .elementor-element-7c081b52.e-con-full[data-id=\"7c081b52\"] > .elementor-element-410a892d.elementor-widget-heading[data-id=\"410a892d\"] > h5 :: <h5 class=\"elementor-heading-title elementor-size-default\"><a href=\"https://testmetry.com/test-case-design-ai/"
+    ]
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 2,
+    "inTmh": 0,
+    "sample": [
+     ".hfe-skip-link :: <a class=\"hfe-skip-link\" href=\"#content\">Skip to main content</a>",
+     ".gt_selected :: <div class=\"gt_selected\"><a href=\"#\"><img src=\"/wp-content/plugins/gtranslate/flags/svg/en.svg\" height=\"24\" wi"
+    ]
+   }
+  ],
+  "small_targets": []
+ }
+}

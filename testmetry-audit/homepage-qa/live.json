@@ -1,0 +1,134 @@
+{
+ "url": "https://testmetry.com/",
+ "desktop": {
+  "perf": {
+   "ttfb": 2669,
+   "fcp": 3664,
+   "lcp": 3664,
+   "cls": 0.032,
+   "blocking_ms": 827,
+   "requests": 84,
+   "total_kb": 655,
+   "js_kb": 307,
+   "css_kb": 79,
+   "img_kb": 214,
+   "overflow": false,
+   "load_ms": 5970
+  },
+  "axe": [
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 1,
+    "inTmh": 0,
+    "sample": [
+     ".gt_selected :: <div class=\"gt_selected\"><a href=\"#\"><img src=\"/wp-content/plugins/gtranslate/flags/svg/en.svg\" height=\"24\" wi"
+    ]
+   }
+  ],
+  "small_targets": [
+   "George Ukkuru 117x20",
+   "test case design with AI 191x20"
+  ]
+ },
+ "seo": {
+  "lang": "en-GB",
+  "title": "AI Software Testing & Test Automation Guides | Testmetry",
+  "title_len": 56,
+  "desc": "Practical AI software testing and test automation guides from 25+ years in QA. Learn AI test automation, regression, UAT and load testing, plus free QA tools.",
+  "desc_len": 158,
+  "robots": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+  "canonical": "https://testmetry.com/",
+  "viewport": "width=device-width, initial-scale=1.0, viewport-fit=cover",
+  "og_title": "AI Software Testing & Test Automation Guides | Testmetry",
+  "h1": [
+   "AI Software Testing and Test Automation, Explained by a QA Practitioner"
+  ],
+  "h2": [
+   "AI test automation guides",
+   "Software testing fundamentals",
+   "QA automation tools",
+   "Latest from the lab",
+   "Software testing jobs",
+   "AI software testing FAQ",
+   "The best of Testmetry, once a month."
+  ],
+  "imgs_no_alt": [],
+  "schema": [
+   "Organization,Person,WebSite,ImageObject,WebPage,Person,Article"
+  ],
+  "words": 595,
+  "kw": {
+   "ai software testing": 8,
+   "ai test automation": 5,
+   "ai in test automation": 2,
+   "software testing": 14,
+   "qa automation": 3,
+   "ai qa": 2,
+   "testmetry": 3
+  },
+  "links": [
+   "#tmh-main",
+   "https://testmetry.com/",
+   "#ai-guides",
+   "#fundamentals",
+   "#tools",
+   "https://testmetry.com/daily-software-testing-jobs/",
+   "https://testmetry.com/about-us/",
+   "#subscribe",
+   "https://testmetry.com/category/blog/",
+   "https://testmetry.com/test-case-design-ai/",
+   "https://testmetry.com/ai-in-automated-testing-how/",
+   "https://testmetry.com/chatgpt-for-software-testing/",
+   "https://testmetry.com/customer-experience-testing/",
+   "https://testmetry.com/what-is-regression-testing/",
+   "https://testmetry.com/user-acceptance-testing-template/",
+   "https://testmetry.com/load-testing-tools/",
+   "https://testmetry.com/category/test-automation/",
+   "https://testmetry.com/what-is-quality-assurance/",
+   "https://testmetry.com/sdet-guide-roles/",
+   "https://testmetry.com/random-ip-address-generator/",
+   "https://testmetry.com/credit-card-generator/",
+   "https://qpulse.sbs/login",
+   "https://testmetry.com/nutanix-vs-sangfor-hci/",
+   "https://testmetry.com/phototune-ai-upscaler-how-it-works-and-what-to-expect-from-ai-photo-enlargement/",
+   "https://testmetry.com/guest-post/",
+   "https://testmetry.com/software-test-consulting-session/",
+   "https://testmetry.com/about-us/test-in-production-e-book/",
+   "https://testmetry.com/software-testing-conferences/",
+   "mailto:george@testmetry.com",
+   "#"
+  ],
+  "anchors_missing": []
+ },
+ "mobile": {
+  "perf": {
+   "ttfb": 2034,
+   "fcp": 2700,
+   "lcp": 2700,
+   "cls": 0,
+   "blocking_ms": 142,
+   "requests": 74,
+   "total_kb": 844,
+   "js_kb": 307,
+   "css_kb": 79,
+   "img_kb": 402,
+   "overflow": false,
+   "load_ms": 4415
+  },
+  "axe": [
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 1,
+    "inTmh": 0,
+    "sample": [
+     ".gt_selected :: <div class=\"gt_selected\"><a href=\"#\"><img src=\"/wp-content/plugins/gtranslate/flags/svg/en.svg\" height=\"24\" wi"
+    ]
+   }
+  ],
+  "small_targets": [
+   "George Ukkuru 117x20"
+  ]
+ }
+}
