@@ -2,7 +2,7 @@
   "name": "linkedin-sdet-analyzer-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Backend API for the LinkedIn Profile Analyzer & Rewriter for QA/SDET professionals.",
+  "description": "Backend API for LinkedIn Profile Scorecard for Testers, a QA/SDET profile scoring and rewrite tool.",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
