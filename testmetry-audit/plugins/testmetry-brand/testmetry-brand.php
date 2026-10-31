@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Brand
  * Description: Applies the homepage's dark navy and yellow theme across the site with CSS only. Content, URLs, links and SEO tags are untouched. While TMB_LIVE is false the theme shows only with ?tmbrand=1 in the URL, for testing.
- * Version: 1.1.0
+ * Version: 1.2.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -14,6 +14,20 @@ function tmb_active() {
 	if ( TMB_LIVE ) { return true; }
 	return isset( $_GET['tmbrand'] ); // phpcs:ignore WordPress.Security.NonceVerification
 }
+
+// Always on: the menu's old Home link (?page_id=6875, the retired Elementor homepage) goes to the front page.
+add_action( 'parse_request', function () {
+	if ( isset( $_GET['page_id'] ) && '6875' === (string) $_GET['page_id'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+		wp_safe_redirect( home_url( '/' ), 301, 'Testmetry Brand' );
+		exit;
+	}
+}, 0 );
+
+// Always on: show post featured images at their natural shape instead of cropping them into a fixed-height box.
+add_action( 'wp_head', function () {
+	if ( is_admin() ) { return; }
+	echo '<style id="tmb-fix">.elementor-widget-theme-post-featured-image img,.single .elementor-widget-image img.wp-post-image{height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;width:100%!important;border-radius:10px}</style>';
+}, 98 );
 
 add_filter( 'body_class', function ( $classes ) {
 	if ( tmb_active() ) { $classes[] = 'tmb'; }
