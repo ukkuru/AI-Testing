@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Site
  * Description: Light logo-palette theme for the whole site: one shared header and footer, a restyled blog and archive layout, and light styling for posts and pages. Markup and CSS only; post content, URLs and SEO tags are untouched. While TMS_LIVE is false it shows only when ?tmsite=1 is in the address, for testing.
- * Version: 1.1.1
+ * Version: 1.2.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -237,6 +237,7 @@ body.tms:not(.tmh-body) .elementor-breadcrumbs a,body.tms:not(.tmh-body) .elemen
 body.tms .elementor-breadcrumbs,body.tms .elementor-breadcrumbs *,body.tms [class*=breadcrumb] *{color:#5b6780!important}
 body.tms .elementor-breadcrumbs a,body.tms .elementor-icon-list-item a,body.tms .elementor-icon-list-text a{color:#0b2a5b!important}
 body.tms .jp-relatedposts-post-date,body.tms .jp-relatedposts-post-context{color:#475569!important;opacity:1!important}
+body.tms .elementor-widget-theme-post-content #ez-toc-container,body.tms .entry-content #ez-toc-container{display:none!important}
 body.tms .tms-lightify,body.tms .tms-lightify>.elementor-container,body.tms .tms-lightify .elementor-background-overlay{background:#fff!important;background-image:none!important}
 body.tms .tms-lightify .elementor-background-overlay{display:none!important}
 body.tms .gt_switcher_wrapper,body.tms .gtranslate_wrapper{position:fixed!important;top:auto!important;right:auto!important;bottom:14px!important;left:14px!important;z-index:40}
@@ -409,3 +410,39 @@ add_action( 'wp_footer', function () {
 document.querySelectorAll('.elementor-section,.e-con').forEach(function(e){if(e.closest('.tms-header,.tms-footer'))return;var cs=getComputedStyle(e),l=lum(cs.backgroundColor);var img=cs.backgroundImage!=='none'&&!/gradient/.test(cs.backgroundImage);var ov=e.querySelector(':scope>.elementor-background-overlay,:scope>.elementor-container>.elementor-background-overlay');if((l!==null&&l<110)||img||ov)e.classList.add('tms-lightify')})})();</script>
 <?php
 }, 99 );
+
+
+/* Recommended posts (Elementor "Latest Post" list and Jetpack Related Posts) skip job posts and tool pages. */
+function tms_rec_excluded_cats() { return array( 1588 ); }
+/* Older job posts sit in the generic Blog category (97), so find them by their slug as well. */
+function tms_rec_excluded_ids() {
+	$ids = get_transient( 'tms_rec_job_ids' );
+	if ( ! is_array( $ids ) ) {
+		global $wpdb;
+		$ids = array_map( 'intval', (array) $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type='post' AND post_status='publish' AND (post_name LIKE '%software-testing-jobs%' OR post_name LIKE '%software-test-jobs%' OR post_name LIKE '%testing-jobs%')" ) );
+		set_transient( 'tms_rec_job_ids', $ids, HOUR_IN_SECONDS );
+	}
+	return array_merge( $ids, array( 7835, 6258, 9653 ) );
+}
+
+add_action( 'elementor/frontend/widget/before_render', function ( $w ) {
+	if ( 'posts' === $w->get_name() ) { $GLOBALS['tms_in_posts_widget'] = true; }
+} );
+add_action( 'elementor/frontend/widget/after_render', function ( $w ) {
+	if ( 'posts' === $w->get_name() ) { $GLOBALS['tms_in_posts_widget'] = false; }
+} );
+add_action( 'pre_get_posts', function ( $q ) {
+	if ( empty( $GLOBALS['tms_in_posts_widget'] ) || ! tms_active() ) { return; }
+	$q->set( 'category__not_in', tms_rec_excluded_cats() );
+	$q->set( 'post__not_in', array_merge( (array) $q->get( 'post__not_in' ), tms_rec_excluded_ids() ) );
+} );
+add_filter( 'jetpack_relatedposts_returned_results', function ( $results ) {
+	if ( ! is_array( $results ) ) { return $results; }
+	$out = array();
+	foreach ( $results as $r ) {
+		$id = isset( $r['id'] ) ? (int) $r['id'] : 0;
+		if ( $id && ( in_array( $id, tms_rec_excluded_ids(), true ) || has_category( tms_rec_excluded_cats(), $id ) ) ) { continue; }
+		$out[] = $r;
+	}
+	return $out;
+} );
