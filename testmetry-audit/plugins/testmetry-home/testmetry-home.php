@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Home
  * Description: The testmetry.com homepage, rendered by the [tm_home] shortcode with its own CSS. Deactivate and set the front page back to Elementor to undo.
- * Version: 1.6.0
+ * Version: 1.6.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -254,6 +254,7 @@ function tmh_icon( $name ) {
 		'globe' => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
 		'card'  => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>',
 		'story' => '<path d="M5 4h10l4 4v12H5z"/><path d="M14 4v5h5M8 13h8M8 17h5"/>',
+		'calc'  => '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h0M8 16h2M12 16h2M16 16h0"/>',
 	);
 	return '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f6cf4b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' . $p[ $name ] . '</svg>';
 }
@@ -435,6 +436,8 @@ add_shortcode( 'tm_home', function () {
 203.0.113.187</code></a>
 <a class="tmh-tool" href="<?php echo $u( '/credit-card-generator/' ); ?>"><?php echo tmh_icon( 'card' ); ?><h3>Test card numbers and Luhn checker</h3><p>Official sandbox cards, decline triggers and 3D Secure test cards.</p><code>4242 4242 4242 4242
 4000 0000 0000 0002</code></a>
+<a class="tmh-tool" href="<?php echo $u( '/3-point-estimation-calculator/' ); ?>"><?php echo tmh_icon( 'calc' ); ?><h3>3 point estimation calculator</h3><p>PERT and triangular estimates with standard deviation and confidence ranges, built for test plans.</p><code>O 8  M 12  P 24
+Expected 13.33 hours</code></a>
 <a class="tmh-tool" href="https://qpulse.sbs/login" target="_blank" rel="noopener"><?php echo tmh_icon( 'story' ); ?><h3>User Story Analyzer</h3><p>Check user stories for gaps and unclear acceptance criteria before they reach testing.</p><span class="tmh-ext">Opens qpulse.sbs in a new tab. Sign in required.</span></a>
 </div>
 </div>
