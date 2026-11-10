@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.0.0
+ * Version: 1.0.1
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -16,7 +16,6 @@ function tmcl_clusters() {
 				'/user-acceptance-testing-checklist-explained/'    => 'UAT checklist',
 				'/user-acceptance-testing-example/'                => 'Acceptance criteria and examples',
 				'/user-acceptance-testing-process/'                => 'The UAT process and common mistakes',
-				'/streamlining-your-user-acceptance-testing-process/' => 'Streamlining UAT',
 				'/uat-full-form-in-testing-everything-you-need-to-know/' => 'UAT full form',
 				'/what-acceptance-testing-really-focuses-on/'      => 'What acceptance testing focuses on',
 				'/uat-interview-questions-that-reveal-true-skills/' => 'UAT interview questions',

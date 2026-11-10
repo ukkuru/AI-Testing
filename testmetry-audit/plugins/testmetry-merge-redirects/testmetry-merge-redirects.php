@@ -2,13 +2,15 @@
 /**
  * Plugin Name: Testmetry Merge Redirects
  * Description: 301 redirects for pages merged into a stronger page, and rewrites internal links that pointed at the merged page. Deactivate to undo.
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 function tmmr_map() {
 	return array(
 		'/pyautogui-faq' => '/the-pyautogui-in-python-about/',
+		'/streamlining-your-user-acceptance-testing-process' => '/user-acceptance-testing-process/',
+		'/streamlining-your-user-acceptance-testing-process-tips-and-tricks' => '/user-acceptance-testing-process/',
 	);
 }
 
