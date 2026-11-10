@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Link Cleanup
  * Description: Fixes links in published content when it is displayed: removes dead internal and external links (the link text stays) and points redirecting internal links straight at their final page. Post content in the database is not changed. Deactivate to undo.
- * Version: 1.0.2
+ * Version: 1.0.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -229,7 +229,10 @@ function tmlc_rewrite() { return array(
 		'testmetry.com/maze-usability-testing-3-key-strategies-to-excel-thrive' => 'https://testmetry.com/maze-usability-testing/',
 		'testmetry.com/optimizing-test-data-management-trends-techniques-and-best-practices' => 'https://testmetry.com/test-data-management/',
 		'testmetry.com/performance-engineering' => 'https://testmetry.com/comprehensive-guide-to-software-performance-testing-strategies-tools-and-benefits/',
+		'testmetry.com/sdet-role-responsibilities' => 'https://testmetry.com/sdet-roles-and-responsibilities/',
+		'testmetry.com/sdet-skills' => 'https://testmetry.com/software-development-engineer-test/',
 		'testmetry.com/software-composition-analysis-what-you-need-to-know-now' => 'https://testmetry.com/software-composition-analysis/',
+		'testmetry.com/software-development-engineer-in-test' => 'https://testmetry.com/comprehensive-guide-what-is-an-sdet/',
 		'testmetry.com/software-development-engineer-test-guide-to-understanding-the-sdet-role' => 'https://testmetry.com/software-development-engineer-test/',
 		'testmetry.com/test-automation' => 'https://testmetry.com/category/test-automation/',
 		'testmetry.com/test-automation-frameworks' => 'https://testmetry.com/test-automation-frameworks-types/',
@@ -237,13 +240,14 @@ function tmlc_rewrite() { return array(
 		'testmetry.com/the-sick-truth-of-test-data-management-that-none-told-you' => 'https://testmetry.com/the-sick-truth-of-test-data-management/',
 		'testmetry.com/tools' => 'https://testmetry.com/tools-for-security-testing/',
 		'testmetry.com/top-7-skills-that-are-required-to-be-a-good-test-engineer' => 'https://testmetry.com/top-7-skills-required-for-a-software-testing/',
-		'testmetry.com/top-skills-of-a-software-development-test-engineer' => 'https://testmetry.com/sdet-guide-roles/',
+		'testmetry.com/top-skills-of-a-software-development-test-engineer' => 'https://testmetry.com/software-development-engineer-test/',
 		'testmetry.com/understanding-gatling-a-comprehensive-guide-for-beginners' => 'https://testmetry.com/gatling/',
 		'testmetry.com/understanding-the-different-types-of-performance-testing' => 'https://testmetry.com/different-types-of-performance-testing/',
 		'testmetry.com/user-acceptance-criteria' => 'https://testmetry.com/user-acceptance-testing-example/',
 		'testmetry.com/user-acceptance-testing-faq-everything-you-need-to-know' => 'https://testmetry.com/uat/',
 		'testmetry.com/user-acceptance-testing-template-a-detailed-guide-for-uat' => 'https://testmetry.com/user-acceptance-testing-checklist-explained/',
 		'testmetry.com/user-acceptance-testing-uat-avoiding-common-mistakes-best-practices' => 'https://testmetry.com/user-acceptance-testing-process/',
+		'testmetry.com/what-is-sdet-in-testing-skills-importance-explained' => 'https://testmetry.com/comprehensive-guide-what-is-an-sdet/',
 	); }
 
 add_filter( 'the_content', function ( $content ) {
