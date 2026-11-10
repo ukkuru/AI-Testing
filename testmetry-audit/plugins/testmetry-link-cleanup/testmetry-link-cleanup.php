@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Link Cleanup
  * Description: Fixes links in published content when it is displayed: removes dead internal and external links (the link text stays) and points redirecting internal links straight at their final page. Post content in the database is not changed. Deactivate to undo.
- * Version: 1.0.1
+ * Version: 1.0.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -188,7 +188,6 @@ function tmlc_dead_external() { return array_flip( array(
 		'it-cisq.org/cisq-files/pdf/cpsq-2020-report.pdf',
 		'localhost:4000/graphql',
 		'localhost:4000/graphql&',
-		'lt.blazon.in/blog/the-importance-of-mobile-applications-in-todays-business-world',
 		'marlabs.com/test-data-management-trends',
 		'marlabs.com/why-ai-powered-quality-engineering-is-the-future',
 		'ministryoftesting.com/dojo/series/acceptance-testing',
