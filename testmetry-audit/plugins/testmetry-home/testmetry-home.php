@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Home
  * Description: The testmetry.com homepage, rendered by the [tm_home] shortcode with its own CSS. Deactivate and set the front page back to Elementor to undo.
- * Version: 1.5.0
+ * Version: 1.6.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -258,17 +258,51 @@ function tmh_icon( $name ) {
 	return '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f6cf4b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' . $p[ $name ] . '</svg>';
 }
 
-function tmh_latest_posts() {
-	$q = new WP_Query( array(
+/* Published posts for the homepage, newest first, never job posts. $cat limits to one category id. */
+function tmh_posts( $n, $offset = 0, $cat = 0 ) {
+	$args = array(
 		'post_type'           => 'post',
 		'post_status'         => 'publish',
-		'posts_per_page'      => 4,
+		'posts_per_page'      => (int) $n,
+		'offset'              => (int) $offset,
 		'ignore_sticky_posts' => true,
 		'no_found_rows'       => true,
-		'category__not_in'    => array( 1588 ),
-	) );
+		'orderby'             => 'date',
+		'order'               => 'DESC',
+	);
+	if ( $cat ) { $args['cat'] = (int) $cat; } else { $args['category__not_in'] = array( 1588 ); }
+	$q = new WP_Query( $args );
+	return array_values( array_filter( $q->posts, function ( $p ) {
+		// Older job posts sit in the generic Blog category, so catch them by slug too.
+		return ! preg_match( '#(^|-)(software-test(ing)?-jobs|test(ing)?-jobs)#', $p->post_name );
+	} ) );
+}
+
+function tmh_kicker( $p ) {
+	foreach ( (array) get_the_category( $p->ID ) as $c ) {
+		if ( ! in_array( (int) $c->term_id, array( 1364, 97 ), true ) ) { return strtoupper( $c->name ); }
+	}
+	return 'BLOG';
+}
+
+function tmh_feature_card( $p, $fallback_img ) {
+	$img = get_the_post_thumbnail_url( $p, 'large' );
+	if ( ! $img ) { $img = $fallback_img; }
+	$ex = wp_trim_words( wp_strip_all_tags( get_the_excerpt( $p ) ), 24 );
+	return '<a class="tmh-feature" href="' . esc_url( get_permalink( $p ) ) . '"><img src="' . esc_url( $img ) . '" width="760" height="398" alt="" loading="lazy" decoding="async"><div class="tmh-feature-body"><p class="tmh-kicker">' . esc_html( tmh_kicker( $p ) ) . '</p><h3>' . esc_html( get_the_title( $p ) ) . '</h3><p class="tmh-desc">' . esc_html( $ex ) . '</p></div></a>';
+}
+
+function tmh_mini_cards( $posts ) {
+	$o = '';
+	foreach ( $posts as $p ) {
+		$o .= '<a class="tmh-mini" href="' . esc_url( get_permalink( $p ) ) . '"><span>' . esc_html( ucfirst( strtolower( tmh_kicker( $p ) ) ) ) . '</span><h3>' . esc_html( get_the_title( $p ) ) . '</h3></a>';
+	}
+	return $o;
+}
+
+function tmh_latest_posts( $n = 4, $offset = 3 ) {
 	$out = '';
-	foreach ( $q->posts as $p ) {
+	foreach ( tmh_posts( $n, $offset ) as $p ) {
 		$out .= '<li><a href="' . esc_url( get_permalink( $p ) ) . '"><span>' . esc_html( get_the_title( $p ) ) . '</span><time datetime="' . esc_attr( get_the_date( 'c', $p ) ) . '">' . esc_html( get_the_date( 'j M Y', $p ) ) . '</time></a></li>';
 	}
 	return $out;
@@ -285,6 +319,11 @@ add_shortcode( 'tm_home', function () {
 	} else {
 		$news = shortcode_exists( 'contact-form-7' ) ? do_shortcode( '[contact-form-7 id="1439"]' ) : '';
 	}
+	$latest  = tmh_posts( 3 );
+	$ai_cat  = get_category_by_slug( 'ai-in-testing' );
+	$shown   = wp_list_pluck( $latest, 'ID' );
+	$ai      = $ai_cat ? array_slice( array_values( array_filter( tmh_posts( 8, 0, (int) $ai_cat->term_id ), function ( $p ) use ( $shown ) { return ! in_array( $p->ID, $shown, true ); } ) ), 0, 4 ) : array();
+	$ai_link = $ai_cat ? get_category_link( $ai_cat ) : home_url( '/category/blog/' );
 	ob_start();
 	?>
 <div class="tmh">
@@ -341,9 +380,25 @@ add_shortcode( 'tm_home', function () {
 </div>
 </div>
 
+<?php if ( $latest ) : ?>
+<section class="tmh-wrap tmh-sec" id="latest-article" aria-labelledby="h-new">
+<div class="tmh-sec-head"><h2 id="h-new">Latest article</h2><a class="tmh-more" href="<?php echo $u( '/category/blog/' ); ?>">All articles</a></div>
+<div class="tmh-feature-row">
+<?php echo tmh_feature_card( $latest[0], $img ); // phpcs:ignore ?>
+<div class="tmh-side"><?php echo tmh_mini_cards( array_slice( $latest, 1 ) ); // phpcs:ignore ?></div>
+</div>
+</section>
+<?php endif; ?>
+
 <section class="tmh-wrap tmh-sec" id="ai-guides" aria-labelledby="h-ai">
-<div class="tmh-sec-head"><h2 id="h-ai">AI test automation guides</h2><a class="tmh-more" href="<?php echo $u( '/category/blog/' ); ?>">Browse all guides</a></div>
+<div class="tmh-sec-head"><h2 id="h-ai">AI test automation guides</h2><a class="tmh-more" href="<?php echo esc_url( $ai_link ); ?>">Browse all AI in testing guides</a></div>
 <p class="tmh-intro">AI in test automation can write cases in seconds. These guides show how to check them, where AI software testing saves real time, and where it quietly misses risk.</p>
+<?php if ( $ai ) : ?>
+<div class="tmh-feature-row">
+<?php echo tmh_feature_card( $ai[0], $img ); // phpcs:ignore ?>
+<div class="tmh-side"><?php echo tmh_mini_cards( array_slice( $ai, 1 ) ); // phpcs:ignore ?></div>
+</div>
+<?php else : ?>
 <div class="tmh-feature-row">
 <a class="tmh-feature" href="<?php echo $u( '/test-case-design-ai/' ); ?>">
 <img src="<?php echo esc_url( $img . '?w=760' ); ?>" srcset="<?php echo esc_url( $img . '?w=480' ); ?> 480w, <?php echo esc_url( $img . '?w=760' ); ?> 760w, <?php echo esc_url( $img . '?w=1100' ); ?> 1100w" sizes="(max-width: 800px) 100vw, 760px" width="760" height="398" alt="" loading="lazy" decoding="async">
@@ -355,6 +410,7 @@ add_shortcode( 'tm_home', function () {
 <a class="tmh-mini" href="<?php echo $u( '/customer-experience-testing/' ); ?>"><span>Opinion</span><h3>Customer Experience Testing: Are We Building Agents Faster Than We Listen?</h3></a>
 </div>
 </div>
+<?php endif; ?>
 </section>
 
 <section class="tmh-wrap tmh-sec" id="fundamentals" aria-labelledby="h-fun">

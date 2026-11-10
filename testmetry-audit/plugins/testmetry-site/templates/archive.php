@@ -15,7 +15,7 @@ if ( '' === $desc ) {
 		: 'Guides and articles on ' . strtolower( $h1 ) . ' from 25+ years in quality assurance.';
 }
 
-$chip_ids = array( 1364 => 'All', 1363 => 'Test automation', 1585 => 'Performance', 1554 => 'Security', 1562 => 'Dev tools', 1563 => 'ChatGPT', 1366 => 'News' );
+$chip_ids = array( 1364 => 'All', 1589 => 'AI in Testing', 1363 => 'Test automation', 1585 => 'Performance', 1554 => 'Security', 1562 => 'Dev tools', 1563 => 'ChatGPT', 1366 => 'News' );
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
