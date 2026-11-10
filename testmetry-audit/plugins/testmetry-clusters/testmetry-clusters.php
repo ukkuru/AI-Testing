@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.3.0
+ * Version: 1.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -72,7 +72,6 @@ function tmcl_clusters() {
 				'/shift-left-performance-testing/'      => 'Shift left performance testing',
 				'/azure-load-testing/'                  => 'Azure Load Testing gaps',
 				'/performance-testing-interview-questions-for/' => 'Performance testing interview questions',
-				'/performance-testing-for-mobile-apps/' => 'Performance testing for mobile apps',
 			),
 		),
 		array(
@@ -89,6 +88,17 @@ function tmcl_clusters() {
 				'/sdet-resume/'                             => 'SDET resume tips and examples',
 				'/sdet-interview/'                          => 'SDET interview questions',
 				'/sdet-salary/'                             => 'SDET salary in India',
+			),
+		),
+		array(
+			'title' => 'Mobile App Performance Testing',
+			'hub'   => '/performance-testing-mobile-apps/',
+			'extra' => array( '/comprehensive-guide-to-software-performance-testing-strategies-tools-and-benefits/' => 'Software performance testing: the full guide' ),
+			'pages' => array(
+				'/performance-testing-for-mobile-apps/'      => 'Mobile app performance testing strategy',
+				'/performance-testing-mobile-applications/'  => 'Mobile app performance test environment',
+				'/load-testing-tools/'                       => 'Load testing tools compared',
+				'/mobile-app-testing/'                       => 'Mobile app testing overview',
 			),
 		),
 	);
