@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Site
  * Description: Light logo-palette theme for the whole site: one shared header and footer, a restyled blog and archive layout, and light styling for posts and pages. Markup and CSS only; post content, URLs and SEO tags are untouched. While TMS_LIVE is false it shows only when ?tmsite=1 is in the address, for testing.
- * Version: 1.2.1
+ * Version: 1.2.2
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -88,7 +88,7 @@ function tms_header_html() {
 <div><p>Latest</p><?php echo tms_latest_links( 2 ); // phpcs:ignore ?><a class="tms-all" href="<?php echo tms_u( '/category/blog/' ); ?>">All blog posts</a></div>
 </div></div></div>
 <div class="tms-dd"><button type="button" aria-expanded="false" aria-haspopup="true">Tools <span aria-hidden="true">&#9662;</span></button>
-<div class="tms-panel"><a href="<?php echo tms_u( '/random-ip-address-generator/' ); ?>">Random IP generator</a><a href="<?php echo tms_u( '/credit-card-generator/' ); ?>">Test card numbers</a><a href="https://qpulse.sbs/login" target="_blank" rel="noopener">User Story Analyzer</a></div></div>
+<div class="tms-panel"><a href="<?php echo tms_u( '/random-ip-address-generator/' ); ?>">Random IP generator</a><a href="<?php echo tms_u( '/credit-card-generator/' ); ?>">Test card numbers</a><a href="<?php echo tms_u( '/3-point-estimation-calculator/' ); ?>">3 point estimation calculator</a><a href="https://qpulse.sbs/login" target="_blank" rel="noopener">User Story Analyzer</a></div></div>
 <a href="<?php echo tms_u( '/daily-software-testing-jobs/' ); ?>">Jobs</a>
 <div class="tms-dd"><button type="button" aria-expanded="false" aria-haspopup="true">About <span aria-hidden="true">&#9662;</span></button>
 <div class="tms-panel"><a href="<?php echo tms_u( '/about-us/' ); ?>">About George</a><a href="<?php echo tms_u( '/software-test-consulting-session/' ); ?>">Book a session</a><a href="<?php echo tms_u( '/guest-post/' ); ?>">Guest posts</a><a href="<?php echo tms_u( '/about-us/test-in-production-e-book/' ); ?>">Free e-book</a><a href="<?php echo tms_u( '/software-testing-conferences/' ); ?>">Testing conferences</a></div></div>
@@ -132,7 +132,7 @@ function tms_footer_html() {
 <div class="tms-fnews"><p class="tms-fnews-h">The best of Testmetry, once a month.</p><?php echo tms_newsletter_form(); // phpcs:ignore ?></div>
 </div>
 <nav aria-label="Learn"><p>Learn</p><a href="<?php echo tms_u( '/ai-in-automated-testing-how/' ); ?>">AI in QA</a><a href="<?php echo tms_u( '/category/test-automation/' ); ?>">Test automation</a><a href="<?php echo tms_u( '/category/blog/' ); ?>">Software testing</a><a href="<?php echo tms_u( '/category/security/' ); ?>">Security testing</a><a href="<?php echo tms_u( '/category/news/' ); ?>">News</a></nav>
-<nav aria-label="Free tools"><p>Free tools</p><a href="<?php echo tms_u( '/random-ip-address-generator/' ); ?>">Random IP generator</a><a href="<?php echo tms_u( '/credit-card-generator/' ); ?>">Test card numbers</a><a href="https://qpulse.sbs/login" target="_blank" rel="noopener">User Story Analyzer</a></nav>
+<nav aria-label="Free tools"><p>Free tools</p><a href="<?php echo tms_u( '/random-ip-address-generator/' ); ?>">Random IP generator</a><a href="<?php echo tms_u( '/credit-card-generator/' ); ?>">Test card numbers</a><a href="<?php echo tms_u( '/3-point-estimation-calculator/' ); ?>">3 point estimation calculator</a><a href="https://qpulse.sbs/login" target="_blank" rel="noopener">User Story Analyzer</a></nav>
 <nav aria-label="Resources"><p>Resources</p><a href="<?php echo tms_u( '/daily-software-testing-jobs/' ); ?>">Testing jobs</a><a href="<?php echo tms_u( '/about-us/test-in-production-e-book/' ); ?>">Free e-book</a><a href="<?php echo tms_u( '/software-testing-conferences/' ); ?>">Testing conferences</a><a href="<?php echo tms_u( '/chatgpt-for-software-testing/' ); ?>">ChatGPT for testing</a></nav>
 <nav aria-label="Company"><p>Company</p><a href="<?php echo tms_u( '/about-us/' ); ?>">About</a><a href="<?php echo tms_u( '/software-test-consulting-session/' ); ?>">Book a session</a><a href="<?php echo tms_u( '/guest-post/' ); ?>">Guest posts</a><a href="mailto:george@testmetry.com">Contact</a><a href="https://goo.gl/maps/xr2Ja1i2xT71pxjL6" target="_blank" rel="noopener">Our office on the map</a></nav>
 </div>
