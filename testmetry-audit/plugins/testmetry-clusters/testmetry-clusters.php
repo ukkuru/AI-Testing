@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.0.1
+ * Version: 1.1.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -19,6 +19,15 @@ function tmcl_clusters() {
 				'/uat-full-form-in-testing-everything-you-need-to-know/' => 'UAT full form',
 				'/what-acceptance-testing-really-focuses-on/'      => 'What acceptance testing focuses on',
 				'/uat-interview-questions-that-reveal-true-skills/' => 'UAT interview questions',
+			),
+		),
+		array(
+			'title' => 'Shift Left Testing',
+			'hub'   => '/shift-left-testing/',
+			'pages' => array(
+				'/shift-left-vs-shift-right/'              => 'Shift left vs shift right',
+				'/shift-left-performance-testing/'         => 'Shift left performance testing',
+				'/shift-right-testing-in-production/'      => 'Shift right testing in production',
 			),
 		),
 	);
