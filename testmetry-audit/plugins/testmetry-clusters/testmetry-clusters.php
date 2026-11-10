@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.1.0
+ * Version: 1.2.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -30,6 +30,51 @@ function tmcl_clusters() {
 				'/shift-right-testing-in-production/'      => 'Shift right testing in production',
 			),
 		),
+		array(
+			'title' => 'AI in Software Testing',
+			'hub'   => '/the-ai-in-software-testing-the-guide/',
+			'extra' => array( '/category/ai-in-testing/' => 'Browse all AI in Testing articles' ),
+			'max'   => 6,
+			'pages' => array(
+				'/ai-test-generator/'            => 'AI test generator: what actually works',
+				'/test-case-design-ai/'          => 'Test case design with AI: 15 checks',
+				'/ai-in-testing-metrics/'        => 'AI in testing: 5 metrics for real ROI',
+				'/ai-in-automated-testing-how/'  => 'AI in automated testing: what top QA teams do',
+				'/claude-for-test-automation/'   => 'Claude for test automation',
+				'/playwright-mcp-server/'        => 'MCP servers worth a tester\'s time',
+				'/github-copilot-in-test/'       => 'GitHub Copilot in test automation',
+				'/copilot4devops-use-cases/'     => 'Copilot4DevOps for QA',
+				'/chatgpt-to-identify-test/'     => 'Using ChatGPT to identify test scenarios',
+				'/defect-analysis/'              => 'Defect analysis with ChatGPT',
+				'/postman-ai/'                   => 'Postman AI for API testing',
+				'/postbot/'                      => 'PostBot: write API tests with Postman AI',
+				'/chatbot-testing/'              => 'Chatbot testing tools and strategy',
+				'/voice-agent-testing/'          => 'Testing voice agents',
+				'/ai-agent-security/'            => 'AI agent security',
+				'/customer-experience-testing/'  => 'Customer experience testing for AI agents',
+				'/ai-software-testing/'          => 'AI software testing strategies',
+				'/ai-in-software-testing/'       => 'Top AI tools for software testing',
+				'/new-trends-in-software-testing/' => 'New trends in software testing',
+				'/ai-testing/'                   => 'AI testing use cases',
+			),
+		),
+		array(
+			'title' => 'Performance Testing',
+			'hub'   => '/comprehensive-guide-to-software-performance-testing-strategies-tools-and-benefits/',
+			'max'   => 6,
+			'pages' => array(
+				'/types-of-performance-tests/'          => 'Types of performance tests',
+				'/different-types-of-performance-testing/' => 'Different types of performance testing',
+				'/load-testing-tools/'                  => 'Load testing tools compared',
+				'/benchmark-test/'                      => 'Benchmark testing explained',
+				'/throughput-in-performance-testing/'   => 'Throughput in performance testing',
+				'/avoiding-common-mistakes-in-the-performance-testing-life-cycle-a-guide/' => 'Performance testing life cycle mistakes',
+				'/shift-left-performance-testing/'      => 'Shift left performance testing',
+				'/azure-load-testing/'                  => 'Azure Load Testing gaps',
+				'/performance-testing-interview-questions-for/' => 'Performance testing interview questions',
+				'/performance-testing-for-mobile-apps/' => 'Performance testing for mobile apps',
+			),
+		),
 	);
 }
 
@@ -41,12 +86,33 @@ add_filter( 'the_content', function ( $content ) {
 	if ( ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) { return $content; }
 	$path = untrailingslashit( (string) wp_parse_url( get_permalink(), PHP_URL_PATH ) );
 	foreach ( tmcl_clusters() as $c ) {
-		$keys = array_map( 'untrailingslashit', array_keys( $c['pages'] ) );
-		if ( ! in_array( $path, $keys, true ) ) { continue; }
-		$out = '<div class="tmcl"><p><strong>Part of our guide to ' . esc_html( $c['title'] ) . '.</strong> Start with the <a href="' . esc_url( home_url( $c['hub'] ) ) . '">complete ' . esc_html( $c['title'] ) . ' guide</a>, or read the related articles:</p><ul>';
+		$keys    = array_map( 'untrailingslashit', array_keys( $c['pages'] ) );
+		$is_hub  = ( untrailingslashit( $c['hub'] ) === $path );
+		if ( ! $is_hub && ! in_array( $path, $keys, true ) ) { continue; }
+		$max   = isset( $c['max'] ) ? (int) $c['max'] : 0;
+		$pages = array();
 		foreach ( $c['pages'] as $p => $label ) {
-			if ( untrailingslashit( $p ) === $path ) { continue; }
+			if ( untrailingslashit( $p ) !== $path ) { $pages[ $p ] = $label; }
+		}
+		if ( $max && count( $pages ) > $max ) {
+			// rotate the list by this page's position so every member gets inbound links
+			$start = $is_hub ? 0 : (int) array_search( $path, $keys, true );
+			$all   = array_keys( $pages );
+			$n     = count( $all );
+			$pick  = array();
+			for ( $i = 0; $i < $max; $i++ ) { $k = $all[ ( $start + $i ) % $n ]; $pick[ $k ] = $pages[ $k ]; }
+			$pages = $pick;
+		}
+		if ( $is_hub ) {
+			$out = '<div class="tmcl"><p><strong>Go deeper on ' . esc_html( $c['title'] ) . '.</strong> Related articles:</p><ul>';
+		} else {
+			$out = '<div class="tmcl"><p><strong>Part of our guide to ' . esc_html( $c['title'] ) . '.</strong> Start with the <a href="' . esc_url( home_url( $c['hub'] ) ) . '">complete ' . esc_html( $c['title'] ) . ' guide</a>, or read the related articles:</p><ul>';
+		}
+		foreach ( $pages as $p => $label ) {
 			$out .= '<li><a href="' . esc_url( home_url( $p ) ) . '">' . esc_html( $label ) . '</a></li>';
+		}
+		if ( ! empty( $c['extra'] ) ) {
+			foreach ( $c['extra'] as $p => $label ) { $out .= '<li><a href="' . esc_url( home_url( $p ) ) . '">' . esc_html( $label ) . '</a></li>'; }
 		}
 		return $content . $out . '</ul></div>';
 	}
