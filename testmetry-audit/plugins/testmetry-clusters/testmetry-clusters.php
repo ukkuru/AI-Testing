@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.2.0
+ * Version: 1.3.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -73,6 +73,22 @@ function tmcl_clusters() {
 				'/azure-load-testing/'                  => 'Azure Load Testing gaps',
 				'/performance-testing-interview-questions-for/' => 'Performance testing interview questions',
 				'/performance-testing-for-mobile-apps/' => 'Performance testing for mobile apps',
+			),
+		),
+		array(
+			'title' => 'SDET (Software Development Engineer in Test)',
+			'hub'   => '/sdet-guide-roles/',
+			'max'   => 6,
+			'pages' => array(
+				'/comprehensive-guide-what-is-an-sdet/'     => 'What is an SDET: full form and meaning',
+				'/sdet-roles-and-responsibilities/'         => 'SDET roles and responsibilities',
+				'/software-development-engineer-test/'      => 'Software development engineer test: skills, tools and practices',
+				'/7-key-differences-between-sdet-and-qa/'   => 'SDET vs QA: 7 key differences',
+				'/sdet-course/'                             => 'How to choose an SDET course',
+				'/sdet-certification/'                      => 'SDET certification: which ones are worth it',
+				'/sdet-resume/'                             => 'SDET resume tips and examples',
+				'/sdet-interview/'                          => 'SDET interview questions',
+				'/sdet-salary/'                             => 'SDET salary in India',
 			),
 		),
 	);
