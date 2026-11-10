@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Site
  * Description: Light logo-palette theme for the whole site: one shared header and footer, a restyled blog and archive layout, and light styling for posts and pages. Markup and CSS only; post content, URLs and SEO tags are untouched. While TMS_LIVE is false it shows only when ?tmsite=1 is in the address, for testing.
- * Version: 1.3.1
+ * Version: 1.4.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -130,6 +130,7 @@ function tms_footer_html() {
 <p>AI software testing and test automation guides from 25+ years in quality assurance. Written by George Ukkuru.</p>
 <p class="tms-fcontact"><a href="mailto:george@testmetry.com">george@testmetry.com</a><br><a href="tel:+919895780269">+91-9895780269</a></p>
 <div class="tms-fnews"><p class="tms-fnews-h">The best of Testmetry, once a month.</p><?php echo tms_newsletter_form(); // phpcs:ignore ?></div>
+<div class="tms-pref"><p class="tms-fnews-h">See Testmetry first in Google</p><div google-add-preferred-source-btn data-theme="dark"></div></div>
 </div>
 <nav aria-label="Learn"><p>Learn</p><a href="<?php echo tms_u( '/category/ai-in-testing/' ); ?>">AI in Testing</a><a href="<?php echo tms_u( '/category/test-automation/' ); ?>">Test automation</a><a href="<?php echo tms_u( '/category/blog/' ); ?>">Software testing</a><a href="<?php echo tms_u( '/category/security/' ); ?>">Security testing</a><a href="<?php echo tms_u( '/category/news/' ); ?>">News</a></nav>
 <nav aria-label="Free tools"><p>Free tools</p><a href="<?php echo tms_u( '/random-ip-address-generator/' ); ?>">Random IP generator</a><a href="<?php echo tms_u( '/credit-card-generator/' ); ?>">Test card numbers</a><a href="<?php echo tms_u( '/3-point-estimation-calculator/' ); ?>">3 point estimation calculator</a><a href="https://qpulse.sbs/login" target="_blank" rel="noopener">User Story Analyzer</a></nav>
@@ -201,6 +202,7 @@ function tms_chrome_css() {
 .tms-header .tms-search{padding:0!important;margin:0!important}.tms-header .tms-logo{margin-bottom:0!important}
 .gtranslate_wrapper,html body div.gt_switcher_wrapper{position:fixed!important;top:auto!important;right:auto!important;bottom:14px!important;left:14px!important;z-index:40!important}
 @media (max-width:900px){.tms-bar{padding-left:14px!important;padding-right:14px!important}.tms-logo svg{width:30px;height:30px}.tms-sub{padding:9px 12px!important}.tms-logo{font-size:20px!important}.tms-bar{gap:8px 8px!important}.tms-sub{white-space:nowrap}}
+.tms-pref{margin:18px 0 0}.tms-pref .tms-fnews-h{margin:0 0 8px}.tms-pref-post{margin:32px 0;padding:18px 20px;border:1px solid #dbe3ef;border-radius:12px;background:#f5f7fa}.tms-pref-post p{margin:0 0 10px!important;color:#0b2a5b!important}
 .tms-footer{background:#0b2a5b;color:#d3dbe8;margin-top:56px}
 .tms-footer .tms-wrap{padding-top:56px;padding-bottom:28px}
 .tms-fgrid{display:grid;grid-template-columns:minmax(260px,2fr) repeat(4,minmax(140px,1fr));gap:36px}
@@ -446,3 +448,18 @@ add_filter( 'jetpack_relatedposts_returned_results', function ( $results ) {
 	}
 	return $out;
 } );
+
+
+/* Google "Add as a preferred source" button: after each article, in the footer, and the script that renders it. */
+add_filter( 'the_content', function ( $content ) {
+	if ( ! tms_active() || ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) { return $content; }
+	return $content . '<div class="tms-pref tms-pref-post"><p><strong>Want more testing guides in your Google results?</strong> Add Testmetry as a preferred source.</p><div google-add-preferred-source-btn></div></div>';
+}, 30 );
+
+add_action( 'wp_footer', function () {
+	if ( ! tms_active() || is_feed() || is_embed() ) { return; }
+	?>
+<script async src="https://news.google.com/swg/js/v1/publisher.js" nowprocket></script>
+<script nowprocket>document.addEventListener('click',function(e){var t=e.target&&e.target.closest?e.target.closest('[google-add-preferred-source-btn]'):null;if(t&&typeof window.gtag==='function'){window.gtag('event','preferred_source_button_click')}},true);</script>
+<?php
+}, 100 );
