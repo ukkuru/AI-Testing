@@ -75,7 +75,7 @@ p{margin:0}
 .skip:focus{left:12px}
 .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .h2{font-weight:700;font-size:clamp(30px,3.8vw,48px);line-height:1.08;letter-spacing:-.035em}
-.lede{color:var(--body);max-width:58ch}
+.lede{color:var(--body);max-width:31em}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid transparent;transition:transform .15s ease,background .15s}
 .btn:hover{transform:translateY(-1px)}
 .btn-mint{background:var(--mint);color:var(--navy)} .btn-mint:hover{color:var(--navy);background:#00BD98}
@@ -119,7 +119,7 @@ p{margin:0}
 .hero h1{font-weight:700;font-size:clamp(36px,5.4vw,72px);line-height:1.04;letter-spacing:-.045em;max-width:17ch}
 .hero h1 span{color:var(--teal)}
 .tagline{font-family:var(--f-head);font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.02em}
-.hero .lede{font-size:19px;max-width:62ch}
+.hero .lede{font-size:19px;max-width:33em}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 @media (max-width:600px){.hero .lede{font-size:17px}.founder-pill{font-size:13px}}
 
@@ -137,7 +137,7 @@ p{margin:0}
 .qp-kicker{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .qp-h{font-family:var(--f-head);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
 .qp-p{font-size:16px;color:var(--body);min-height:1.6em}
-.qp-old{color:#8A97A8;background:linear-gradient(var(--rust-line),var(--rust-line)) no-repeat 0 58%/0% 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .6s ease}
+.qp-old{color:#66727F;background:linear-gradient(var(--rust-line),var(--rust-line)) no-repeat 0 58%/0% 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .6s ease}
 .qp-old.is-struck{background-size:100% 2px}
 .qp-new{background:var(--mint-bg);border-radius:4px;padding:1px 3px;color:var(--navy)}
 .qp-new:empty{padding:0}
@@ -269,6 +269,9 @@ p{margin:0}
 
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 .brand-logo{height:36px;width:auto;display:block}
+
+/* Readability: keep long paragraphs to a comfortable line length */
+main p{max-width:38em}
 </style>
 </head>
 <body>
