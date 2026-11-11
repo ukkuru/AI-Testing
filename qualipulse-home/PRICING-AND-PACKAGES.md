@@ -2,7 +2,7 @@
 
 ## Approved price list (owner decision, November 2026)
 
-These prices replace the recommended tiers further down. There are no one-off purchases on any tier.
+These prices replace the recommended tiers further down. There are no one-off purchases on any tier. Monthly plans can be cancelled with 30 days' notice. AI Email Marketing and Product Value Assurance are shown as "from" prices on the pricing page.
 
 ### Content Engine (monthly)
 
@@ -27,8 +27,8 @@ The volume measure is pages made answer-ready each month, plus buyer prompts tra
 | Tier | Pages made answer-ready a month | Buyer prompts tracked | Monthly price |
 |---|---|---|---|
 | Signal | 6 | 20 | **$400** |
-| Momentum | 12 | 25 | **$949** |
-| Authority | 20 | 40 | **$1,300** |
+| Momentum | 12 | 30 | **$949** |
+| Authority | 20 | 40 | **$1,349** |
 
 All tiers include a technical and schema check of the pages worked on and a monthly citation report.
 
