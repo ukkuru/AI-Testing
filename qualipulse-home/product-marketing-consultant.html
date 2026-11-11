@@ -445,7 +445,7 @@ p{margin:0}
 .brand-logo{height:36px;width:auto;display:block}
 
 /* Product Value Assurance page additions */
-.brand-logo{height:32px;width:auto;display:block}
+
 .trace-grid li{position:relative}
 .trace-n{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--teal-bg);color:var(--teal-deep);font:700 13px var(--f-head);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
 .problem-item .fix span:last-child{font-family:var(--f-head);font-weight:600;color:var(--navy)}
@@ -527,6 +527,14 @@ p{margin:0}
 .case-wide .stat b{grid-column:1;grid-row:1/span 3;font-size:84px}
 .case-wide .stat span{font-family:var(--f-head);font-size:22px;letter-spacing:-.02em}
 @media (max-width:600px){.case-wide .stat{display:flex}.case-wide .stat b{font-size:60px}.case-wide .stat span{font-size:18px}}
+@media (max-width:600px){
+  .ptp tbody th{width:auto}
+  .case-wide .stat b{align-self:flex-start}
+  .stats.four{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .stats.four .stat{padding:20px}
+  .stats.four .stat b{font-size:44px}
+  .stats.four .stat span{font-size:15px}
+}
 
 </style>
 </head>
