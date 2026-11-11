@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.9.0
+ * Version: 1.10.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -131,6 +131,18 @@ function tmcl_clusters() {
 				'/top-5-traditional-test-management-tools-revealed/' => 'Traditional test management tools',
 				'/implement-a-test-management-tool/'              => 'How to implement a test management tool',
 				'/qa-metrics/'                                    => 'QA metrics and formulas',
+			),
+		),
+		array(
+			'title' => 'Selenium',
+			'hub'   => '/what-is-selenium-a-clear-explanation/',
+			'pages' => array(
+				'/how-to-install-selenium/'                  => 'How to install Selenium',
+				'/selenium-pros-cons-no-one-talks-about/'    => 'Selenium pros and cons',
+				'/efficient-cross-browser-testing-with-selenium-basics-importance-and-best-practices/' => 'Cross browser testing in Selenium',
+				'/selenium-api-testing/'                     => 'Selenium and API testing: what it can and cannot do',
+				'/cypress-vs-selenium/'                      => 'Cypress vs Selenium',
+				'/test-automation-frameworks-types/'         => 'Test automation frameworks',
 			),
 		),
 	);
