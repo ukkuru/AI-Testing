@@ -10,8 +10,8 @@ Content > Form Fields > "Service Interested In" (select field). Replace the Opti
 
 ```
 
-Content Engine (SEO content marketing)|Content Engine
-LinkedIn Content (ghostwriting)|LinkedIn Content
+Content Engine
+LinkedIn Content
 AI SEO Services
 AI Email Marketing
 Product Value Assurance
@@ -19,7 +19,6 @@ Career Positioning
 Not sure yet
 ```
 
-Elementor shows the part before `|` and stores the part after it.
 
 ## 2. Rename the Company field ID from `message` to `company`
 
