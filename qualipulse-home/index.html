@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practitioner-Led Content Marketing for SaaS &amp; Software Companies</title>
+<meta name="description" content="B2B content marketing agency for SaaS, QA and DevOps companies. Practitioner-written content, LinkedIn visibility and AI SEO services that drive pipeline.">
+<link rel="canonical" href="https://qualipulse.tech/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://qualipulse.tech/">
+<meta property="og:title" content="Practitioner-Led Content Marketing for SaaS &amp; Software Companies">
+<meta property="og:description" content="Content that passes a code review. SaaS content marketing, LinkedIn ghostwriting, AI SEO and AI email marketing for software companies.">
+<meta property="og:image" content="https://qualipulse.tech/wp-content/uploads/2026/03/QualiPulse-1024x225.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap">
+
+<!-- Rank Math already outputs Organization, WebSite and WebPage schema on the live site.
+     This block adds only what is new on this page: the services and the FAQ. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "name": "QualiPulse services",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "item": {"@type": "Service", "name": "Content Engine", "serviceType": "SaaS content marketing", "url": "https://qualipulse.tech/content-engine/", "provider": {"@type": "Organization", "name": "QualiPulse", "url": "https://qualipulse.tech/"}}},
+        {"@type": "ListItem", "position": 2, "item": {"@type": "Service", "name": "LinkedIn Visibility", "serviceType": "LinkedIn ghostwriting", "url": "https://qualipulse.tech/linkedin-content-for-software-companies/", "provider": {"@type": "Organization", "name": "QualiPulse", "url": "https://qualipulse.tech/"}}},
+        {"@type": "ListItem", "position": 3, "item": {"@type": "Service", "name": "AI SEO Optimization", "serviceType": "AI SEO services", "url": "https://qualipulse.tech/ai-seo-services/", "provider": {"@type": "Organization", "name": "QualiPulse", "url": "https://qualipulse.tech/"}}},
+        {"@type": "ListItem", "position": 4, "item": {"@type": "Service", "name": "AI Email Marketing", "serviceType": "B2B email marketing", "url": "https://qualipulse.tech/ai-email-marketing/", "provider": {"@type": "Organization", "name": "QualiPulse", "url": "https://qualipulse.tech/"}}},
+        {"@type": "ListItem", "position": 5, "item": {"@type": "Service", "name": "Product Value Assurance", "serviceType": "Product marketing consulting", "url": "https://qualipulse.tech/product-marketing-consultant/", "provider": {"@type": "Organization", "name": "QualiPulse", "url": "https://qualipulse.tech/"}}}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "What does a SaaS content marketing agency do?", "acceptedAnswer": {"@type": "Answer", "text": "It plans, writes and distributes content that brings the right buyers to a software product: SEO articles, whitepapers, case studies and LinkedIn posts. QualiPulse adds a practitioner review, so every technical claim holds up with engineers."}},
+        {"@type": "Question", "name": "How are you different from other B2B content marketing agencies?", "acceptedAnswer": {"@type": "Answer", "text": "Our writers and reviewers have built, tested and shipped software. Generalist agencies research your industry. We have worked in it for 26 years."}},
+        {"@type": "Question", "name": "What are AI SEO services?", "acceptedAnswer": {"@type": "Answer", "text": "AI SEO makes your site easy for ChatGPT, Perplexity and Google AI Overviews to find, understand and cite. It combines technical SEO, structured data and pages written to answer real buyer questions."}},
+        {"@type": "Question", "name": "What is AI email marketing for B2B SaaS?", "acceptedAnswer": {"@type": "Answer", "text": "AI email marketing uses AI agents to personalize and time each email by role, industry and buying stage. We pair that with practitioner-written content, so your email nurture campaigns sound like an expert, not a template."}},
+        {"@type": "Question", "name": "What is Product Value Assurance?", "acceptedAnswer": {"@type": "Answer", "text": "A founder-led assessment that checks whether your product delivers what your marketing promises, across market relevance, market influence, demand performance and experience."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+/* QualiPulse homepage. Brand: navy, teal, mint on a mist background. Sora for headings, Inter for text. */
+:root{
+  --navy:#0A2240; --navy-line:#23406A; --teal:#00897B; --teal-ink:#00695C; --teal-deep:#00574D; --teal-bg:#E6F4F2;
+  --mint:#00CEA6; --mint-bg:#D9F5EE; --mist:#F4F6F8; --white:#FFFFFF; --line:#E1E7EE; --line-2:#D3DBE4;
+  --body:#45566B; --muted:#5C6B7D; --on-navy:#B9C6D6; --rust:#9A3412; --rust-line:#C2410C; --pass:#0B6B3A; --wait:#9A5B00;
+  --f-head:"Sora",Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --wrap:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--mist);color:var(--navy);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--teal-ink)} a:hover{color:var(--teal-deep)}
+h1,h2,h3{font-family:var(--f-head);margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.h2{font-weight:700;font-size:clamp(30px,3.8vw,48px);line-height:1.08;letter-spacing:-.035em}
+.lede{color:var(--body);max-width:58ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid transparent;transition:transform .15s ease,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-mint{background:var(--mint);color:var(--navy)} .btn-mint:hover{color:var(--navy);background:#00BD98}
+.btn-ghost{background:var(--white);color:var(--navy);border-color:var(--line-2);font-weight:600} .btn-ghost:hover{color:var(--navy)}
+.btn-navy{background:var(--navy);color:#fff;font-weight:600;padding:11px 20px;min-height:44px;font-size:15px} .btn-navy:hover{color:#fff}
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px}
+
+/* Header */
+.site-head{position:sticky;top:0;z-index:50;padding-block:14px;background:linear-gradient(var(--mist) 70%,rgba(244,246,248,0))}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 22px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font-family:var(--f-head);font-weight:700;font-size:19px;letter-spacing:-.02em}
+.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px #CDEDE7}
+.menu{display:flex;align-items:center;gap:22px;font-size:15px;font-weight:500;list-style:none;margin:0;padding:0}
+.menu>li{position:relative}
+.menu a{color:var(--navy);text-decoration:none}
+.menu details summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:4px}
+.menu details summary::-webkit-details-marker{display:none}
+.menu details summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:4px}
+.dropdown{position:absolute;top:calc(100% + 14px);left:-16px;min-width:260px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(10,34,64,.12);padding:8px;display:flex;flex-direction:column}
+.dropdown a{padding:10px 12px;border-radius:10px;font-size:15px}
+.dropdown a:hover{background:var(--mist)}
+.nav-cta{display:flex;align-items:center;gap:8px}
+.burger{display:none}
+@media (max-width:980px){
+  .nav{border-radius:24px;flex-wrap:wrap;padding:10px 10px 10px 18px}
+  .burger{display:block}
+  .burger summary{list-style:none;cursor:pointer;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .burger summary::-webkit-details-marker{display:none}
+  .burger[open] .mobile-menu{display:flex}
+  .menu.desktop,.nav-cta .btn-navy{display:none}
+  .mobile-menu{display:none;position:absolute;left:20px;right:20px;top:calc(100% + 4px);background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 40px rgba(10,34,64,.12);padding:12px;flex-direction:column;gap:2px;max-height:75vh;overflow:auto}
+  .mobile-menu a{padding:12px;border-radius:10px;color:var(--navy);text-decoration:none;font-weight:500}
+  .mobile-menu .group{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px 12px 4px}
+  .mobile-menu .btn{margin-top:8px}
+}
+
+/* Hero */
+.hero{padding-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
+.founder-pill{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 6px;font-size:14px;font-weight:500;color:var(--body)}
+.founder-pill img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.hero h1{font-weight:700;font-size:clamp(36px,5.4vw,72px);line-height:1.04;letter-spacing:-.045em;max-width:17ch}
+.hero h1 span{color:var(--teal)}
+.tagline{font-family:var(--f-head);font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.02em}
+.hero .lede{font-size:19px;max-width:62ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+@media (max-width:600px){.hero .lede{font-size:17px}.founder-pill{font-size:13px}}
+
+/* Review window (animated) */
+.qp-review{width:100%;max-width:1040px;margin-top:20px}
+.qp-win{background:var(--white);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;box-shadow:0 -10px 60px rgba(10,34,64,.08);overflow:hidden;text-align:left}
+.qp-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid #EEF2F6;font-size:13.5px;color:var(--muted)}
+.qp-dot{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.qp-title{margin-left:12px;font-weight:600;color:var(--navy);min-width:0}
+.qp-status{margin-left:auto;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600;background:#EEF2F6;color:var(--muted);transition:background .3s,color .3s}
+.qp-status.is-review{background:var(--teal-bg);color:var(--teal-deep)}
+.qp-status.is-done{background:var(--mint);color:var(--navy)}
+.qp-body{display:flex;flex-wrap:wrap}
+.qp-draft{flex:1 1 520px;min-width:0;padding:30px 36px;display:flex;flex-direction:column;gap:14px;border-right:1px solid #EEF2F6}
+.qp-kicker{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.qp-h{font-family:var(--f-head);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.qp-p{font-size:16px;color:var(--body);min-height:1.6em}
+.qp-old{color:#8A97A8;background:linear-gradient(var(--rust-line),var(--rust-line)) no-repeat 0 58%/0% 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .6s ease}
+.qp-old.is-struck{background-size:100% 2px}
+.qp-new{background:var(--mint-bg);border-radius:4px;padding:1px 3px;color:var(--navy)}
+.qp-new:empty{padding:0}
+.qp-caret{display:inline-block;width:2px;height:1.05em;background:var(--teal);vertical-align:-2px;margin-left:1px;animation:qp-blink .8s steps(1) infinite}
+.qp-proof{opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}
+.qp-proof.is-in{opacity:1;transform:none}
+.qp-side{flex:1 1 300px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:14px;background:#FAFBFC}
+.qp-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.qp-note{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:12px;row-gap:8px;align-items:center;opacity:0;transform:translateX(16px);transition:opacity .45s,transform .45s}
+.qp-note.is-in{opacity:1;transform:none}
+.qp-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.qp-who{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.qp-who b{font-size:14px;font-weight:600}
+.qp-who small{font-size:12.5px;color:var(--muted)}
+.qp-comment{grid-column:2;font-size:14px;line-height:1.5;color:var(--body)}
+.qp-row{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+.qp-tick{font-size:12.5px;font-weight:700;color:var(--muted);transition:color .25s}
+.qp-tick.is-pass{color:var(--pass)}
+.qp-replay{background:var(--white);border:1px solid var(--line);border-top:0;width:100%;color:var(--teal-ink);font:600 14px var(--f-body);cursor:pointer;min-height:44px}
+@keyframes qp-blink{50%{opacity:0}}
+@media (max-width:720px){.qp-draft{border-right:0;border-bottom:1px solid #EEF2F6;padding:22px}.qp-title{margin-left:0;flex-basis:100%;order:5}.qp-h{font-size:20px}}
+
+/* Logos */
+.logos{background:var(--white);border-top:1px solid var(--line)}
+.logos .wrap{padding-block:36px 40px;display:flex;flex-direction:column;align-items:center;gap:22px}
+.logos p{font-size:15px;color:var(--body);text-align:center}
+.logo-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;width:100%;align-items:center;list-style:none;margin:0;padding:0}
+.logo-row li{height:72px;display:flex;align-items:center;justify-content:center;padding:0 12px}
+.logo-row img{width:auto;max-width:100%;filter:grayscale(1);opacity:.72;mix-blend-mode:multiply;transition:filter .2s,opacity .2s}
+.logo-row img:hover{filter:none;opacity:1}
+@media (max-width:760px){.logo-row{grid-template-columns:repeat(2,minmax(0,1fr))}.logo-row li:last-child{grid-column:1/-1}}
+
+/* Stage band */
+.stage{background:var(--navy);color:#fff}
+.stage .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:12px 40px;align-items:center;justify-content:center}
+.stage .eyebrow{color:var(--mint)}
+.stage strong{font-family:var(--f-head);font-weight:600;font-size:18px}
+
+/* Problem */
+.problem{padding-top:96px;display:flex;flex-wrap:wrap;gap:40px 64px;align-items:flex-start}
+.problem-intro{flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.problem-intro .eyebrow{color:var(--rust)}
+.punch{font-family:var(--f-head);font-size:22px;font-weight:600;letter-spacing:-.02em}
+.punch span{color:var(--teal-ink)}
+.problem-list{flex:1.4 1 520px;min-width:0;display:flex;flex-direction:column;gap:14px;list-style:none;margin:0;padding:0}
+.problem-item{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:22px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 28px}
+.problem-item>div{display:flex;flex-direction:column;gap:4px}
+.problem-item .fix{border-left:2px solid var(--teal-bg);padding-left:20px}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.lbl.bad{color:var(--rust)} .lbl.good{color:var(--teal-ink)}
+.problem-item strong{font-weight:600}
+.problem-item span.d{font-size:15px;color:var(--body)}
+
+/* Services */
+.services{padding-block:96px 48px;display:flex;flex-direction:column;gap:36px}
+.center{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.service-grid{display:flex;flex-wrap:wrap;gap:20px}
+.service{flex:1 1 340px;min-width:0;padding:32px;display:flex;flex-direction:column;gap:16px;position:relative}
+.service-head{display:flex;align-items:center;gap:14px}
+.icon{width:48px;height:48px;border-radius:14px;background:var(--navy);color:var(--mint);display:flex;align-items:center;justify-content:center;flex:none}
+.service h3{font-size:23px;font-weight:600;letter-spacing:-.02em}
+.service-head small{display:block;font-size:14px;color:var(--muted)}
+.service p{color:var(--body);font-size:16px}
+.service ul{margin:0;padding-left:20px;font-size:15.5px;display:flex;flex-direction:column;gap:6px}
+.service .more{margin-top:auto;font-weight:600;text-decoration:none;font-size:15.5px}
+.badge{position:absolute;top:20px;right:20px;background:var(--teal-bg);color:var(--teal-deep);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+.proof-chip{font-size:14px;color:var(--teal-deep);background:var(--teal-bg);border-radius:10px;padding:8px 12px}
+
+/* Results */
+.results{padding-block:48px 96px;display:flex;flex-direction:column;gap:24px}
+.results-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.results-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.035em;line-height:1.1}
+.results-head a{font-weight:600;text-decoration:none}
+.chart{margin:0;padding:28px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center}
+.chart figcaption{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.chart figcaption .eyebrow{color:var(--teal-ink);font-size:12.5px;font-weight:700}
+.chart figcaption strong{font-family:var(--f-head);font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.03em}
+.chart figcaption span{font-size:15px;color:var(--body)}
+.chart figcaption small{font-size:13px;color:var(--muted)}
+.chart img{flex:2 1 560px;min-width:0;width:100%;border-radius:12px;border:1px solid #EEF2F6}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.stat{text-decoration:none;color:var(--navy);padding:32px;display:flex;flex-direction:column;gap:8px}
+.stat:hover{color:var(--navy);border-color:var(--line-2)}
+.stat b{font-family:var(--f-head);font-size:60px;font-weight:700;line-height:1;letter-spacing:-.04em}
+.stat span{font-weight:600;font-size:17px}
+.stat small{font-size:15px;color:var(--teal-ink);font-weight:600}
+.stat.feature{background:#00796B;border-color:#00796B;color:#fff}
+.stat.feature small{color:#E3F6F2}
+
+/* Founder */
+.founder{padding-bottom:96px}
+.founder .card{border-radius:28px;padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:40px;align-items:center}
+.founder img{width:200px;aspect-ratio:1/1;object-fit:cover;border-radius:20px;flex:none}
+.founder blockquote{margin:0;flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.founder blockquote p{font-family:var(--f-head);font-size:clamp(21px,2.4vw,28px);font-weight:600;line-height:1.32;letter-spacing:-.02em}
+.founder footer{color:var(--body);font-size:15.5px}
+.founder footer b{color:var(--navy)}
+
+/* FAQ */
+.faq{padding-bottom:96px;display:flex;flex-wrap:wrap;gap:32px 64px}
+.faq-intro{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.faq-intro h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.035em}
+.faq-intro a{font-weight:600;text-decoration:none}
+.faq-list{flex:2 1 560px;min-width:0}
+.faq-list details{border-top:1px solid var(--line-2);padding:20px 0}
+.faq-list details:last-child{border-bottom:1px solid var(--line-2)}
+.faq-list summary{font-family:var(--f-head);font-weight:600;font-size:19px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";font-weight:500;color:var(--teal-ink)}
+.faq-list details[open] summary::after{content:"\2212"}
+.faq-list details p{margin-top:10px;color:var(--body)}
+
+/* CTA + footer */
+.cta{background:var(--navy);color:#fff}
+.cta-inner{padding-block:96px 56px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}
+.cta h2{font-weight:700;font-size:clamp(32px,4.6vw,60px);line-height:1.04;letter-spacing:-.04em;max-width:17ch}
+.cta p{color:var(--on-navy);max-width:50ch}
+.foot{padding-block:40px;border-top:1px solid var(--navy-line);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;font-size:14.5px;color:var(--on-navy)}
+.foot nav,.foot div{display:flex;flex-direction:column;gap:8px}
+.foot h3{font-family:var(--f-body);font-size:14.5px;font-weight:700;color:#fff}
+.foot a{color:var(--on-navy);text-decoration:none}
+.foot a:hover{color:#fff}
+
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="https://qualipulse.tech/"><span class="brand-dot" aria-hidden="true"></span>QualiPulse</a>
+      <ul class="menu desktop">
+        <li><details><summary>Services</summary>
+          <div class="dropdown">
+            <a href="https://qualipulse.tech/content-engine/">Content Engine</a>
+            <a href="https://qualipulse.tech/linkedin-content-for-software-companies/">LinkedIn Content</a>
+            <a href="https://qualipulse.tech/ai-seo-services/">AI SEO Services</a>
+            <a href="https://qualipulse.tech/ai-email-marketing/">AI Email Marketing</a>
+            <a href="https://qualipulse.tech/product-marketing-consultant/">Product Value Assurance</a>
+            <a href="https://qualipulse.tech/career-positioning/">Career Positioning</a>
+          </div></details></li>
+        <li><details><summary>Case studies</summary>
+          <div class="dropdown">
+            <a href="https://qualipulse.tech/technical-seo-case-study/">Technical SEO</a>
+            <a href="https://qualipulse.tech/linkedin-content-strategy-2/">LinkedIn Content Strategy</a>
+            <a href="https://qualipulse.tech/product-marketing-case-study/">Product Marketing Audit</a>
+            <a href="https://qualipulse.tech/saas-content-marketing-case-study/">SaaS Product Company</a>
+            <a href="https://qualipulse.tech/software-testing-content-marketing/">B2B Content Marketing</a>
+          </div></details></li>
+        <li><a href="https://qualipulse.tech/pricing/">Pricing</a></li>
+        <li><a href="https://qualipulse.tech/blog/">Blog</a></li>
+        <li><a href="https://qualipulse.tech/about/">About</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a class="btn btn-navy" href="https://qualipulse.tech/contact/">Request a Sample</a>
+        <details class="burger">
+          <summary aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+          <div class="mobile-menu">
+            <span class="group">Services</span>
+            <a href="https://qualipulse.tech/content-engine/">Content Engine</a>
+            <a href="https://qualipulse.tech/linkedin-content-for-software-companies/">LinkedIn Content</a>
+            <a href="https://qualipulse.tech/ai-seo-services/">AI SEO Services</a>
+            <a href="https://qualipulse.tech/ai-email-marketing/">AI Email Marketing</a>
+            <a href="https://qualipulse.tech/product-marketing-consultant/">Product Value Assurance</a>
+            <a href="https://qualipulse.tech/career-positioning/">Career Positioning</a>
+            <span class="group">Company</span>
+            <a href="#results">Case studies</a>
+            <a href="https://qualipulse.tech/pricing/">Pricing</a>
+            <a href="https://qualipulse.tech/blog/">Blog</a>
+            <a href="https://qualipulse.tech/about/">About</a>
+            <a class="btn btn-mint" href="https://qualipulse.tech/contact/">Request a Sample</a>
+          </div>
+        </details>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="wrap hero" aria-labelledby="hero-title">
+    <span class="founder-pill"><img src="https://qualipulse.tech/wp-content/uploads/2026/09/10003167661-150x150.jpg" alt="" width="28" height="28">Led by George Ukkuru · 26 years in enterprise QA</span>
+    <h1 id="hero-title">Practitioner-Led Content Marketing <span>for Software Companies</span></h1>
+    <p class="tagline">Content that passes a code review.</p>
+    <p class="lede">A B2B content marketing agency for SaaS, QA and DevOps companies. SaaS content marketing, LinkedIn ghostwriting, AI SEO, AI email marketing and product value audits, each reviewed by someone who has shipped software.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-mint" href="https://qualipulse.tech/contact/">Request a Sample</a>
+      <a class="btn btn-ghost" href="https://qualipulse.tech/pricing/">Get a Content Plan</a>
+    </div>
+
+    <div class="qp-review" id="qpReview">
+      <div class="qp-win" role="group" aria-label="Example of a QualiPulse draft in practitioner review">
+        <div class="qp-bar">
+          <span class="qp-dot"></span><span class="qp-dot"></span><span class="qp-dot"></span>
+          <span class="qp-title">Draft 2 · Affordable SEO Services: What Your Monthly Budget Actually Buys</span>
+          <span class="qp-status is-done" data-status>Approved · Ready to publish</span>
+        </div>
+        <div class="qp-body">
+          <div class="qp-draft">
+            <span class="qp-kicker">Target search · affordable seo services</span>
+            <p class="qp-h">Affordable SEO Services: What Your Monthly Budget Actually Buys</p>
+            <p class="qp-p">
+              <span class="qp-old is-struck" data-old>SEO pricing varies depending on many factors, so it is important to choose the right partner.</span>
+              <span class="qp-new" data-new>Two affordable SEO services can cost the same and deliver completely different work.</span>
+            </p>
+            <p class="qp-p qp-proof is-in" data-proof>60 pages rebuilt. 7 keywords on Google page one by month three. Here is what that budget actually paid for.</p>
+          </div>
+          <div class="qp-side">
+            <span class="qp-kicker">Review notes</span>
+            <div class="qp-card qp-note is-in" data-note>
+              <img class="qp-avatar" src="https://qualipulse.tech/wp-content/uploads/2026/09/10003167661-150x150.jpg" alt="George Ukkuru" width="36" height="36">
+              <span class="qp-who"><b>George Ukkuru</b><small>Practitioner review · 26 yrs QA</small></span>
+              <span class="qp-comment">Opening is filler. Lead with the tension buyers feel, then prove it with our own numbers.</span>
+            </div>
+            <div class="qp-card">
+              <span style="font-size:13.5px;font-weight:600">Checks</span>
+              <span class="qp-row">Right keyword identified <span class="qp-tick is-pass" data-tick>PASS</span></span>
+              <span class="qp-row">Technical accuracy <span class="qp-tick is-pass" data-tick>PASS</span></span>
+              <span class="qp-row">Search intent match <span class="qp-tick is-pass" data-tick>PASS</span></span>
+              <span class="qp-row">Keyword usage <span class="qp-tick is-pass" data-tick>PASS</span></span>
+              <span class="qp-row">AI answer ready (FAQ, schema) <span class="qp-tick is-pass" data-tick>PASS</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="qp-replay" data-replay>↻ Replay review</button>
+    </div>
+  </section>
+
+  <section class="logos" aria-label="Customers">
+    <div class="wrap">
+      <p>Trusted by QA and SaaS teams at QAlified, OnPath Testing, Zeetius, Netra and pCloudy</p>
+      <ul class="logo-row">
+        <li><img src="images/logos/qalified.png" alt="QAlified logo" width="411" height="180" style="max-height:46px" loading="lazy"></li>
+        <li><img src="images/logos/onpath.png" alt="OnPath Testing logo" width="777" height="180" style="max-height:38px" loading="lazy"></li>
+        <li><img src="images/logos/zeetius.png" alt="Zeetius logo" width="798" height="180" style="max-height:34px" loading="lazy"></li>
+        <li><img src="images/logos/netra.png" alt="Netra logo" width="426" height="116" style="max-height:34px" loading="lazy"></li>
+        <li><img src="images/logos/pcloudy.png" alt="pCloudy logo" width="513" height="90" style="max-height:32px" loading="lazy"></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="stage" aria-label="Speaking">
+    <div class="wrap">
+      <span class="eyebrow">Our founder has spoken at</span>
+      <strong>Automation Guild</strong><strong>TestFlix</strong><strong>BrowserStack Summit</strong>
+    </div>
+  </section>
+
+  <section class="wrap problem" id="problem" aria-labelledby="problem-title">
+    <div class="problem-intro">
+      <span class="eyebrow">The problem</span>
+      <h2 class="h2" id="problem-title">Why Most Software Content Fails</h2>
+      <p class="lede">Software companies publish regularly. Most of it is written by people who have never done the work: a technical decision explained by someone who never made one.</p>
+      <p class="punch">The problem is not volume. <span>It's authenticity.</span></p>
+    </div>
+    <ul class="problem-list">
+      <li class="problem-item">
+        <div><span class="lbl bad">Symptom</span><strong>Engineers spot the gaps in one paragraph</strong><span class="d">Product leaders feel the missing context. Founders notice the lack of real experience.</span></div>
+        <div class="fix"><span class="lbl good">What we do instead</span><span>A practitioner reviews every claim before it ships.</span></div>
+      </li>
+      <li class="problem-item">
+        <div><span class="lbl bad">Symptom</span><strong>Traffic stays flat and inbound goes nowhere</strong><span class="d">Posts get published, but they target words nobody with a budget searches.</span></div>
+        <div class="fix"><span class="lbl good">What we do instead</span><span>Every topic starts from real buyer searches, not a content calendar.</span></div>
+      </li>
+      <li class="problem-item">
+        <div><span class="lbl bad">Symptom</span><strong>AI answers skip you entirely</strong><span class="d">ChatGPT and Google AI Overviews quote specific, expert sources. Generic posts never get cited.</span></div>
+        <div class="fix"><span class="lbl good">What we do instead</span><span>Answer-ready pages, schema and first-hand detail that AI search can quote.</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="wrap services" id="services" aria-labelledby="services-title">
+    <div class="center">
+      <h2 class="h2" id="services-title" style="max-width:20ch">Five Ways We Build Your Market Presence</h2>
+      <p class="lede">Get found on Google, cited by AI search, followed on LinkedIn and remembered in the inbox, with a product that lives up to the promise. The same practitioner review sits behind every service.</p>
+    </div>
+    <div class="service-grid">
+
+      <article class="card service">
+        <div class="service-head">
+          <span class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h6M8 8h4"/></svg></span>
+          <div><h3>Content Engine</h3><small>For marketing leaders at SaaS and QA companies</small></div>
+        </div>
+        <p>SaaS content marketing and B2B content writing that ranks and earns backlinks, written by people who have done the work your buyers do.</p>
+        <ul>
+          <li>Keyword research and a 90-day content plan</li>
+          <li>SEO blog articles and pillar pages</li>
+          <li>Whitepapers, ebooks and customer case studies</li>
+          <li>Practitioner review on every piece</li>
+        </ul>
+        <a class="more" href="https://qualipulse.tech/content-engine/">Explore Content Engine →</a>
+      </article>
+
+      <article class="card service">
+        <div class="service-head">
+          <span class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
+          <div><h3>LinkedIn Visibility</h3><small>For founders, CEOs and CTOs</small></div>
+        </div>
+        <p>LinkedIn ghostwriting that sounds like you on your best day, and keeps your leadership visible where software buyers make decisions.</p>
+        <ul>
+          <li>Profile rewrite and positioning</li>
+          <li>Weekly ghostwritten posts in your voice</li>
+          <li>Monthly content calendar and topic bank</li>
+          <li>Impressions and engagement reporting</li>
+        </ul>
+        <a class="more" href="https://qualipulse.tech/linkedin-content-for-software-companies/">Explore LinkedIn Content →</a>
+      </article>
+
+      <article class="card service">
+        <span class="badge">New</span>
+        <div class="service-head">
+          <span class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 7.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg></span>
+          <div><h3>AI SEO Optimization</h3><small>For SaaS teams losing clicks to AI answers</small></div>
+        </div>
+        <p>AI SEO services that get your product named in ChatGPT, Perplexity and Google AI Overviews, built on the technical SEO that search engines still depend on.</p>
+        <ul>
+          <li>AI search visibility audit across ChatGPT, Perplexity and Google</li>
+          <li>Technical SEO, schema markup and AI crawler access</li>
+          <li>Answer-ready pages and FAQs that AI can quote</li>
+          <li>Monthly citation and ranking tracking</li>
+        </ul>
+        <span class="proof-chip">Proof: 9,080 impressions in Google's AI features on our own publishing site in 3 months</span>
+        <a class="more" href="https://qualipulse.tech/ai-seo-services/">Explore AI SEO Services →</a>
+      </article>
+
+      <article class="card service">
+        <span class="badge">New</span>
+        <div class="service-head">
+          <span class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+          <div><h3>AI Email Marketing</h3><small>For B2B SaaS teams with leads that go cold</small></div>
+        </div>
+        <p>B2B email marketing powered by AI agents and written by practitioners. SaaS email marketing that turns every article into email nurture campaigns your buyers actually open.</p>
+        <ul>
+          <li>Email nurture campaigns built from your best content</li>
+          <li>AI-personalized emails by role, industry and stage</li>
+          <li>Deliverability setup and list hygiene</li>
+          <li>Reply, meeting and pipeline reporting</li>
+        </ul>
+        <a class="more" href="https://qualipulse.tech/ai-email-marketing/">Explore AI Email Marketing →</a>
+      </article>
+
+      <article class="card service">
+        <div class="service-head">
+          <span class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+          <div><h3>Product Value Assurance</h3><small>For product and growth leaders</small></div>
+        </div>
+        <p>A product marketing consultant who also tests the product. We trace every market promise to the experience customers actually get.</p>
+        <ul>
+          <li>Executive diagnostic across four pillars: market relevance, market influence, demand performance and experience</li>
+          <li>Product Value Maturity score, 1 to 5 on five dimensions</li>
+          <li>Deep dives where needed: usability, load, security and technical SEO</li>
+        </ul>
+        <a class="more" href="https://qualipulse.tech/product-marketing-consultant/">Explore Product Value Assurance →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap results" id="results" aria-labelledby="results-title">
+    <div class="results-head">
+      <h2 id="results-title">Results our clients can show their board</h2>
+      <a href="https://qualipulse.tech/software-testing-content-marketing/">B2B content marketing case study →</a>
+    </div>
+    <figure class="card chart">
+      <figcaption>
+        <span class="eyebrow">Our own publishing site</span>
+        <strong>Search impressions doubled in three months</strong>
+        <span>We test every SEO and AI SEO method on our own site before we use it on yours.</span>
+        <small>Source: Google Search Console, Aug to Nov 2026</small>
+      </figcaption>
+      <img src="images/search-console-impressions.png" alt="Google Search Console chart showing search impressions and clicks rising over three months" width="1928" height="730" loading="lazy">
+    </figure>
+    <div class="stats">
+      <a class="card stat feature" href="https://qualipulse.tech/technical-seo-case-study/"><b>60</b><span>pages rebuilt for search in five months</span><small>Technical SEO case study →</small></a>
+      <a class="card stat" href="https://qualipulse.tech/linkedin-content-strategy-2/"><b>70%</b><span>more LinkedIn impressions for an IT services CEO</span><small>LinkedIn content strategy →</small></a>
+      <a class="card stat" href="https://qualipulse.tech/product-marketing-case-study/"><b>10</b><span>qualified leads in 60 days</span><small>Product marketing audit →</small></a>
+    </div>
+  </section>
+
+  <section class="wrap founder" id="about" aria-label="Founder">
+    <div class="card">
+      <img src="https://qualipulse.tech/wp-content/uploads/2026/09/10003167661-300x300.jpg" alt="George Ukkuru, founder of QualiPulse" width="200" height="200" loading="lazy">
+      <blockquote>
+        <p>"I started QualiPulse because I got tired of watching software companies pay for content that couldn't survive a technical reader's first paragraph."</p>
+        <footer><b>George Ukkuru</b> · Founder and CEO · Author of <i>Software Test Estimation Simplified</i> · Host of Automation Hangout</footer>
+        <a href="https://qualipulse.tech/about/" style="font-weight:600;text-decoration:none">About QualiPulse →</a>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="wrap faq" id="faq" aria-labelledby="faq-title">
+    <div class="faq-intro">
+      <h2 id="faq-title">Questions buyers ask us</h2>
+      <a href="https://qualipulse.tech/faq/">All FAQs →</a>
+    </div>
+    <div class="faq-list">
+      <details open><summary>What does a SaaS content marketing agency do?</summary><p>It plans, writes and distributes content that brings the right buyers to a software product: SEO articles, whitepapers, case studies and LinkedIn posts. QualiPulse adds a practitioner review, so every technical claim holds up with engineers.</p></details>
+      <details><summary>How are you different from other B2B content marketing agencies?</summary><p>Our writers and reviewers have built, tested and shipped software. Generalist agencies research your industry. We have worked in it for 26 years.</p></details>
+      <details><summary>What are AI SEO services?</summary><p>AI SEO makes your site easy for ChatGPT, Perplexity and Google AI Overviews to find, understand and cite. It combines technical SEO, structured data and pages written to answer real buyer questions.</p></details>
+      <details><summary>What is AI email marketing for B2B SaaS?</summary><p>AI email marketing uses AI agents to personalize and time each email by role, industry and buying stage. We pair that with practitioner-written content, so your email nurture campaigns sound like an expert, not a template.</p></details>
+      <details><summary>What is Product Value Assurance?</summary><p>A founder-led assessment that checks whether your product delivers what your marketing promises, across market relevance, market influence, demand performance and experience.</p></details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cta" id="cta">
+  <div class="wrap cta-inner">
+    <h2>Send us a topic. We'll send back a reviewed draft.</h2>
+    <p>A free sample so you can judge the depth before you commit to anything.</p>
+    <a class="btn btn-mint" href="https://qualipulse.tech/contact/">Request a Sample</a>
+  </div>
+  <div class="wrap foot">
+    <nav aria-label="Services"><h3>Services</h3>
+      <a href="https://qualipulse.tech/content-engine/">Content Engine</a>
+      <a href="https://qualipulse.tech/linkedin-content-for-software-companies/">LinkedIn Content</a>
+      <a href="https://qualipulse.tech/ai-seo-services/">AI SEO Services</a>
+      <a href="https://qualipulse.tech/ai-email-marketing/">AI Email Marketing</a>
+      <a href="https://qualipulse.tech/product-marketing-consultant/">Product Value Assurance</a>
+      <a href="https://qualipulse.tech/career-positioning/">Career Positioning</a>
+    </nav>
+    <nav aria-label="Case studies"><h3>Case studies</h3>
+      <a href="https://qualipulse.tech/technical-seo-case-study/">Technical SEO</a>
+      <a href="https://qualipulse.tech/linkedin-content-strategy-2/">LinkedIn Content Strategy</a>
+      <a href="https://qualipulse.tech/product-marketing-case-study/">Product Marketing Audit</a>
+      <a href="https://qualipulse.tech/saas-content-marketing-case-study/">SaaS Product Company</a>
+      <a href="https://qualipulse.tech/software-testing-content-marketing/">B2B Content Marketing</a>
+    </nav>
+    <nav aria-label="Company"><h3>Company</h3>
+      <a href="https://qualipulse.tech/about/">About</a>
+      <a href="https://qualipulse.tech/pricing/">Pricing</a>
+      <a href="https://qualipulse.tech/blog/">Blog</a>
+      <a href="https://qualipulse.tech/faq/">FAQ</a>
+      <a href="https://qualipulse.tech/contact/">Contact</a>
+    </nav>
+    <div><h3>Get in touch</h3>
+      <span>reachus@qualipulse.tech</span>
+      <span>+91 98957 80269</span>
+      <span>QualiPulse Solutions LLP, Seaport Airport Road, Kochi, Kerala, India</span>
+      <span>© 2026 QualiPulse. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Close desktop dropdowns when clicking elsewhere or opening another */
+document.querySelectorAll('.menu details').forEach(function (d) {
+  d.addEventListener('toggle', function () {
+    if (d.open) document.querySelectorAll('.menu details').forEach(function (o) { if (o !== d) o.open = false; });
+  });
+});
+document.addEventListener('click', function (e) {
+  document.querySelectorAll('.menu details[open], .burger[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
+});
+
+/* Draft review animation: plays once when visible, about 8 seconds, then holds */
+(function () {
+  var root = document.getElementById('qpReview');
+  if (!root) return;
+  var $ = function (s) { return root.querySelector(s); };
+  var oldEl = $('[data-old]'), newEl = $('[data-new]'), proof = $('[data-proof]'),
+      note = $('[data-note]'), status = $('[data-status]'),
+      ticks = root.querySelectorAll('[data-tick]'), replay = $('[data-replay]');
+  var OLD = oldEl.textContent, NEW = newEl.textContent, timers = [];
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+  function type(el, text, start, dur) {
+    var caret = document.createElement('span'); caret.className = 'qp-caret';
+    at(start, function () { el.textContent = ''; el.appendChild(caret); });
+    var step = dur / text.length;
+    for (var i = 1; i <= text.length; i++) (function (n) {
+      at(start + n * step, function () { el.textContent = text.slice(0, n); if (n < text.length) el.appendChild(caret); });
+    })(i);
+  }
+  function setStatus(cls, label) { status.className = 'qp-status ' + cls; status.textContent = label; }
+  function reset() {
+    timers.forEach(clearTimeout); timers = [];
+    oldEl.textContent = ''; oldEl.classList.remove('is-struck');
+    newEl.textContent = ''; proof.classList.remove('is-in'); note.classList.remove('is-in');
+    ticks.forEach(function (t) { t.classList.remove('is-pass'); t.textContent = '...'; });
+    setStatus('', 'Drafting');
+  }
+  function play() {
+    if (reduce) return;
+    reset();
+    type(oldEl, OLD, 600, 1400);
+    at(2000, function () { note.classList.add('is-in'); setStatus('is-review', 'In practitioner review'); });
+    at(2800, function () { oldEl.classList.add('is-struck'); });
+    type(newEl, NEW, 3400, 1600);
+    at(5000, function () { proof.classList.add('is-in'); });
+    ticks.forEach(function (t, i) { at(6200 + i * 350, function () { t.textContent = 'PASS'; t.classList.add('is-pass'); }); });
+    at(8000, function () { setStatus('is-done', 'Approved · Ready to publish'); });
+  }
+  replay.addEventListener('click', play);
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { play(); io.disconnect(); } }, { threshold: 0.4 });
+    io.observe(root);
+  } else { play(); }
+})();
+</script>
+</body>
+</html>
