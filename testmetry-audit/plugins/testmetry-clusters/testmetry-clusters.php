@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.7.0
+ * Version: 1.8.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -83,6 +83,7 @@ function tmcl_clusters() {
 				'/sdet-roles-and-responsibilities/'         => 'SDET roles and responsibilities',
 				'/software-development-engineer-test/'      => 'Software development engineer test: skills, tools and practices',
 				'/7-key-differences-between-sdet-and-qa/'   => 'SDET vs QA: 7 key differences',
+				'/sdet-skills/'                             => 'SDET skills: what employers look for',
 				'/sdet-course/'                             => 'How to choose an SDET course',
 				'/sdet-certification/'                      => 'SDET certification: which ones are worth it',
 				'/sdet-resume/'                             => 'SDET resume tips and examples',

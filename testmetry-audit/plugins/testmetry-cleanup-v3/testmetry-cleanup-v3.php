@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Cleanup Redirects v3
  * Description: 301 redirects for merged, expired or retired posts; rewrites or removes internal links to them and to known dead or placeholder URLs. Deactivate to undo.
- * Version: 1.0.5
+ * Version: 1.0.6
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 function tmc3_redirects() { return array(
@@ -32,7 +32,6 @@ function tmc3_redirects() { return array(
 		'/risk-based-testing' => 'https://testmetry.com/a-comprehensive-guide-to-risk-based-testing/',
 		'/sanity-testing-meaning-definition' => 'https://testmetry.com/smoke-test-in-software-testing-what-it-is-and-why-it-matters/',
 		'/sdet-role-responsibilities' => 'https://testmetry.com/sdet-guide-roles/',
-		'/sdet-skills' => 'https://testmetry.com/sdet-guide-roles/',
 		'/smoke-testing-vs-sanity-testing' => 'https://testmetry.com/smoke-test-in-software-testing-what-it-is-and-why-it-matters/',
 		'/software-development-engineer-in-test' => 'https://testmetry.com/sdet-guide-roles/',
 		'/software-test-estimation' => 'https://testmetry.com/software-test-estimation-techniques/',

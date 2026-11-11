@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Link Cleanup
  * Description: Fixes links in published content when it is displayed: removes dead internal and external links (the link text stays) and points redirecting internal links straight at their final page. Post content in the database is not changed. Deactivate to undo.
- * Version: 1.0.3
+ * Version: 1.0.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -230,7 +230,6 @@ function tmlc_rewrite() { return array(
 		'testmetry.com/optimizing-test-data-management-trends-techniques-and-best-practices' => 'https://testmetry.com/test-data-management/',
 		'testmetry.com/performance-engineering' => 'https://testmetry.com/comprehensive-guide-to-software-performance-testing-strategies-tools-and-benefits/',
 		'testmetry.com/sdet-role-responsibilities' => 'https://testmetry.com/sdet-roles-and-responsibilities/',
-		'testmetry.com/sdet-skills' => 'https://testmetry.com/software-development-engineer-test/',
 		'testmetry.com/software-composition-analysis-what-you-need-to-know-now' => 'https://testmetry.com/software-composition-analysis/',
 		'testmetry.com/software-development-engineer-in-test' => 'https://testmetry.com/comprehensive-guide-what-is-an-sdet/',
 		'testmetry.com/software-development-engineer-test-guide-to-understanding-the-sdet-role' => 'https://testmetry.com/software-development-engineer-test/',
