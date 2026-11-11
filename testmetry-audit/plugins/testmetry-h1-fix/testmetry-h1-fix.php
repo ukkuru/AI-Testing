@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry H1 Fix
  * Description: The theme already prints each post title as the page H1. Many old posts also have H1 headings inside the article, so the page ends up with two or more. This turns in-article H1 headings into H2 at display time and drops empty ones. Post content in the database is not changed. Deactivate to undo.
- * Version: 1.1.1
+ * Version: 1.2.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -30,3 +30,12 @@ add_filter( 'the_content', function ( $content ) {
 	}
 	return $content;
 }, 99 );
+
+/* Login page test case article: strip leftover chat interface wrapper divs and an unsupportable coverage promise. */
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular( 'post' ) || ! is_main_query() ) { return $content; }
+	if ( 7233 !== get_queried_object_id() ) { return $content; }
+	$content = preg_replace( '#</?div\b[^>]*>#i', '', $content );
+	$content = str_replace( 'to create effective test cases that ensure 100% test coverage.', 'to create effective test cases that give strong coverage of the risks that matter.', $content );
+	return $content;
+}, 8 );

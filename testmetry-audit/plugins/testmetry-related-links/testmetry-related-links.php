@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Related Links
  * Description: Adds a short "Related reading" box to articles, pointing at pages that deserve more internal links. Display time only, post content is not changed, existing links are never touched. Deactivate to undo.
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -19,6 +19,8 @@ function tmrl_map() {
 		'/defect-triage/' => array( 'Defect triage: process, severity vs priority', array( 'software-defects', 'defect-classification-explained-simply', 'how-to-manage-software-testing-defects-efficiently', 'why-is-bug-status-set-to-postponed-find-out', 'latent-defect', 'understanding-high-severity-and-low-priority-examples-in-software-testing-and-quality-assurance', 'understanding-high-priority-and-low-severity-defects-in-software-testing', 'top-consequences-of-bugs-in-software-testing', 'defect-analysis', 'bug-testing', 'understanding-and-avoiding-common-mistakes-in-software-testing-and-defect-management' ) ),
 		'/what-is-quality-assurance/' => array( 'What is quality assurance?', array( 'differentiate-between-quality-assurance-and-quality-control-explained', 'what-is-quality-control', 'quality-assurance', 'quality-assurance-metrics', 'qa-metrics', 'qa-testing', 'inspection-vs-quality-control-5-key-differences', 'cost-of-quality', 'quality-software-engineer', 'qa-process-in-agile' ) ),
 		'/shift-right-testing-in-production/' => array( 'Shift right testing in production', array( 'software-testing-in-agile', 'qa-process-in-agile', 'azure-load-testing', '5-must-know-tips-for-agile-testing-teams', 'role-of-qa-in-agile', 'test-automation-at-a-healthcare' ) ),
+		'/banking-application-test-cases-for/' => array( 'Mobile banking application test cases', array( 'test-cases-for-login-page-howto', 'optimizing-software-testing-with-effective-registration-page-test-cases', 'effective-e-commerce-test-cases-sample', 'shopping-website-test-cases-that-wow-users', 'test-case-and-test-scenario', 'mobile-testing-tools', 'effective-mobile-testing-strategy' ) ),
+		'/test-cases-for-login-page-howto/' => array( 'Test cases for a login page', array( 'optimizing-software-testing-with-effective-registration-page-test-cases', 'effective-e-commerce-test-cases-sample', 'banking-application-test-cases-for', 'security-testing-in-software', 'writing-test-cases-that-are-clear' ) ),
 	);
 }
 
