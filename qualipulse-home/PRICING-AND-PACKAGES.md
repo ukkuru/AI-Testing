@@ -1,5 +1,74 @@
 # QualiPulse: services, keywords and pricing (USD, India-based delivery)
 
+## Approved price list (owner decision, November 2026)
+
+These prices replace the recommended tiers further down. There are no one-off purchases on any tier.
+
+### Content Engine (monthly)
+
+| Tier | Articles a month | Price per article | Monthly price |
+|---|---|---|---|
+| Starter | 4 | $115 | **$460** |
+| Growth | 8 | $100 | **$800** |
+| Scale | 12 | $90 | **$1,080** |
+
+### LinkedIn Visibility (monthly)
+
+8 more posts at each tier, with the price per post 10% lower than the tier before.
+
+| Tier | Posts a month | Price per post | Monthly price |
+|---|---|---|---|
+| Founder | 8 | $50 | **$400** |
+| Leader | 16 | $45 | **$720** |
+| Team | 24 | $40.50 | **$972** |
+
+### AI SEO (monthly)
+
+The volume measure is pages made answer-ready each month, plus buyer prompts tracked across ChatGPT, Perplexity and Google AI Overviews.
+
+| Tier | Pages made answer-ready a month | Buyer prompts tracked | Monthly price |
+|---|---|---|---|
+| Starter | 4 | 25 | **$400** |
+| Growth | 10 | 50 | **$949** |
+| Scale | 16 | 100 | **$1,399** |
+
+All tiers include a technical and schema check of the pages worked on and a monthly citation report. The prompt and page counts are proposals: confirm them before publishing.
+
+### AI Email Marketing (monthly)
+
+| Tier | Emails a month | Monthly price |
+|---|---|---|
+| Starter | 5,000 | **$500** |
+| Growth | 10,000 | **$949** |
+| Scale | 15,000 | **$1,399** |
+
+Sending tools, inboxes, domains and data credits are billed separately at cost. Say so on the page.
+
+### Product Value Assurance
+
+| Item | Price |
+|---|---|
+| Executive Diagnostic | **from $1,000** (fixed fee once scoped) |
+| Implementation support | **$800 a month** |
+
+### Career Positioning (one-time, per person)
+
+| Level | Price |
+|---|---|
+| Junior | **$49** |
+| Mid-level | **$99** |
+| Senior | **$149** |
+
+### Pages that still quote old prices (update when the pricing page goes live)
+
+- /pricing/ ($699, $999 and $300 packages)
+- /faq/ hub, "Do you provide affordable content writing services…?" ("$2,000 monthly" and "$300 to $800")
+- /software-testing-content-marketing/ FAQ ($699/mo, $999/mo, LinkedIn from $199/mo)
+
+---
+
+## Original recommendation (kept for reference, replaced by the approved prices above)
+
 Prepared November 2026. Market rates are from published 2026 pricing (sources at the end). Keyword volumes are US monthly searches from DataForSEO. KD is keyword difficulty, 0 to 100.
 
 ## The pricing position in one line
