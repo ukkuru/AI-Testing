@@ -16,6 +16,12 @@ Shared pieces: 14 synced patterns named "QP Redesign <code>" (IDs 1710 to 1723) 
 | Product Marketing Consultant | Product Value Assurance | [Preview](https://qualipulse.tech/?page_id=1752&preview=true) | [Edit](https://qualipulse.tech/wp-admin/post.php?post=1752&action=edit) |
 | Resume Writing for Senior Software Engineers | QualiPulse | [Preview](https://qualipulse.tech/?page_id=1739&preview=true) | [Edit](https://qualipulse.tech/wp-admin/post.php?post=1739&action=edit) |
 
+## Pricing
+
+| Page | Preview | Edit |
+|---|---|---|
+| Software Content Writing Services Pricing | [Preview](https://qualipulse.tech/?page_id=1829&preview=true) | [Edit](https://qualipulse.tech/wp-admin/post.php?post=1829&action=edit) |
+
 ## Company and contact
 
 | Page | Preview | Edit |
@@ -106,5 +112,5 @@ Shared pieces: 14 synced patterns named "QP Redesign <code>" (IDs 1710 to 1723) 
 1. Fill the [CONFIRM] placeholders: case study hub (8), SaaS case study (8), LinkedIn page (1).
 2. Delete the Rank Math redirect from /faq/technical-content-marketing/ to /technical-content-marketing/, or the new FAQ page will never show.
 3. Add a 301 redirect from /linkedin-content-strategy-2/ to /linkedin-content-strategy/ before renaming that slug.
-4. Update the $699 prices in 12 blog posts on the same day the new pricing page goes live.
+4. Publish the new pricing page on the same day the updated blog posts, FAQ and testing case study go live, so every price on the site matches.
 5. Swapping a draft in for a live page means copying its content into the live page (keeps the URL, comments and SEO history), not publishing the draft under its redesign- slug.
