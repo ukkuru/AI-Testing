@@ -6,21 +6,19 @@ These prices replace the recommended tiers further down. There are no one-off pu
 
 ### Content Engine (monthly)
 
-| Tier | Articles a month | Price per article | Monthly price |
-|---|---|---|---|
-| Starter | 4 | $115 | **$460** |
-| Growth | 8 | $100 | **$800** |
-| Scale | 12 | $90 | **$1,080** |
+| Tier | Articles a month | Monthly price |
+|---|---|---|
+| Signal | 4 | **$460** |
+| Momentum | 8 | **$800** |
+| Authority | 12 | **$1,080** |
 
 ### LinkedIn Visibility (monthly)
 
-8 more posts at each tier, with the price per post 10% lower than the tier before.
-
-| Tier | Posts a month | Price per post | Monthly price |
-|---|---|---|---|
-| Founder | 8 | $50 | **$400** |
-| Leader | 16 | $45 | **$720** |
-| Team | 24 | $40.50 | **$972** |
+| Tier | Posts a month | Monthly price |
+|---|---|---|
+| Founder | 8 | **$400** |
+| Leader | 16 | **$720** |
+| Team | 24 | **$972** |
 
 ### AI SEO (monthly)
 
@@ -28,19 +26,19 @@ The volume measure is pages made answer-ready each month, plus buyer prompts tra
 
 | Tier | Pages made answer-ready a month | Buyer prompts tracked | Monthly price |
 |---|---|---|---|
-| Starter | 4 | 25 | **$400** |
-| Growth | 10 | 50 | **$949** |
-| Scale | 16 | 100 | **$1,399** |
+| Signal | 6 | 20 | **$400** |
+| Momentum | 12 | 25 | **$949** |
+| Authority | 20 | 40 | **$1,300** |
 
-All tiers include a technical and schema check of the pages worked on and a monthly citation report. The prompt and page counts are proposals: confirm them before publishing.
+All tiers include a technical and schema check of the pages worked on and a monthly citation report.
 
 ### AI Email Marketing (monthly)
 
 | Tier | Emails a month | Monthly price |
 |---|---|---|
-| Starter | 5,000 | **$500** |
-| Growth | 10,000 | **$949** |
-| Scale | 15,000 | **$1,399** |
+| Signal | 5,000 | **$700** |
+| Momentum | 10,000 | **$1,349** |
+| Authority | 15,000 | **$1,999** |
 
 Sending tools, inboxes, domains and data credits are billed separately at cost. Say so on the page.
 
