@@ -460,6 +460,14 @@ main p{max-width:38em}
 .founder-note .fn-meta{font-size:14px;color:var(--muted)}
 .founder-note .more{font-weight:600;text-decoration:none}
 .explore{padding-top:0}
+
+/* Booking card */
+.book-card{background:var(--navy);border-color:var(--navy);color:#fff;display:flex;flex-direction:column;gap:12px}
+.book-card h2{color:#fff}
+.book-card p{color:var(--on-navy);font-size:15.5px}
+.book-card .book-btn{background:var(--mint);color:var(--navy);align-self:flex-start}
+.book-card .book-btn:hover{color:var(--navy)}
+.book-card small{font-size:13px;color:var(--on-navy)}
 </style>
 </head>
 <body>
@@ -530,6 +538,10 @@ main p{max-width:38em}
     <span class="eyebrow eyebrow-teal">Request a sample</span>
     <h1 id="hero-title" class="h1-long">Tell Us About Your Content <span>and Visibility Goals</span></h1>
     <p class="lede">We review every inquiry and respond with a clear next step, not a sales sequence. If there is a fit, we will show you work relevant to your situation before we ask for any commitment.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-mint" href="https://cal.com/qualipulse/30min" target="_blank" rel="noopener">Book a 30-minute call</a>
+      <a class="btn btn-ghost" href="#inquiry">Send an inquiry instead</a>
+    </div>
   </section>
 
   <section class="wrap contact-grid" aria-label="Contact QualiPulse">
@@ -555,17 +567,17 @@ main p{max-width:38em}
           </div>
           <div class="field">
             <label for="form-field-email">Business Email <span class="req" aria-hidden="true">*</span></label>
-            <input type="email" id="form-field-email" name="form_fields[email]" placeholder="No Gmail or personal addresses" required autocomplete="email" inputmode="email" aria-describedby="hint-email err-email">
-            <p class="field-hint" id="hint-email">Please use your work address.</p>
+            <input type="email" id="form-field-email" name="form_fields[email]" placeholder="you@yourcompany.com" required autocomplete="email" inputmode="email" aria-describedby="hint-email err-email">
+            <p class="field-hint" id="hint-email">Use your work email. Gmail, Yahoo, Outlook and other personal addresses are not accepted.</p>
             <p class="field-error" id="err-email" aria-live="polite"></p>
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
-            <label for="form-field-message">Company Name <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="form-field-message" name="form_fields[message]" placeholder="Company Name" required autocomplete="organization" aria-describedby="err-message">
-            <p class="field-error" id="err-message" aria-live="polite"></p>
+            <label for="form-field-company">Company Name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="form-field-company" name="form_fields[company]" placeholder="Company Name" required autocomplete="organization" aria-describedby="err-company">
+            <p class="field-error" id="err-company" aria-live="polite"></p>
           </div>
           <div class="field">
             <label for="form-field-field_a49e78f">Website URL <span class="opt">(optional)</span></label>
@@ -578,10 +590,14 @@ main p{max-width:38em}
           <label for="form-field-field_d85bd0b">Service Interested In <span class="opt">(optional)</span></label>
           <div class="select-wrap">
             <select id="form-field-field_d85bd0b" name="form_fields[field_d85bd0b]">
-              <option value="Content Engine">Content Engine</option>
-              <option value="LinkedIn Content">LinkedIn Content</option>
+              <option value="" selected>Choose a service</option>
+              <option value="Content Engine">Content Engine (SEO content marketing)</option>
+              <option value="LinkedIn Content">LinkedIn Content (ghostwriting)</option>
+              <option value="AI SEO Services">AI SEO Services</option>
+              <option value="AI Email Marketing">AI Email Marketing</option>
+              <option value="Product Value Assurance">Product Value Assurance</option>
               <option value="Career Positioning">Career Positioning</option>
-              <option value="Custom">Custom</option>
+              <option value="Not sure yet">Not sure yet</option>
             </select>
           </div>
         </div>
@@ -600,7 +616,14 @@ main p{max-width:38em}
       </form>
     </div>
 
-    <aside class="contact-side" aria-label="What happens next and contact details">
+    <aside class="contact-side" aria-label="Book a call, what happens next and contact details">
+      <section class="card side-card book-card" aria-labelledby="book-title">
+        <h2 id="book-title">Rather talk it through?</h2>
+        <p>Pick a time that suits you for a free 30-minute content strategy call with George. Bring your goals; we will bring practical ideas.</p>
+        <a class="btn btn-navy book-btn" href="https://cal.com/qualipulse/30min" target="_blank" rel="noopener">Book a 30-minute call</a>
+        <small>Opens our booking page on cal.com</small>
+      </section>
+
       <section class="card side-card" aria-labelledby="next-title">
         <h2 id="next-title">What happens next</h2>
         <ol class="next-steps">
@@ -712,10 +735,11 @@ document.addEventListener('click', function (e) {
   var form = document.getElementById('qp-contact-form');
   if (!form) return;
   var status = document.getElementById('form-status');
+  var FREE = ['gmail.com','googlemail.com','yahoo.com','yahoo.co.in','yahoo.co.uk','ymail.com','hotmail.com','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','proton.me','protonmail.com','gmx.com','gmx.net','mail.com','yandex.com','zoho.com','rediffmail.com','inbox.com','hey.com','fastmail.com','tutanota.com'];
   var rules = [
     { id: 'form-field-name', err: 'err-name', empty: 'Please enter your full name.' },
-    { id: 'form-field-email', err: 'err-email', empty: 'Please enter your business email.', bad: 'That email address does not look right. Check for a missing @ or domain.' },
-    { id: 'form-field-message', err: 'err-message', empty: 'Please enter your company name.' },
+    { id: 'form-field-email', err: 'err-email', empty: 'Please enter your business email.', bad: 'That email address does not look right. Check for a missing @ or domain.', business: 'Please use your work email. Personal addresses such as Gmail, Yahoo or Outlook are not accepted.' },
+    { id: 'form-field-company', err: 'err-company', empty: 'Please enter your company name.' },
     { id: 'form-field-field_a49e78f', err: 'err-url', bad: 'Enter a full web address, starting with https://' }
   ];
   function check(r) {
@@ -723,6 +747,7 @@ document.addEventListener('click', function (e) {
     var v = el.value.trim();
     if (el.required && !v) msg = r.empty;
     else if (v && el.validity && el.validity.typeMismatch) msg = r.bad;
+    else if (v && r.business && FREE.indexOf((v.split('@')[1] || '').toLowerCase()) !== -1) msg = r.business;
     document.getElementById(r.err).textContent = msg;
     box.classList.toggle('is-invalid', !!msg);
     el.setAttribute('aria-invalid', msg ? 'true' : 'false');
