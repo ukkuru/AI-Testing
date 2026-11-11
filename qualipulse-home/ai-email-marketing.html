@@ -56,7 +56,7 @@
         {"@type": "Question", "name": "What does Build, Operate, Transfer mean?", "acceptedAnswer": {"@type": "Answer", "text": "We build your email setup (domains, inboxes, DNS records, warm-up, a verified list and the sequences), then operate the campaigns for you: sending, monitoring and reporting. When your team is ready to run it, we transfer the domains, inboxes, sequences and playbook to you and train the people taking over. You are never locked in."}},
         {"@type": "Question", "name": "Do you set up the inboxes and domains?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We register secondary sending domains, create mailboxes on Google Workspace or Microsoft 365, and configure SPF, DKIM and DMARC on each one. Everything is set up so it can move to your team at the transfer stage."}},
         {"@type": "Question", "name": "How long does warm-up take?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the domains, the mailbox provider and the volume you need, so we don't promise a fixed date. New inboxes typically need a few weeks of gradual warm-up before they reach full sending volume. Warm-up then keeps running in the background to protect reputation."}},
-        {"@type": "Question", "name": "Where does the 15K contact list come from?", "acceptedAnswer": {"@type": "Answer", "text": "The list holds 15,000 verified B2B contacts, ready to use. [CONFIRM: industries, roles and regions the 15K list covers, and how it is sourced] Every contact is verified again before each send, unsubscribes are honored, US sends follow CAN-SPAM, and we only email EU and UK contacts where there is a lawful basis."}},
+        {"@type": "Question", "name": "Where does the 15K contact list come from?", "acceptedAnswer": {"@type": "Answer", "text": "The list holds 15,000 verified B2B contacts, ready to use. It is built with B2B data tools such as Hunter.io and FullEnrich, matched to the roles and companies you sell to, and verified again before every send. Every contact is verified again before each send, unsubscribes are honored, US sends follow CAN-SPAM, and we only email EU and UK contacts where there is a lawful basis."}},
         {"@type": "Question", "name": "Will this hurt our main domain reputation?", "acceptedAnswer": {"@type": "Answer", "text": "No. Campaigns send from secondary domains, never from your main company domain, so your everyday email and sales conversations stay separate. We also warm up every inbox, cap daily sends and pause a sequence if bounces or complaints rise."}},
         {"@type": "Question", "name": "How do you track spam score and deliverability?", "acceptedAnswer": {"@type": "Answer", "text": "Every sequence gets a spam score check before launch, and we keep checking it while the campaign runs. We monitor inbox placement, bounce rate, complaint rate and domain reputation in Google Postmaster Tools, and keep spam complaints under the 0.1% Google recommends, well clear of the 0.3% threshold Gmail and Yahoo set for bulk senders."}}
       ]
@@ -424,6 +424,83 @@ p{margin:0}
 @media (max-width:900px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:380px){.metrics{grid-template-columns:minmax(0,1fr)}}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Example sequence (animated) */
+.seq{display:flex;flex-direction:column}
+.seq-win{border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 10px 50px rgba(10,34,64,.08)}
+.seq-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid #EEF2F6;font-size:13.5px;color:var(--muted)}
+.seq-title{margin-left:12px;font-weight:600;color:var(--navy)}
+.seq-status{margin-left:auto;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600;background:var(--mint);color:var(--navy);transition:background .3s}
+.seq-status.is-run{background:var(--teal-bg);color:var(--teal-deep)}
+.seq-body{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr)}
+.seq-steps{list-style:none;margin:0;padding:16px;display:flex;flex-direction:column;gap:6px;background:#FAFBFC;border-right:1px solid #EEF2F6}
+.seq-step{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;border-radius:14px;padding:10px 12px;cursor:pointer;font:inherit;color:var(--navy);min-height:56px;transition:background .25s,border-color .25s}
+.seq-step:hover{background:var(--white)}
+.seq-step.is-on{background:var(--white);border-color:var(--line);box-shadow:0 6px 18px rgba(10,34,64,.06)}
+.seq-step .n{width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--mint);display:flex;align-items:center;justify-content:center;font-family:var(--f-head);font-weight:700;font-size:14px}
+.seq-step .t{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.seq-step b{font-size:15px}
+.seq-step small{font-size:12.5px;color:var(--muted)}
+.seq-step .st{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--pass)}
+.seq-step .st.wait{color:var(--muted)}
+.seq-mails{display:grid}
+.mail{grid-area:1/1;padding:26px 32px;visibility:hidden;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;pointer-events:none}
+.mail.is-on{opacity:1;transform:none;pointer-events:auto;visibility:visible}
+.mail-head{margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid #EEF2F6;display:flex;flex-direction:column;gap:6px;font-size:14.5px}
+.mail-head div{display:grid;grid-template-columns:70px minmax(0,1fr);align-items:center}
+.mail-head dt{color:var(--muted);font-weight:500}
+.mail-head dd{margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mail-text{font-size:15.5px;line-height:1.6;color:#2C3640;display:flex;flex-direction:column;gap:10px;max-width:60ch}
+.mail-foot{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.redact{display:inline-block;width:190px;max-width:60%;height:12px;border-radius:4px;background:#CBD3DC;vertical-align:middle}
+.redact.wide{width:240px;margin-bottom:4px}
+.seq-progress{height:4px;background:#EEF2F6}
+.seq-progress span{display:block;height:100%;width:100%;background:var(--teal);transform-origin:left;transform:scaleX(1)}
+.seq-replay{border-radius:0 0 24px 24px}
+.seq-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
+.seq-note{padding:20px 22px;display:flex;flex-direction:column;gap:4px;border-radius:18px}
+.seq-note b{font-family:var(--f-head);font-size:17px}
+.seq-note span{font-size:15px;color:var(--body)}
+@media (max-width:820px){
+  .seq-body{grid-template-columns:1fr}
+  .seq-steps{border-right:0;border-bottom:1px solid #EEF2F6;flex-direction:row;overflow-x:auto;padding:12px}
+  .seq-steps li{flex:0 0 170px}
+  .seq-step small,.seq-step .st{display:none}
+  .seq-step{grid-template-columns:30px minmax(0,1fr)}
+  .mail{padding:22px 20px}
+  .seq-title{margin-left:0;flex-basis:100%;order:5}
+}
+
+/* Campaign dashboard (sample) */
+.camp{padding:28px;display:flex;flex-direction:column;gap:22px;margin:0}
+.camp-name{font-family:var(--f-head);font-size:22px;font-weight:700;letter-spacing:-.02em;margin-top:10px}
+.camp-sub{font-size:15px;color:var(--muted)}
+.camp-metrics{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.camp-metrics div{border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.camp-metrics dt{font-size:13px;color:var(--muted);font-weight:600}
+.camp-metrics dd{margin:0;font-family:var(--f-head);font-size:36px;font-weight:700;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.camp-metrics span{font-size:12.5px;color:var(--teal-ink);font-weight:600}
+.camp-metrics .hl{background:var(--navy);border-color:var(--navy);color:#fff}
+.camp-metrics .hl dt{color:var(--on-navy)}
+.camp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.camp-chart,.camp-queue{border:1px solid var(--line);border-radius:18px;padding:20px;min-width:0}
+.camp-h{font-family:var(--f-head);font-weight:600;font-size:17px}
+.camp-s{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+.bars{position:relative;height:280px;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:6px;align-items:end;padding-top:22px;border-bottom:1px solid var(--line-2);margin-bottom:34px}
+.bars .limit{position:absolute;left:0;right:0;top:22px;border-top:1.5px dashed var(--muted);font-size:0;z-index:1}
+.bars .limit::after{content:"30 a day limit";position:absolute;right:0;top:-19px;font-size:11.5px;color:var(--muted)}
+.bar{position:relative;height:100%;display:flex;align-items:flex-end}
+.bar i{display:block;width:100%;background:var(--teal);border-radius:6px 6px 0 0}
+.bar.off i{height:6px;background:var(--line)}
+.bar em{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%) rotate(-45deg);transform-origin:center;font-style:normal;font-size:10.5px;color:var(--muted);white-space:nowrap}
+.camp-foot{font-size:13.5px;color:var(--body)}
+.camp-queue table{width:100%;border-collapse:collapse;font-size:14px}
+.camp-queue th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+.camp-queue td{padding:8px;border-bottom:1px solid #EEF2F6;white-space:nowrap}
+.camp-queue .redact{width:110px;max-width:none}
+.table-wrap{overflow-x:auto}
+.camp figcaption{font-size:13.5px;color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -456,7 +533,7 @@ p{margin:0}
         <li><a href="https://qualipulse.tech/about/">About</a></li>
       </ul>
       <div class="nav-cta">
-        <a class="btn btn-navy" href="https://qualipulse.tech/contact/">Request a Sample</a>
+        <a class="btn btn-navy" href="https://qualipulse.tech/contact/">Free sequence review</a>
         <details class="burger">
           <summary aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
           <div class="mobile-menu">
@@ -472,7 +549,7 @@ p{margin:0}
             <a href="https://qualipulse.tech/pricing/">Pricing</a>
             <a href="https://qualipulse.tech/blog/">Blog</a>
             <a href="https://qualipulse.tech/about/">About</a>
-            <a class="btn btn-mint" href="https://qualipulse.tech/contact/">Request a Sample</a>
+            <a class="btn btn-mint" href="https://qualipulse.tech/contact/">Send your sequences for a free review</a>
           </div>
         </details>
       </div>
@@ -628,7 +705,7 @@ p{margin:0}
             <h3>A ready-to-use list of 15,000 verified B2B contacts</h3>
           </div>
           <p>Most software companies stall on the list before they ever write an email. You start with 15,000 verified B2B contacts, ready to use, so your first campaigns can go out as soon as the inboxes are warm.</p>
-          <p class="confirm">[CONFIRM: industries, roles and regions the 15K list covers, and how it is sourced]</p>
+          <p>We build the list with B2B data tools such as Hunter.io and FullEnrich, match it to the roles and companies you sell to, and verify every address again before it is used.</p>
         </div>
         <ul class="inc-feature-rules">
           <li>Verified again before every send</li>
@@ -644,112 +721,183 @@ p{margin:0}
     <div class="sec-head">
       <span class="eyebrow">Example sequence</span>
       <h2 class="h2" id="example-title">What an AI Email Marketing Sequence Looks Like</h2>
-      <p class="lede">This example sequence is built from a whitepaper we wrote for pCloudy, <i>A Complete Playbook for Choosing the Right Automation Tool</i>. It shows how one piece of real content becomes four emails, each framed for a different reader. It is here to show the format, not to report results from a campaign.</p>
+      <p class="lede">Five short emails we wrote for a sports SaaS platform that sells to badminton federations. One question per email, one problem per email, and an unsubscribe line in every one. Email addresses and the postal address are hidden.</p>
     </div>
 
-    <div class="seq" role="group" aria-label="Example sequence built from a whitepaper QualiPulse wrote for pCloudy">
-      <div class="qp-bar">
-        <span class="qp-dot"></span><span class="qp-dot"></span><span class="qp-dot"></span>
-        <span class="qp-title">Sequence · AI in testing whitepaper</span>
-        <span class="seq-tag">Example sequence</span>
-      </div>
-      <div class="seq-trigger">
-        <img class="seq-cover" src="data:image/webp;base64,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" alt="Cover of A Complete Playbook for Choosing the Right Automation Tool, a whitepaper written by QualiPulse for pCloudy" width="360" height="508">
-        <div class="seq-trigger-text">
-          <span class="lbl">Trigger</span>
-          <p>Lead downloads <b>"A Complete Playbook for Choosing the Right Automation Tool"</b></p>
-          <p class="seq-src">A whitepaper on AI in testing, written by QualiPulse for pCloudy. It covers the move from manual to AI-driven testing, 10 essential AI capabilities, a platform selection framework and the pitfalls of scaling AI.</p>
+    <div class="seq" id="seqDemo">
+      <div class="seq-win card">
+        <div class="seq-bar">
+          <span class="qp-dot"></span><span class="qp-dot"></span><span class="qp-dot"></span>
+          <span class="seq-title">Outbound sequence · Federation decision makers</span>
+          <span class="seq-status" data-seq-status>5 of 5 sent</span>
         </div>
+        <div class="seq-body">
+          <ol class="seq-steps" role="tablist" aria-label="Emails in the sequence">
+            <li><button type="button" class="seq-step" role="tab" aria-selected="false" data-step="0"><span class="n">1</span><span class="t"><b>Win The Cup</b><small>Registrations and renewals</small></span><span class="st" data-st>Sent</span></button></li>
+            <li><button type="button" class="seq-step" role="tab" aria-selected="false" data-step="1"><span class="n">2</span><span class="t"><b>Cut The Lag</b><small>Results into rankings</small></span><span class="st" data-st>Sent</span></button></li>
+            <li><button type="button" class="seq-step" role="tab" aria-selected="false" data-step="2"><span class="n">3</span><span class="t"><b>Get Set Now</b><small>Umpire assignments</small></span><span class="st" data-st>Sent</span></button></li>
+            <li><button type="button" class="seq-step" role="tab" aria-selected="false" data-step="3"><span class="n">4</span><span class="t"><b>Set The Bar</b><small>One record for every team</small></span><span class="st" data-st>Sent</span></button></li>
+            <li><button type="button" class="seq-step is-on" role="tab" aria-selected="true" data-step="4"><span class="n">5</span><span class="t"><b>Can You Try?</b><small>Last follow up</small></span><span class="st" data-st>Sent</span></button></li>
+          </ol>
+
+          <div class="seq-mails">
+            <article class="mail" data-mail role="tabpanel" aria-label="Email 1">
+              <dl class="mail-head">
+                <div><dt>From</dt><dd>Anna <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>To</dt><dd>Gregory <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>Subject</dt><dd><b>Win The Cup</b></dd></div>
+              </dl>
+              <div class="mail-text">
+                <p>Dear Gregory,</p>
+                <p>How are player registrations and membership renewals handled at your federation today?</p>
+                <p>Our platform brings player, club and official records together, with online payments and automatic SMS reminders.</p>
+                <p>Would a 30 minute demo be useful?</p>
+                <p>Regards,<br>Anna</p>
+                <p class="mail-foot"><span class="redact wide" role="img" aria-label="postal address hidden"></span><br>To unsubscribe, reply "Remove me" and I will take you off our email list.</p>
+              </div>
+            </article>
+            <article class="mail" data-mail role="tabpanel" aria-label="Email 2">
+              <dl class="mail-head">
+                <div><dt>From</dt><dd>Anna <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>To</dt><dd>Gregory <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>Subject</dt><dd><b>Cut The Lag</b></dd></div>
+              </dl>
+              <div class="mail-text">
+                <p>Dear Gregory,</p>
+                <p>Does your team spend hours copying match results into rankings and preparing certificates?</p>
+                <p>Our platform moves court results directly into rankings and certificates, reducing manual work and errors.</p>
+                <p>May I show you how it works?</p>
+                <p>Regards,<br>Anna</p>
+                <p class="mail-foot"><span class="redact wide" role="img" aria-label="postal address hidden"></span><br>To unsubscribe, reply "Remove me" and I will take you off our email list.</p>
+              </div>
+            </article>
+            <article class="mail" data-mail role="tabpanel" aria-label="Email 3">
+              <dl class="mail-head">
+                <div><dt>From</dt><dd>Anna <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>To</dt><dd>Gregory <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>Subject</dt><dd><b>Get Set Now</b></dd></div>
+              </dl>
+              <div class="mail-text">
+                <p>Dear Gregory,</p>
+                <p>Still assigning umpires through calls and messages?</p>
+                <p>Our platform helps manage accreditation, nominations and assignments, suggesting umpires based on their grade and availability.</p>
+                <p>Would this help with your next tournament?</p>
+                <p>Regards,<br>Anna</p>
+                <p class="mail-foot"><span class="redact wide" role="img" aria-label="postal address hidden"></span><br>To unsubscribe, reply "Remove me" and I will take you off our email list.</p>
+              </div>
+            </article>
+            <article class="mail" data-mail role="tabpanel" aria-label="Email 4">
+              <dl class="mail-head">
+                <div><dt>From</dt><dd>Anna <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>To</dt><dd>Gregory <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>Subject</dt><dd><b>Set The Bar</b></dd></div>
+              </dl>
+              <div class="mail-text">
+                <p>Dear Gregory,</p>
+                <p>Keeping national, district and club teams aligned can mean maintaining several versions of the same records.</p>
+                <p>Our platform gives each team its own login, keeping player records, memberships and tournament activities connected.</p>
+                <p>Open to a short walkthrough?</p>
+                <p>Regards,<br>Anna</p>
+                <p class="mail-foot"><span class="redact wide" role="img" aria-label="postal address hidden"></span><br>To unsubscribe, reply "Remove me" and I will take you off our email list.</p>
+              </div>
+            </article>
+            <article class="mail is-on" data-mail role="tabpanel" aria-label="Email 5">
+              <dl class="mail-head">
+                <div><dt>From</dt><dd>Anna <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>To</dt><dd>Gregory <span class="redact" role="img" aria-label="email address hidden"></span></dd></div>
+                <div><dt>Subject</dt><dd><b>Can You Try?</b></dd></div>
+              </dl>
+              <div class="mail-text">
+                <p>Dear Gregory,</p>
+                <p>This is my last follow up.</p>
+                <p>If managing memberships, rankings or tournament officials is taking too much time, reply "Demo" and I will send a few available times.</p>
+                <p>If it is not a priority, no reply is needed.</p>
+                <p>Regards,<br>Anna</p>
+                <p class="mail-foot"><span class="redact wide" role="img" aria-label="postal address hidden"></span><br>To unsubscribe, reply "Remove me" and I will take you off our email list.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="seq-progress" aria-hidden="true"><span data-seq-bar></span></div>
       </div>
-      <ol class="seq-list">
-        <li class="seq-email">
-          <span class="seq-day">Day 0 · Email 1</span>
-          <p class="seq-subj">Manual, scripted or AI-driven: where does your testing sit?</p>
-          <dl class="seq-meta">
-            <div><dt>Personalized for</dt><dd>QA lead</dd></div>
-            <div><dt>Angle</dt><dd>A quick self-check of how far the team has moved from manual testing</dd></div>
-            <div><dt>Built from</dt><dd>Chapter 1: the evolution of testing</dd></div>
-          </dl>
-          <span class="chip">Stage: learning</span>
-        </li>
-        <li class="seq-email">
-          <span class="seq-day">Day 3 · Email 2</span>
-          <p class="seq-subj">10 AI capabilities to check before you renew a test tool</p>
-          <dl class="seq-meta">
-            <div><dt>Personalized for</dt><dd>VP of Engineering</dd></div>
-            <div><dt>Angle</dt><dd>Which missing capabilities will slow releases a year from now</dd></div>
-            <div><dt>Built from</dt><dd>Chapter 2: 10 essential AI capabilities</dd></div>
-          </dl>
-          <span class="chip">Stage: learning</span>
-        </li>
-        <li class="seq-email">
-          <span class="seq-day">Day 7 · Email 3</span>
-          <p class="seq-subj">A simple scorecard for choosing an AI testing platform</p>
-          <dl class="seq-meta">
-            <div><dt>Personalized for</dt><dd>CTO</dd></div>
-            <div><dt>Angle</dt><dd>Compare platforms on fit and risk, not on feature lists</dd></div>
-            <div><dt>Built from</dt><dd>Chapter 3: the evaluation framework</dd></div>
-          </dl>
-          <span class="chip">Stage: comparing</span>
-        </li>
-        <li class="seq-email">
-          <span class="seq-day">Day 12 · Email 4</span>
-          <p class="seq-subj">Why AI testing pilots stall, and how to scale yours</p>
-          <dl class="seq-meta">
-            <div><dt>Personalized for</dt><dd>Founder</dd></div>
-            <div><dt>Angle</dt><dd>Avoid paying for a pilot that never reaches production</dd></div>
-            <div><dt>Built from</dt><dd>Chapter 4: adoption pitfalls and scaling AI</dd></div>
-          </dl>
-          <span class="chip">Stage: evaluating</span>
-        </li>
-      </ol>
-      <p class="seq-foot">Each email has a QA lead, VP of Engineering, CTO and Founder variant. One variant per email is shown here. A person approves every variant before it is scheduled.</p>
+      <button type="button" class="qp-replay seq-replay" data-seq-replay>↻ Replay sequence</button>
     </div>
 
-    <div class="split">
-      <div class="card">
-        <h3>What the AI decides</h3>
-        <ul>
-          <li>Which variant each lead receives, based on role, industry and stage</li>
-          <li>Which example to use for that lead's industry</li>
-          <li>When to send, within each inbox's daily limit</li>
-          <li>Whether to slow down, skip ahead or stop when a lead replies</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>What a practitioner writes</h3>
-        <ul>
-          <li>The argument of each email and the advice inside it</li>
-          <li>The technical detail that tells a reader this person has done the work</li>
-          <li>The one next step each email asks for</li>
-          <li>The final read before anything goes out</li>
-        </ul>
-      </div>
+    <div class="seq-notes">
+      <div class="card seq-note"><b>One problem per email</b><span>Registrations, rankings, umpires, team records. Each email names one job the buyer does by hand today.</span></div>
+      <div class="card seq-note"><b>One question to answer</b><span>Every email ends with a single yes or no question, so replying takes five seconds.</span></div>
+      <div class="card seq-note"><b>A clean exit</b><span>Email five closes the loop, and every email carries a postal address and a simple way to opt out.</span></div>
     </div>
   </section>
 
   <section class="wrap sec" id="report" aria-labelledby="report-title">
     <div class="sec-head">
       <span class="eyebrow">Reporting</span>
-      <h2 class="h2" id="report-title">The Monthly Report You Get</h2>
-      <p class="lede">Every month you get one report with the numbers your sales team cares about. Here is a sample, filled in with illustrative numbers, so you can see the format before you start.</p>
+      <h2 class="h2" id="report-title">What Your Campaign Dashboard Shows</h2>
+      <p class="lede">You see every number that matters for B2B email marketing: what went out, what bounced, who replied and which meetings landed on your calendar. Sending stays under a daily limit per inbox to protect your domains.</p>
     </div>
-    <figure class="card report" aria-labelledby="report-caption">
-      <div class="report-top">
-        <span class="report-pill">Sample report, illustrative numbers</span>
-        <span class="report-name">Monthly campaign report</span>
+    <figure class="card camp" aria-labelledby="camp-caption">
+      <div class="camp-top">
+        <div>
+          <span class="report-pill">Sample campaign data</span>
+          <p class="camp-name">SaaS tool email campaign status</p>
+          <p class="camp-sub">789 emails sent · 400 still to send · daily sending limit 30</p>
+        </div>
       </div>
-      <dl class="metrics">
-        <div class="metric"><dt>Emails sent</dt><dd>800</dd><span>Across all active sequences</span></div>
-        <div class="metric"><dt>Replies</dt><dd>120</dd><span>Every reply, of any kind</span></div>
-        <div class="metric"><dt>Positive replies</dt><dd>44</dd><span>Interested or asking for more</span></div>
-        <div class="metric"><dt>Meetings booked</dt><dd>38</dd><span>Calls on your team's calendar</span></div>
-        <div class="metric"><dt>Reply rate</dt><dd>15.0%</dd><span>Replies divided by emails sent</span></div>
-        <div class="metric"><dt>Positive reply rate</dt><dd>36.7%</dd><span>Positive replies divided by replies</span></div>
-        <div class="metric"><dt>Inbox placement</dt><dd>96%</dd><span>Sample value from placement tests</span></div>
-        <div class="metric"><dt>Spam complaint rate</dt><dd>0.05%</dd><span>Sample value. Gmail and Yahoo threshold: 0.3%</span></div>
+      <dl class="camp-metrics">
+        <div><dt>Sent</dt><dd>789</dd></div>
+        <div><dt>Still to send</dt><dd>400</dd></div>
+        <div><dt>Bounced</dt><dd>8</dd><span>1.0% of sent</span></div>
+        <div><dt>Replied</dt><dd>49</dd><span>6.2% reply rate</span></div>
+        <div class="hl"><dt>Meetings booked</dt><dd>28</dd></div>
       </dl>
-      <figcaption id="report-caption">Sample report, illustrative numbers. These figures show the format only. They are not results from any client campaign.</figcaption>
+      <div class="camp-grid">
+        <div class="camp-chart">
+          <p class="camp-h">Emails sent, last 15 days</p>
+          <p class="camp-s">Oct 28 to Nov 11, 2026 · 30 per weekday</p>
+          <div class="bars" role="img" aria-label="Bar chart: 30 emails sent on each of 11 weekdays, none on the 4 weekend days, 330 in total">
+            <span class="limit" aria-hidden="true">30 a day limit</span>
+            <div class="bar"><i style="height:100%"></i><em>Oct 28</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Oct 29</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Oct 30</em></div>
+            <div class="bar off"><i></i><em>Oct 31</em></div>
+            <div class="bar off"><i></i><em>Nov 1</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 2</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 3</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 4</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 5</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 6</em></div>
+            <div class="bar off"><i></i><em>Nov 7</em></div>
+            <div class="bar off"><i></i><em>Nov 8</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 9</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 10</em></div>
+            <div class="bar"><i style="height:100%"></i><em>Nov 11</em></div>
+          </div>
+          <p class="camp-foot">330 emails sent · no emails on Saturdays or Sundays</p>
+        </div>
+        <div class="camp-queue">
+          <p class="camp-h">Next 10 emails</p>
+          <p class="camp-s">Scheduled SaaS tool outreach · prospect names hidden</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th scope="col">Prospect</th><th scope="col">When</th><th scope="col">Subject</th></tr></thead>
+              <tbody>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:30</td><td>Content ideas for your SaaS</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:32</td><td>Content ideas for your SaaS</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:34</td><td>Content ideas for your SaaS</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:36</td><td>Content ideas for your SaaS</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:38</td><td>Content ideas for your SaaS</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:40</td><td>Bring your SaaS story to buyers</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:42</td><td>Bring your SaaS story to buyers</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:44</td><td>Bring your SaaS story to buyers</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:46</td><td>Bring your SaaS story to buyers</td></tr>
+                <tr><td><span class="redact" role="img" aria-label="hidden"></span></td><td>Nov 12, 09:48</td><td>Bring your SaaS story to buyers</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <figcaption id="camp-caption">Sample campaign data. Every client gets the same view for their own campaigns, updated as emails go out.</figcaption>
     </figure>
   </section>
 
@@ -829,7 +977,7 @@ p{margin:0}
       <details><summary>What does Build, Operate, Transfer mean?</summary><p>We build your email setup (domains, inboxes, DNS records, warm-up, a verified list and the sequences), then operate the campaigns for you: sending, monitoring and reporting. When your team is ready to run it, we transfer the domains, inboxes, sequences and playbook to you and train the people taking over. You are never locked in.</p></details>
       <details><summary>Do you set up the inboxes and domains?</summary><p>Yes. We register secondary sending domains, create mailboxes on Google Workspace or Microsoft 365, and configure SPF, DKIM and DMARC on each one. Everything is set up so it can move to your team at the transfer stage.</p></details>
       <details><summary>How long does warm-up take?</summary><p>It depends on the domains, the mailbox provider and the volume you need, so we don't promise a fixed date. New inboxes typically need a few weeks of gradual warm-up before they reach full sending volume. Warm-up then keeps running in the background to protect reputation.</p></details>
-      <details><summary>Where does the 15K contact list come from?</summary><p>The list holds 15,000 verified B2B contacts, ready to use. [CONFIRM: industries, roles and regions the 15K list covers, and how it is sourced] Every contact is verified again before each send, unsubscribes are honored, US sends follow CAN-SPAM, and we only email EU and UK contacts where there is a lawful basis.</p></details>
+      <details><summary>Where does the 15K contact list come from?</summary><p>The list holds 15,000 verified B2B contacts, ready to use. It is built with B2B data tools such as Hunter.io and FullEnrich, matched to the roles and companies you sell to, and verified again before every send. Every contact is verified again before each send, unsubscribes are honored, US sends follow CAN-SPAM, and we only email EU and UK contacts where there is a lawful basis.</p></details>
       <details><summary>Will this hurt our main domain reputation?</summary><p>No. Campaigns send from secondary domains, never from your main company domain, so your everyday email and sales conversations stay separate. We also warm up every inbox, cap daily sends and pause a sequence if bounces or complaints rise.</p></details>
       <details><summary>How do you track spam score and deliverability?</summary><p>Every sequence gets a spam score check before launch, and we keep checking it while the campaign runs. We monitor inbox placement, bounce rate, complaint rate and domain reputation in Google Postmaster Tools, and keep spam complaints under the 0.1% Google recommends, well clear of the 0.3% threshold Gmail and Yahoo set for bulk senders.</p></details>
     </div>
@@ -892,6 +1040,40 @@ document.querySelectorAll('.menu details').forEach(function (d) {
 document.addEventListener('click', function (e) {
   document.querySelectorAll('.menu details[open], .burger[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
 });
+</script>
+<script>
+/* Example sequence: steps through 5 emails in 8 seconds, then holds. Click a step to read any email. */
+(function () {
+  var root = document.getElementById('seqDemo'); if (!root) return;
+  var steps = root.querySelectorAll('.seq-step'), mails = root.querySelectorAll('[data-mail]'),
+      sts = root.querySelectorAll('[data-st]'), status = root.querySelector('[data-seq-status]'),
+      bar = root.querySelector('[data-seq-bar]'), replay = root.querySelector('[data-seq-replay]');
+  var timers = [], reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(i) {
+    steps.forEach(function (s, k) { s.classList.toggle('is-on', k === i); s.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    mails.forEach(function (m, k) { m.classList.toggle('is-on', k === i); });
+    var list = root.querySelector('.seq-steps'); if (list.scrollWidth > list.clientWidth) list.scrollTo({ left: steps[i].parentNode.offsetLeft - 12, behavior: reduce ? 'auto' : 'smooth' });
+  }
+  function stop() { timers.forEach(clearTimeout); timers = []; }
+  function play() {
+    if (reduce) return;
+    stop();
+    sts.forEach(function (s) { s.textContent = 'Queued'; s.classList.add('wait'); });
+    status.textContent = 'Sending'; status.classList.add('is-run');
+    bar.style.transition = 'none'; bar.style.transform = 'scaleX(0)';
+    void bar.offsetWidth; bar.style.transition = 'transform 8s linear'; bar.style.transform = 'scaleX(1)';
+    for (var i = 0; i < 5; i++) (function (n) {
+      timers.push(setTimeout(function () { show(n); sts[n].textContent = 'Sent'; sts[n].classList.remove('wait'); status.textContent = (n + 1) + ' of 5 sent'; }, n * 1600));
+    })(i);
+    timers.push(setTimeout(function () { status.classList.remove('is-run'); }, 8000));
+  }
+  steps.forEach(function (s, k) { s.addEventListener('click', function () { stop(); show(k); }); });
+  replay.addEventListener('click', play);
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { play(); io.disconnect(); } }, { threshold: 0.35 });
+    io.observe(root);
+  } else { play(); }
+})();
 </script>
 </body>
 </html>
