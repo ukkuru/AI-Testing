@@ -507,7 +507,16 @@ main p{max-width:38em}
 .phase-list p{font-size:15.5px;color:var(--body)}
 .related{padding-block:64px 96px;display:flex;flex-direction:column;gap:28px}
 .related .why-card .more{margin-top:auto}
+.related .why-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
 .cs-faq{padding-top:32px}
+.cs-cards.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.cs-big{font-family:var(--f-head);font-size:34px;font-weight:700;line-height:1;letter-spacing:-.035em;color:var(--teal)}
+.cs-sec>ol.week-list{list-style:none;margin:0;padding:0;max-width:none;display:flex;flex-direction:column;gap:0}
+.week-list li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;padding:24px 0;border-top:1px solid var(--line-2)}
+.week-list li:last-child{border-bottom:1px solid var(--line-2)}
+.week-list .cs-num{width:48px;height:48px;font-size:15px}
+.week-list h3{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:8px}
+.week-list p{color:var(--body);font-size:17px;line-height:1.7}
 .cs-placeholder{padding:28px;border:2px dashed var(--rust-line);border-radius:20px;background:#FFF7F2;color:var(--rust);font-weight:600}
 main p{max-width:38em}
 @media (max-width:1060px){
