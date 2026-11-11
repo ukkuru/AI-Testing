@@ -518,6 +518,8 @@ main p{max-width:38em}
 .related{padding-bottom:96px;display:flex;flex-direction:column;gap:32px}
 .related .case-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
 .related .why-card h3{font-size:20px}
+.related .case-grid.three{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.mini-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-ink)}
 .cta .cta-note{font-size:14.5px;max-width:none}
 .cta-note a{color:#fff;font-weight:600}
 @media (max-width:980px){
@@ -532,6 +534,10 @@ main p{max-width:38em}
   .glance li:last-child:nth-child(odd){grid-column:1/-1}
 }
 main p{max-width:38em}
+
+/* Related pages: let the last row stretch so no empty slots */
+.case-grid{display:flex!important;flex-wrap:wrap;gap:16px}
+.case-grid>.case-link{flex:1 1 260px;min-width:0}
 </style>
 </head>
 <body>
@@ -798,12 +804,6 @@ main p{max-width:38em}
         <h3>Technical Authority and Thought Leadership</h3>
         <p>Why most IT companies fail at building search authority and what the ones who get it right actually do differently.</p>
         <span class="more">Read the deep dive →</span>
-      </a>
-      <a class="card why-card case-link" href="https://qualipulse.tech/pricing/">
-        <span class="eyebrow eyebrow-teal">Pricing</span>
-        <h3>Transparent SEO and Content Pricing</h3>
-        <p>Clear packages with defined deliverables. No retainer ambiguity. No lock-in contracts.</p>
-        <span class="more">View pricing →</span>
       </a>
       <a class="card why-card case-link" href="https://qualipulse.tech/blog/">
         <span class="eyebrow eyebrow-teal">Blog</span>
