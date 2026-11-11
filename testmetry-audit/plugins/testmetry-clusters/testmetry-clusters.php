@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.5.0
+ * Version: 1.6.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -109,6 +109,16 @@ function tmcl_clusters() {
 				'/cost-of-quality/'             => 'Cost of quality explained',
 				'/what-is-quality-assurance/'   => 'What is quality assurance',
 				'/defect-triage/'               => 'Defect triage: severity, priority and process',
+			),
+		),
+		array(
+			'title' => 'Ecommerce Testing',
+			'hub'   => '/ecommerce-testing/',
+			'pages' => array(
+				'/effective-e-commerce-test-cases-sample/'        => 'E-commerce test cases: 16 samples with steps',
+				'/shopping-website-test-cases-that-wow-users/'    => 'Online shopping website test case checklist',
+				'/test-cases-for-login-page-howto/'               => 'Test cases for a login page',
+				'/load-testing-tools/'                            => 'Load testing tools compared',
 			),
 		),
 	);
