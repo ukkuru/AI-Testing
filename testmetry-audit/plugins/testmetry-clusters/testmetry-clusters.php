@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.8.0
+ * Version: 1.9.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -48,6 +48,7 @@ function tmcl_clusters() {
 				'/defect-analysis/'              => 'Defect analysis with ChatGPT',
 				'/postman-ai/'                   => 'Postman AI for API testing',
 				'/postbot/'                      => 'PostBot: write API tests with Postman AI',
+				'/postman-postbot/'              => 'Postman Postbot: what it is and how to use it',
 				'/chatbot-testing/'              => 'Chatbot testing tools and strategy',
 				'/voice-agent-testing/'          => 'Testing voice agents',
 				'/ai-agent-security/'            => 'AI agent security',
