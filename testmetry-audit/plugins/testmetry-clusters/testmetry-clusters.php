@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.6.0
+ * Version: 1.7.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -119,6 +119,16 @@ function tmcl_clusters() {
 				'/shopping-website-test-cases-that-wow-users/'    => 'Online shopping website test case checklist',
 				'/test-cases-for-login-page-howto/'               => 'Test cases for a login page',
 				'/load-testing-tools/'                            => 'Load testing tools compared',
+			),
+		),
+		array(
+			'title' => 'Test Management Tools',
+			'hub'   => '/test-management-tools/',
+			'pages' => array(
+				'/choosing-the-best-test-management-tool/'        => 'How to choose a test management tool',
+				'/top-5-traditional-test-management-tools-revealed/' => 'Traditional test management tools',
+				'/implement-a-test-management-tool/'              => 'How to implement a test management tool',
+				'/qa-metrics/'                                    => 'QA metrics and formulas',
 			),
 		),
 	);
