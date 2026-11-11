@@ -734,7 +734,7 @@ document.addEventListener('click', function (e) {
   document.querySelectorAll('.menu details[open], .burger[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
 });
 
-/* Design preview only: validate inline and stop the submit. The live form posts through Elementor. */
+/* Validate inline, then submit through the live Elementor Pro form. */
 (function () {
   var form = document.getElementById('qp-contact-form');
   if (!form) return;
@@ -773,8 +773,32 @@ document.addEventListener('click', function (e) {
       firstBad.focus();
       return;
     }
-    status.className = 'form-status is-ok';
-    status.textContent = 'This is a design preview; the live form posts through Elementor. Nothing was sent.';
+    /* Send through the live Elementor Pro form (post 100, form 1a30517). Elementor still names the company field "message". */
+    var data = new FormData(form);
+    data.set('form_fields[message]', data.get('form_fields[company]') || '');
+    data.delete('form_fields[company]');
+    data.set('action', 'elementor_pro_forms_send_form');
+    data.set('referrer', location.href.split('?')[0]);
+    var btn = form.querySelector('[type="submit"]');
+    if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending...'; }
+    status.className = 'form-status';
+    status.textContent = 'Sending your message...';
+    fetch('https://qualipulse.tech/wp-admin/admin-ajax.php', { method: 'POST', body: data, credentials: 'same-origin' })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.success) {
+          var go = res.data && res.data.data && res.data.data.redirect_url;
+          status.className = 'form-status is-ok';
+          status.textContent = 'Thank you. Your message has been sent.';
+          form.reset();
+          if (go) window.location.href = go;
+        } else { throw new Error('rejected'); }
+      })
+      .catch(function () {
+        status.className = 'form-status is-err';
+        status.innerHTML = 'Sorry, the message could not be sent. Please email <a href="mailto:reachus@qualipulse.tech">reachus@qualipulse.tech</a> or <a href="https://cal.com/qualipulse/30min" target="_blank" rel="noopener">book a call</a>.';
+      })
+      .then(function () { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; } });
   });
 })();
 </script>
