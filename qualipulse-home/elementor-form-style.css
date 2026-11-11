@@ -1,0 +1,182 @@
+/*
+  QualiPulse contact form styles for the live Elementor Pro form
+  ---------------------------------------------------------------
+  Where to paste (pick one):
+  1. Elementor > Site Settings > Custom CSS (applies to every Elementor form on the site), or
+  2. Edit the Contact page, select the Form widget > Advanced > Custom CSS.
+     In option 2 you can replace "body .elementor-form" with "selector .elementor-form".
+
+  Matches contact.html: navy #0A2240, teal #00897B, mint #00CEA6, rust for errors,
+  Inter for text, Sora for the button, 52px inputs, 4px teal focus ring.
+
+  Recommended widget settings so this CSS has a clean base:
+  - Content > Form Fields: keep "Label" ON for every field (visible labels are better for accessibility).
+  - Content > Form Fields > Required Mark: ON.
+  - Style > Form: leave colors on default; this file sets them.
+  !important is used only where Elementor's per-widget selectors would win otherwise.
+*/
+
+body .elementor-form {
+  --qp-navy: #0A2240;
+  --qp-teal: #00897B;
+  --qp-teal-ink: #00695C;
+  --qp-teal-bg: #E6F4F2;
+  --qp-mint: #00CEA6;
+  --qp-mint-hover: #00BD98;
+  --qp-line: #D3DBE4;
+  --qp-line-hover: #B3C0CE;
+  --qp-muted: #5C6B7D;
+  --qp-rust: #9A3412;
+  --qp-rust-line: #C2410C;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Spacing between fields (Elementor uses margin-bottom for its "Rows Gap") */
+body .elementor-form .elementor-field-group {
+  margin-bottom: 18px !important;
+}
+
+/* Labels */
+body .elementor-form .elementor-field-label {
+  display: block;
+  margin-bottom: 7px !important;
+  font-size: 15.5px !important;
+  font-weight: 600 !important;
+  line-height: 1.4;
+  color: var(--qp-navy) !important;
+}
+body .elementor-form .elementor-mark-required .elementor-field-label::after {
+  content: " *";
+  color: var(--qp-rust) !important;
+  font-weight: 700;
+}
+
+/* Inputs, select and textarea */
+body .elementor-form .elementor-field-group .elementor-field,
+body .elementor-form .elementor-field-group .elementor-field-textual,
+body .elementor-form .elementor-select-wrapper select {
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 16px !important;
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-size: 16px !important; /* 16px stops iOS zooming on focus */
+  line-height: 1.4 !important;
+  color: var(--qp-navy) !important;
+  background-color: #FFFFFF !important;
+  border: 1.5px solid var(--qp-line) !important;
+  border-radius: 14px !important;
+  box-shadow: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+body .elementor-form .elementor-field-group textarea.elementor-field {
+  min-height: 140px;
+  resize: vertical;
+}
+body .elementor-form .elementor-field::placeholder {
+  color: #7A8796 !important;
+  opacity: 1;
+}
+body .elementor-form .elementor-field:hover {
+  border-color: var(--qp-line-hover) !important;
+}
+body .elementor-form .elementor-field:focus,
+body .elementor-form .elementor-select-wrapper select:focus {
+  outline: none !important;
+  border-color: var(--qp-teal) !important;
+  box-shadow: 0 0 0 4px rgba(0, 137, 123, .18) !important;
+}
+
+/* Select: room for the arrow, navy arrow color */
+body .elementor-form .elementor-select-wrapper select {
+  padding-right: 48px !important;
+  cursor: pointer;
+}
+body .elementor-form .elementor-select-wrapper .select-caret-down-wrapper {
+  right: 18px !important;
+  color: var(--qp-navy) !important;
+  font-size: 12px;
+}
+
+/* Submit button */
+body .elementor-form .elementor-field-type-submit {
+  margin-top: 6px;
+}
+body .elementor-form .elementor-button {
+  min-height: 54px;
+  padding: 14px 32px !important;
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  color: var(--qp-navy) !important;
+  background-color: var(--qp-mint) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  cursor: pointer;
+  transition: transform .15s ease, background-color .15s ease;
+}
+body .elementor-form .elementor-button:hover {
+  background-color: var(--qp-mint-hover) !important;
+  transform: translateY(-1px);
+}
+body .elementor-form .elementor-button:focus-visible {
+  outline: 3px solid var(--qp-navy) !important;
+  outline-offset: 3px;
+}
+body .elementor-form .elementor-button[disabled],
+body .elementor-form .elementor-button.elementor-form-spinner {
+  opacity: .7;
+  cursor: wait;
+}
+
+/* Inline errors (Elementor adds .elementor-error to the field group) */
+body .elementor-form .elementor-field-group.elementor-error .elementor-field {
+  border-color: var(--qp-rust-line) !important;
+  background-color: #FFF8F5 !important;
+}
+body .elementor-form .elementor-field-group .elementor-message,
+body .elementor-form .elementor-field-group .help-inline {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Form-level messages after submit */
+body .elementor-form .elementor-message {
+  margin-top: 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+body .elementor-form .elementor-message::before {
+  display: none; /* hide Elementor's icon; the colors carry the meaning */
+}
+body .elementor-form .elementor-message.elementor-message-success {
+  color: #00574D !important;
+  background: var(--qp-teal-bg);
+  border: 1px solid #BFE3DD;
+}
+body .elementor-form .elementor-message.elementor-message-danger,
+body .elementor-form .elementor-message.elementor-help-inline {
+  color: var(--qp-rust) !important;
+  background: #FFF4EE;
+  border: 1px solid #F3C9B5;
+}
+body .elementor-form .elementor-field-group .elementor-message.elementor-help-inline {
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+/* Two columns on wide screens, one on phones (set field Column Width to 50% for
+   Full Name, Business Email, Company Name and Website URL in the widget). */
+@media (max-width: 767px) {
+  body .elementor-form .elementor-field-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+  body .elementor-form .elementor-button {
+    width: 100%;
+  }
+}
