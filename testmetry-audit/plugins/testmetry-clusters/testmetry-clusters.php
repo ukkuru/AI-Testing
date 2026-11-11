@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Topic Clusters
  * Description: Adds a "Part of our guide" box to supporting articles, linking back to the cluster hub page and across to the sibling articles. Shown at display time only; post content is not changed. Deactivate to undo.
- * Version: 1.4.0
+ * Version: 1.5.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -99,6 +99,16 @@ function tmcl_clusters() {
 				'/performance-testing-mobile-applications/'  => 'Mobile app performance test environment',
 				'/load-testing-tools/'                       => 'Load testing tools compared',
 				'/mobile-app-testing/'                       => 'Mobile app testing overview',
+			),
+		),
+		array(
+			'title' => 'QA Metrics',
+			'hub'   => '/qa-metrics/',
+			'pages' => array(
+				'/quality-assurance-metrics/'   => 'Quality assurance metrics: implement, report and set targets',
+				'/cost-of-quality/'             => 'Cost of quality explained',
+				'/what-is-quality-assurance/'   => 'What is quality assurance',
+				'/defect-triage/'               => 'Defect triage: severity, priority and process',
 			),
 		),
 	);
