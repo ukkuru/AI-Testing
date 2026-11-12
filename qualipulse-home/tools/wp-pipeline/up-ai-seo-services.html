@@ -1,0 +1,319 @@
+<!-- wp:html -->
+<style>:root{--navy:#0A2240;--navy-line:#23406A;--teal:#00897B;--teal-ink:#00695C;--teal-deep:#00574D;--teal-bg:#E6F4F2;--mint:#00CEA6;--mint-bg:#D9F5EE;--mist:#F4F6F8;--white:#FFFFFF;--line:#E1E7EE;--line-2:#D3DBE4;--body:#45566B;--muted:#5C6B7D;--on-navy:#B9C6D6;--rust:#9A3412;--rust-line:#C2410C;--pass:#0B6B3A;--wait:#9A5B00;--f-head:"Sora",Inter,system-ui,-apple-system,"Segoe UI",sans-serif;--f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--wrap:1240px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--mist);color:var(--navy);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}img{max-width:100%;height:auto;display:block}a{color:var(--teal-ink)}a:hover{color:var(--teal-deep)}h1,h2,h3{font-family:var(--f-head);margin:0;text-wrap:balance}p{margin:0}:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:8px;z-index:100}.skip:focus{left:12px}.eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.h2{font-weight:700;font-size:clamp(30px,3.8vw,48px);line-height:1.08;letter-spacing:-.035em}.lede{color:var(--body);max-width:31em}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid transparent;transition:transform .15s ease,background .15s}.btn:hover{transform:translateY(-1px)}.btn-mint{background:var(--mint);color:var(--navy)}.btn-mint:hover{color:var(--navy);background:#00BD98}.btn-ghost{background:var(--white);color:var(--navy);border-color:var(--line-2);font-weight:600}.btn-ghost:hover{color:var(--navy)}.btn-navy{background:var(--navy);color:#fff;font-weight:600;padding:11px 20px;min-height:44px;font-size:15px}.btn-navy:hover{color:#fff}.card{background:var(--white);border:1px solid var(--line);border-radius:24px}.site-head{position:sticky;top:0;z-index:50;padding-block:14px;background:linear-gradient(var(--mist) 70%,rgba(244,246,248,0))}.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 22px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font-family:var(--f-head);font-weight:700;font-size:19px;letter-spacing:-.02em}.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px #CDEDE7}.menu{display:flex;align-items:center;gap:22px;font-size:15px;font-weight:500;list-style:none;margin:0;padding:0}.menu>li{position:relative}.menu a{color:var(--navy);text-decoration:none}.menu details summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:4px}.menu details summary::-webkit-details-marker{display:none}.menu details summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:4px}.dropdown{position:absolute;top:calc(100% + 14px);left:-16px;min-width:260px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(10,34,64,.12);padding:8px;display:flex;flex-direction:column}.dropdown a{padding:10px 12px;border-radius:10px;font-size:15px}.dropdown a:hover{background:var(--mist)}.nav-cta{display:flex;align-items:center;gap:8px}.burger{display:none}@media (max-width:980px){.nav{border-radius:24px;flex-wrap:wrap;padding:10px 10px 10px 18px}.burger{display:block}.burger summary{list-style:none;cursor:pointer;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}.burger summary::-webkit-details-marker{display:none}.burger[open] .mobile-menu{display:flex}.menu.desktop,.nav-cta .btn-navy{display:none}.mobile-menu{display:none;position:absolute;left:20px;right:20px;top:calc(100% + 4px);background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 40px rgba(10,34,64,.12);padding:12px;flex-direction:column;gap:2px;max-height:75vh;overflow:auto}.mobile-menu a{padding:12px;border-radius:10px;color:var(--navy);text-decoration:none;font-weight:500}.mobile-menu .group{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px 12px 4px}.mobile-menu .btn{margin-top:8px}}.hero{padding-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}.founder-pill{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 6px;font-size:14px;font-weight:500;color:var(--body)}.founder-pill img{width:28px;height:28px;border-radius:50%;object-fit:cover}.hero h1{font-weight:700;font-size:clamp(36px,5.4vw,72px);line-height:1.04;letter-spacing:-.045em;max-width:17ch}.hero h1 span{color:var(--teal)}.tagline{font-family:var(--f-head);font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.02em}.hero .lede{font-size:19px;max-width:33em}.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}@media (max-width:600px){.hero .lede{font-size:17px}.founder-pill{font-size:13px}}.qp-review{width:100%;max-width:1040px;margin-top:20px}.qp-win{background:var(--white);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;box-shadow:0 -10px 60px rgba(10,34,64,.08);overflow:hidden;text-align:left}.qp-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid #EEF2F6;font-size:13.5px;color:var(--muted)}.qp-dot{width:10px;height:10px;border-radius:50%;background:var(--line)}.qp-title{margin-left:12px;font-weight:600;color:var(--navy);min-width:0}.qp-status{margin-left:auto;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600;background:#EEF2F6;color:var(--muted);transition:background .3s,color .3s}.qp-status.is-review{background:var(--teal-bg);color:var(--teal-deep)}.qp-status.is-done{background:var(--mint);color:var(--navy)}.qp-body{display:flex;flex-wrap:wrap}.qp-draft{flex:1 1 520px;min-width:0;padding:30px 36px;display:flex;flex-direction:column;gap:14px;border-right:1px solid #EEF2F6}.qp-kicker{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.qp-h{font-family:var(--f-head);font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.25}.qp-p{font-size:16px;color:var(--body);min-height:1.6em}.qp-old{color:#66727F;background:linear-gradient(var(--rust-line),var(--rust-line)) no-repeat 0 58%/0% 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size .6s ease}.qp-old.is-struck{background-size:100% 2px}.qp-new{background:var(--mint-bg);border-radius:4px;padding:1px 3px;color:var(--navy)}.qp-new:empty{padding:0}.qp-caret{display:inline-block;width:2px;height:1.05em;background:var(--teal);vertical-align:-2px;margin-left:1px;animation:qp-blink .8s steps(1) infinite}.qp-proof{opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}.qp-proof.is-in{opacity:1;transform:none}.qp-side{flex:1 1 300px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:14px;background:#FAFBFC}.qp-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}.qp-note{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:12px;row-gap:8px;align-items:center;opacity:0;transform:translateX(16px);transition:opacity .45s,transform .45s}.qp-note.is-in{opacity:1;transform:none}.qp-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover}.qp-who{display:flex;flex-direction:column;line-height:1.25;min-width:0}.qp-who b{font-size:14px;font-weight:600}.qp-who small{font-size:12.5px;color:var(--muted)}.qp-comment{grid-column:2;font-size:14px;line-height:1.5;color:var(--body)}.qp-row{display:flex;justify-content:space-between;gap:10px;font-size:14px}.qp-tick{font-size:12.5px;font-weight:700;color:var(--muted);transition:color .25s}.qp-tick.is-pass{color:var(--pass)}.qp-replay{background:var(--white);border:1px solid var(--line);border-top:0;width:100%;color:var(--teal-ink);font:600 14px var(--f-body);cursor:pointer;min-height:44px}@keyframes qp-blink{50%{opacity:0}}@media (max-width:720px){.qp-draft{border-right:0;border-bottom:1px solid #EEF2F6;padding:22px}.qp-title{margin-left:0;flex-basis:100%;order:5}.qp-h{font-size:20px}}.logos{background:var(--white);border-top:1px solid var(--line)}.logos .wrap{padding-block:36px 40px;display:flex;flex-direction:column;align-items:center;gap:22px}.logos p{font-size:15px;color:var(--body);text-align:center}.logo-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;width:100%;align-items:center;list-style:none;margin:0;padding:0}.logo-row li{height:72px;display:flex;align-items:center;justify-content:center;padding:0 12px}.logo-row img{width:auto;max-width:100%;filter:grayscale(1);opacity:.72;mix-blend-mode:multiply;transition:filter .2s,opacity .2s}.logo-row img:hover{filter:none;opacity:1}@media (max-width:760px){.logo-row{grid-template-columns:repeat(2,minmax(0,1fr))}.logo-row li:last-child{grid-column:1/-1}}.stage{background:var(--navy);color:#fff}.stage .wrap{padding-block:24px;display:flex;flex-wrap:wrap;gap:12px 40px;align-items:center;justify-content:center}.stage .eyebrow{color:var(--mint)}.stage strong{font-family:var(--f-head);font-weight:600;font-size:18px}.problem{padding-top:96px;display:flex;flex-wrap:wrap;gap:40px 64px;align-items:flex-start}.problem-intro{flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px}.problem-intro .eyebrow{color:var(--rust)}.punch{font-family:var(--f-head);font-size:22px;font-weight:600;letter-spacing:-.02em}.punch span{color:var(--teal-ink)}.problem-list{flex:1.4 1 520px;min-width:0;display:flex;flex-direction:column;gap:14px;list-style:none;margin:0;padding:0}.problem-item{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:22px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 28px}.problem-item>div{display:flex;flex-direction:column;gap:4px}.problem-item .fix{border-left:2px solid var(--teal-bg);padding-left:20px}.lbl{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.lbl.bad{color:var(--rust)}.lbl.good{color:var(--teal-ink)}.problem-item strong{font-weight:600}.problem-item span.d{font-size:15px;color:var(--body)}.services{padding-block:96px 48px;display:flex;flex-direction:column;gap:36px}.center{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}.service-grid{display:flex;flex-wrap:wrap;gap:20px}.service{flex:1 1 340px;min-width:0;padding:32px;display:flex;flex-direction:column;gap:16px;position:relative}.service-head{display:flex;align-items:center;gap:14px}.icon{width:48px;height:48px;border-radius:14px;background:var(--navy);color:var(--mint);display:flex;align-items:center;justify-content:center;flex:none}.service h3{font-size:23px;font-weight:600;letter-spacing:-.02em}.service-head small{display:block;font-size:14px;color:var(--muted)}.service p{color:var(--body);font-size:16px}.service ul{margin:0;padding-left:20px;font-size:15.5px;display:flex;flex-direction:column;gap:6px}.service .more{margin-top:auto;font-weight:600;text-decoration:none;font-size:15.5px}.badge{position:absolute;top:20px;right:20px;background:var(--teal-bg);color:var(--teal-deep);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 10px}.proof-chip{font-size:14px;color:var(--teal-deep);background:var(--teal-bg);border-radius:10px;padding:8px 12px}.results{padding-block:48px 96px;display:flex;flex-direction:column;gap:24px}.results-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}.results-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.035em;line-height:1.1}.results-head a{font-weight:600;text-decoration:none}.chart{margin:0;padding:28px;display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center}.chart figcaption{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:10px}.chart figcaption .eyebrow{color:var(--teal-ink);font-size:12.5px;font-weight:700}.chart figcaption strong{font-family:var(--f-head);font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.03em}.chart figcaption span{font-size:15px;color:var(--body)}.chart figcaption small{font-size:13px;color:var(--muted)}.chart img{flex:2 1 560px;min-width:0;width:100%;border-radius:12px;border:1px solid #EEF2F6}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.stat{text-decoration:none;color:var(--navy);padding:32px;display:flex;flex-direction:column;gap:8px}.stat:hover{color:var(--navy);border-color:var(--line-2)}.stat b{font-family:var(--f-head);font-size:60px;font-weight:700;line-height:1;letter-spacing:-.04em}.stat span{font-weight:600;font-size:17px}.stat small{font-size:15px;color:var(--teal-ink);font-weight:600}.stat.feature{background:#00796B;border-color:#00796B;color:#fff}.stat.feature small{color:#E3F6F2}.stat em{font-style:normal;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}.stat.feature em{color:#CFF5EC}.client-head{display:flex;flex-direction:column;gap:6px;margin-top:24px}.client-head .eyebrow{color:var(--teal-ink);font-size:12.5px;font-weight:700}.client-head h3{font-size:clamp(22px,2.4vw,28px);font-weight:700;letter-spacing:-.025em}.client-head p{color:var(--body);font-size:16px}.founder{padding-bottom:96px}.founder .card{border-radius:28px;padding:clamp(28px,5vw,56px);display:flex;flex-wrap:wrap;gap:40px;align-items:center}.founder img{width:200px;aspect-ratio:1/1;object-fit:cover;border-radius:20px;flex:none}.founder blockquote{margin:0;flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px}.founder blockquote p{font-family:var(--f-head);font-size:clamp(21px,2.4vw,28px);font-weight:600;line-height:1.32;letter-spacing:-.02em}.founder footer{color:var(--body);font-size:15.5px}.founder footer b{color:var(--navy)}.faq{padding-bottom:96px;display:flex;flex-wrap:wrap;gap:32px 64px}.faq-intro{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:12px}.faq-intro h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.035em}.faq-intro a{font-weight:600;text-decoration:none}.faq-list{flex:2 1 560px;min-width:0}.faq-list details{border-top:1px solid var(--line-2);padding:20px 0}.faq-list details:last-child{border-bottom:1px solid var(--line-2)}.faq-list summary{font-family:var(--f-head);font-weight:600;font-size:19px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}.faq-list summary::-webkit-details-marker{display:none}.faq-list summary::after{content:"+";font-weight:500;color:var(--teal-ink)}.faq-list details[open] summary::after{content:"\2212"}.faq-list details p{margin-top:10px;color:var(--body)}.cta{background:var(--navy);color:#fff}.cta-inner{padding-block:96px 56px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px}.cta h2{font-weight:700;font-size:clamp(32px,4.6vw,60px);line-height:1.04;letter-spacing:-.04em;max-width:17ch}.cta p{color:var(--on-navy);max-width:50ch}.foot{padding-block:40px;border-top:1px solid var(--navy-line);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;font-size:14.5px;color:var(--on-navy)}.foot nav,.foot div{display:flex;flex-direction:column;gap:8px}.foot-h{font-size:14.5px;font-weight:700;color:#fff}.foot a{color:var(--on-navy);text-decoration:none}.foot a:hover{color:#fff}@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}.crumbs{padding-top:28px}.crumbs ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;font-size:14px;color:var(--muted);justify-content:center}.crumbs li+li::before{content:"/";margin-right:6px;color:var(--line-2)}.crumbs a{color:var(--teal-ink);text-decoration:none;font-weight:500}.crumbs a:hover{text-decoration:underline}.crumbs [aria-current]{color:var(--navy);font-weight:500}.crumbs+.hero{padding-top:20px}.eyebrow-teal{color:var(--teal-ink)}.audit-card{width:100%;max-width:1040px;margin-top:20px;overflow:hidden;text-align:left;box-shadow:0 10px 60px rgba(10,34,64,.08)}.audit-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid #EEF2F6;font-size:13.5px;color:var(--muted)}.audit-title{margin-left:12px;font-weight:600;color:var(--navy)}.audit-tag{margin-left:auto;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600;background:var(--teal-bg);color:var(--teal-deep)}.audit-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.audit-grid li{padding:22px 24px;display:flex;flex-direction:column;gap:6px;border-right:1px solid #EEF2F6;border-bottom:1px solid #EEF2F6}.audit-grid b{font-family:var(--f-head);font-weight:600;font-size:17px;letter-spacing:-.01em}.audit-grid span{font-size:15px;color:var(--body)}@media (max-width:720px){.audit-title{margin-left:0;flex-basis:100%;order:5}.audit-tag{margin-left:0}}.note-line{color:var(--body);font-size:16px;max-width:38em;flex-basis:100%}.head-stack{display:flex;flex-direction:column;gap:10px}.head-stack .lede{font-size:17px}.services .service-grid .service{flex:1 1 320px}.service p+p{margin-top:-6px}.service a{font-weight:600}.how{padding-block:48px 96px;display:flex;flex-direction:column;gap:36px}.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}.step{padding:28px;display:flex;flex-direction:column;gap:12px}.step-n{width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--mint);font-family:var(--f-head);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center}.step h3{font-size:22px;font-weight:600;letter-spacing:-.02em}.step p{color:var(--body);font-size:16px}.compare{padding-bottom:96px;display:flex;flex-direction:column;gap:28px}.compare-head{display:flex;flex-direction:column;gap:14px}.compare-head .lede{max-width:38em}.table-wrap{overflow-x:auto;min-width:0;max-width:100%;background:var(--white);border:1px solid var(--line);border-radius:24px;-webkit-overflow-scrolling:touch}.cmp{width:100%;min-width:640px;border-collapse:collapse;font-size:16px}.cmp th,.cmp td{padding:16px 22px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}.cmp thead th{font-family:var(--f-head);font-size:15px;font-weight:600;background:#FAFBFC}.cmp thead th:last-child{background:var(--teal-bg);color:var(--teal-deep)}.cmp tbody th{font-weight:600;width:22%}.cmp td{color:var(--body)}.cmp td:last-child{color:var(--navy);background:#F5FBFA}.why{padding-bottom:96px;display:flex;flex-direction:column;gap:36px}.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.why-card{padding:30px;display:flex;flex-direction:column;gap:12px}.why-card h3{font-size:21px;font-weight:600;letter-spacing:-.02em}.why-card p{color:var(--body);font-size:16px}.center-note{margin:0 auto;text-align:center}.faq-more{color:var(--body);font-size:16px}.faq-more a{font-weight:600}.faq-list details a{font-weight:600}.cta .cta-inner{padding-block:96px}.btn-ghost-dark{background:transparent;color:#fff;border-color:var(--navy-line);font-weight:600}.btn-ghost-dark:hover{color:#fff;border-color:var(--on-navy)}.site-foot .foot{border-top:1px solid var(--navy-line)}#included{padding-top:48px}@media (max-width:600px){.cmp{min-width:0}.cmp thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.cmp tr,.cmp th,.cmp td{display:block;width:auto}.cmp tbody tr{border-bottom:1px solid var(--line)}.cmp tbody tr:last-child{border-bottom:0}.cmp tbody th{width:auto;padding:16px 18px 6px;border:0;font-family:var(--f-head);font-size:17px}.cmp td{padding:6px 18px;border:0;font-size:15.5px}.cmp td:last-child{padding-bottom:16px;background:none}.cmp td::before{content:attr(data-label);display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.cmp td:last-child::before{color:var(--teal-ink)}}.stats.one{grid-template-columns:minmax(0,640px)}.brand-logo{height:36px;width:auto;display:block}main p{max-width:38em}@media (min-width:700px){.service-grid{justify-content:center}.service-grid .service{max-width:calc(50% - 10px)}}.hero,.hub-hero,.hub-head{text-align:left}.hero>h1,.hero>p,.hero>span,.hero>.eyebrow,.hero>.founder-pill,.hub-hero>*,.hub-head>*{margin-left:0!important;margin-right:auto!important}.hero .hero-ctas{justify-content:flex-start!important;margin-left:0!important;margin-right:auto!important}.crumbs ol{justify-content:flex-start}</style>
+<style>.qp-pref-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:20px;border-top:1px solid var(--navy-line,#23406A);color:var(--on-navy,#C9D4E3);font-size:14.5px}.qp-pref-foot p{margin:0;max-width:none}.qp-pref-foot b{color:#fff}.qp-pref-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin:32px 0 24px;padding:20px 22px;background:var(--white,#fff);border:1px solid var(--line,#E2E8F0);border-radius:18px}.qp-pref-card p{margin:0;max-width:34em;color:var(--body,#475569);font-size:15.5px}.qp-pref-card b{color:var(--navy,#0A2240)}.qp-pref-link{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid currentColor}.qp-pref-foot .qp-pref-link{color:#fff}.qp-pref-card .qp-pref-link{color:var(--teal-ink,#00695C)}[google-add-preferred-source-btn]{min-height:40px}</style>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+<div class="wrap">
+<nav class="nav" aria-label="Main">
+<a class="brand" href="https://qualipulse.tech/" aria-label="QualiPulse home"><img class="brand-logo" src="https://qualipulse.tech/wp-content/uploads/2026/11/qp-redesign-b3b92cfcba.webp" alt="QualiPulse" width="146" height="32"></a>
+<ul class="menu desktop">
+<li><details><summary>Services</summary>
+<div class="dropdown">
+<a href="https://qualipulse.tech/content-engine/">Content Engine</a>
+<a href="https://qualipulse.tech/linkedin-content-for-software-companies/">LinkedIn Content</a>
+<a href="https://qualipulse.tech/ai-seo-services/">AI SEO Services</a>
+<a href="https://qualipulse.tech/ai-email-marketing/">AI Email Marketing</a>
+<a href="https://qualipulse.tech/product-marketing-consultant/">Product Value Assurance</a>
+<a href="https://qualipulse.tech/career-positioning/">Career Positioning</a>
+</div></details></li>
+<li><details><summary>Case studies</summary>
+<div class="dropdown">
+<a href="https://qualipulse.tech/case-studies/">All case studies</a>
+<a href="https://qualipulse.tech/technical-seo-case-study/">Technical SEO</a>
+<a href="https://qualipulse.tech/linkedin-content-strategy/">LinkedIn Content Strategy</a>
+<a href="https://qualipulse.tech/product-marketing-case-study/">Product Marketing Audit</a>
+<a href="https://qualipulse.tech/saas-content-marketing-case-study/">SaaS Product Company</a>
+<a href="https://qualipulse.tech/software-testing-content-marketing/">B2B Content Marketing</a>
+</div></details></li>
+<li><a href="https://qualipulse.tech/pricing/">Pricing</a></li>
+<li><a href="https://qualipulse.tech/blog/">Blog</a></li>
+<li><a href="https://qualipulse.tech/faq/">FAQ</a></li>
+<li><a href="https://qualipulse.tech/about/">About</a></li>
+</ul>
+<div class="nav-cta">
+<a class="btn btn-navy" href="https://qualipulse.tech/contact/">Free AI SEO audit</a>
+<details class="burger">
+<summary aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+<div class="mobile-menu">
+<span class="group">Services</span>
+<a href="https://qualipulse.tech/content-engine/">Content Engine</a>
+<a href="https://qualipulse.tech/linkedin-content-for-software-companies/">LinkedIn Content</a>
+<a href="https://qualipulse.tech/ai-seo-services/">AI SEO Services</a>
+<a href="https://qualipulse.tech/ai-email-marketing/">AI Email Marketing</a>
+<a href="https://qualipulse.tech/product-marketing-consultant/">Product Value Assurance</a>
+<a href="https://qualipulse.tech/career-positioning/">Career Positioning</a>
+<span class="group">Company</span>
+<a href="https://qualipulse.tech/case-studies/">Case studies</a>
+<a href="https://qualipulse.tech/pricing/">Pricing</a>
+<a href="https://qualipulse.tech/blog/">Blog</a>
+<a href="https://qualipulse.tech/faq/">FAQ</a>
+<a href="https://qualipulse.tech/about/">About</a>
+<a class="btn btn-mint" href="https://qualipulse.tech/contact/">Get a free AI SEO audit</a>
+</div>
+</details>
+</div>
+</nav>
+</div>
+</header>
+<main id="main">
+<nav class="wrap crumbs" aria-label="Breadcrumb">
+<ol>
+<li><a href="https://qualipulse.tech/">Home</a></li>
+<li aria-current="page">AI SEO Services</li>
+</ol>
+</nav>
+<section class="wrap hero" aria-labelledby="hero-title">
+<span class="founder-pill"><img src="https://qualipulse.tech/wp-content/uploads/2026/09/10003167661-150x150.jpg" alt="" width="28" height="28">Led by George Ukkuru · 26 years in software engineering</span>
+<h1 id="hero-title">AI SEO Services <span>for SaaS and Software Companies</span></h1>
+<p class="tagline">Get cited where your buyers ask first.</p>
+<p class="lede">Our AI SEO services get SaaS, QA and DevOps companies cited in ChatGPT, Perplexity and Google AI Overviews. We fix the technical SEO underneath, then publish answer-ready pages that AI search can quote. Every page is reviewed by someone who has shipped software.</p>
+<div class="hero-ctas">
+<a class="btn btn-mint" href="https://qualipulse.tech/contact/">Get a free AI SEO audit</a>
+<a class="btn btn-ghost" href="#proof">See the AI citation results</a>
+</div>
+<div class="audit-card card" role="group" aria-label="The four questions our AI SEO audit answers">
+<div class="audit-bar">
+<span class="qp-dot"></span><span class="qp-dot"></span><span class="qp-dot"></span>
+<span class="audit-title">AI search visibility audit</span>
+<span class="audit-tag">ChatGPT · Perplexity · Google AI Overviews</span>
+</div>
+<ol class="audit-grid">
+<li><b>Can AI crawlers reach you?</b><span>robots.txt rules for GPTBot, OAI-SearchBot, PerplexityBot and Googlebot, plus llms.txt.</span></li>
+<li><b>Can they understand you?</b><span>Schema markup, clean site structure and one clear story about what your product does.</span></li>
+<li><b>Will they quote you?</b><span>Pages that answer the question in the first lines, with detail only a practitioner would know.</span></li>
+<li><b>Do they cite you today?</b><span>The prompts your buyers use, tested across each platform, with competitors logged next to you.</span></li>
+</ol>
+</div>
+</section>
+<section class="wrap problem" id="problem" aria-labelledby="problem-title">
+<div class="problem-intro">
+<span class="eyebrow">The shift</span>
+<h2 class="h2" id="problem-title">Your Buyers Ask AI Before They Visit Your Site</h2>
+<p class="lede">A CTO comparing test automation tools no longer opens ten tabs. They ask ChatGPT or Perplexity for a shortlist, or read the Google AI Overview at the top of the results page.</p>
+<p class="lede">If your company is not in that answer, you are not on the shortlist. And you never find out you were left off.</p>
+<p class="punch">Ranking is no longer enough. <span>You need to be cited.</span></p>
+</div>
+<ul class="problem-list">
+<li class="problem-item">
+<div><span class="lbl bad">Symptom</span><strong>AI answers name your competitors, not you</strong><span class="d">Buyers get three or four names back. If yours is missing, the deal is lost before your sales team hears about it.</span></div>
+<div class="fix"><span class="lbl good">What we do instead</span><span>We test the prompts your buyers actually use and log who gets named.</span></div>
+</li>
+<li class="problem-item">
+<div><span class="lbl bad">Symptom</span><strong>Your content is too generic to quote</strong><span class="d">AI tools cite pages with a clear answer, specific detail and first-hand experience. A rewritten listicle gives them nothing to lift.</span></div>
+<div class="fix"><span class="lbl good">What we do instead</span><span>Practitioner-written pages that answer the question in the first lines.</span></div>
+</li>
+<li class="problem-item">
+<div><span class="lbl bad">Symptom</span><strong>Your SEO agency only reports rankings</strong><span class="d">Classic SEO checks titles and backlinks. It rarely checks whether AI crawlers can read your site or whether AI search knows who you are.</span></div>
+<div class="fix"><span class="lbl good">What we do instead</span><span>Technical SEO plus AI crawler access, schema and entity work in one plan.</span></div>
+</li>
+</ul>
+<p class="note-line">The good news: the basics still count. Google's own <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener">guidance on AI features in Search</a> says a page has to be indexed and eligible for a snippet before it can appear in AI Overviews. Solid technical SEO is the entry ticket. AI SEO is what gets you picked.</p>
+</section>
+<section class="wrap results" id="proof" aria-labelledby="proof-title">
+<div class="results-head">
+<div class="head-stack">
+<span class="eyebrow eyebrow-teal">Proof, not promises</span>
+<h2 id="proof-title">What AI SEO Services Look Like in the Data</h2>
+<p class="lede">Here is what our AI SEO methods produced on a content site we manage, measured in Google Search Console and an AI citation tracker over three months.</p>
+</div>
+</div>
+<figure class="card chart">
+<figcaption>
+<span class="eyebrow">Example: a content site we manage</span>
+<strong>9,080 AI-feature impressions in three months</strong>
+<span>Google Search Console's Generative AI features report shows how often the site's pages appeared in Google's AI answers, August to November 2026.</span>
+<small>Source: Google Search Console, Generative AI features report (beta), Aug to Nov 2026</small>
+</figcaption>
+<img src="https://qualipulse.tech/wp-content/uploads/2026/11/qp-redesign-1ffa0424ac.webp" width="1400" height="519" loading="lazy" decoding="async" alt="Search Console chart showing 9,080 generative AI feature impressions in three months from our ai seo services">
+</figure>
+<div class="stats">
+<div class="card stat"><em>AI citations · 3 months</em><b>27.6K</b><span>times Microsoft Copilot and partner AI answers cited the site's pages</span></div>
+<div class="card stat"><em>Cited pages</em><b>14</b><span>different pages cited on an average day, not one lucky post</span></div>
+<div class="card stat"><em>Google AI features · 3 months</em><b>9,080</b><span>impressions in Google's AI answers, 4,050 of them in the last 28 days</span></div>
+<div class="card stat"><em>One older article</em><b>1,020</b><span>AI-feature impressions from a single list article published two years earlier</span></div>
+</div>
+<p class="note-line" style="margin-top:-8px">Citation data: Microsoft Copilot and partners, AI citations report, 3 months to Nov 2026.</p>
+<p class="note-line">The last number is the useful one. A well-structured page you already own can keep earning AI visibility long after it was published. Refreshing existing pages is often the cheapest place to start.</p>
+<div class="client-head">
+<span class="eyebrow">Client result</span>
+<h3>The technical SEO base every AI SEO plan sits on</h3>
+<p>AI search can only cite pages it can crawl and trust. Here is what our technical SEO work delivered for a client.</p>
+</div>
+<div class="stats one">
+<a class="card stat feature" href="https://qualipulse.tech/technical-seo-case-study/"><em>Technical SEO · Mid-sized IT services company</em><b>60</b><span>pages rebuilt in five months, with 7 target keywords on Google page one by month three</span><small>Read the technical SEO case study →</small></a>
+</div>
+</section>
+<section class="wrap services" id="included" aria-labelledby="included-title">
+<div class="center">
+<span class="eyebrow eyebrow-teal">Deliverables</span>
+<h2 class="h2" id="included-title" style="max-width:20ch">What Our AI SEO Services Include</h2>
+<p class="lede">Five pieces of work, run as one plan. You get the technical fixes and the content, so nothing falls between two vendors.</p>
+</div>
+<div class="service-grid">
+<article class="card service">
+<div class="service-head"><span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><h3>AI search visibility audit</h3></div>
+<p>We run the questions your buyers ask through ChatGPT, Perplexity and Google AI Overviews and record who gets cited. You see where you show up, where competitors show up, and which pages could close the gap.</p>
+</article>
+<article class="card service">
+<div class="service-head"><span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6M16 6l6 6-6 6"/></svg></span><h3>Technical SEO, schema and AI crawler access</h3></div>
+<p>Indexing, crawl errors, page speed and internal links come first. Then we add schema markup and check your robots.txt rules for AI crawlers.</p>
+<p>We also publish an llms.txt file. It is a young proposal, so we treat it as a cheap extra, not a ranking trick.</p>
+</article>
+<article class="card service">
+<div class="service-head"><span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><h3>Answer-ready pages and FAQs</h3></div>
+<p>Pages that answer the question in the first two sentences, then back it up with specifics from someone who has done the work. Our <a href="https://qualipulse.tech/content-engine/">Content Engine</a> team writes them and a practitioner reviews every technical claim.</p>
+</article>
+<article class="card service">
+<div class="service-head"><span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="12" cy="21" r="1.5"/><path d="M6 7l4 3.5M18 7l-4 3.5M12 15v4.5"/></svg></span><h3>Entity and brand mention building</h3></div>
+<p>AI search trusts brands that other sites talk about. We get your company described the same way across industry publications, podcasts, comparison pages, community threads and your founder's LinkedIn.</p>
+</article>
+<article class="card service">
+<div class="service-head"><span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Monthly citation and ranking tracking</h3></div>
+<p>Each month you get AI citations by platform, Google rankings for your target keywords and AI-feature impressions from Search Console. Plain numbers, and what we plan to do next.</p>
+</article>
+</div>
+</section>
+<section class="wrap how" id="how" aria-labelledby="how-title">
+<div class="center">
+<span class="eyebrow eyebrow-teal">How it works</span>
+<h2 class="h2" id="how-title">How an AI SEO Engagement Runs</h2>
+<p class="lede">Four steps, in this order. Fixing the foundation before writing new pages saves you money.</p>
+</div>
+<ol class="steps">
+<li class="card step">
+<span class="step-n" aria-hidden="true">1</span>
+<h3>Audit</h3>
+<p>We list the prompts your buyers really ask, test them on each AI platform and crawl your site. You get a short, ranked list of fixes, not a 90-page PDF nobody reads.</p>
+</li>
+<li class="card step">
+<span class="step-n" aria-hidden="true">2</span>
+<h3>Fix</h3>
+<p>We clear the technical blockers: indexing, crawl errors, schema, AI crawler access and internal links. Small fixes here often unlock pages you already have.</p>
+</li>
+<li class="card step">
+<span class="step-n" aria-hidden="true">3</span>
+<h3>Publish</h3>
+<p>We rewrite your strongest pages to answer first, then fill the gaps with new pages and FAQs. A practitioner checks every claim before it goes live.</p>
+</li>
+<li class="card step">
+<span class="step-n" aria-hidden="true">4</span>
+<h3>Track</h3>
+<p>Every month we report citations, rankings and AI-feature impressions. We keep what works, drop what doesn't, and show you the honest numbers either way.</p>
+</li>
+</ol>
+</section>
+<section class="wrap compare" id="compare" aria-labelledby="compare-title">
+<div class="compare-head">
+<h2 class="h2" id="compare-title">AI SEO vs Traditional SEO</h2>
+<p class="lede">You will see this work sold as AI search optimization, answer engine optimization services or generative engine optimization services. Different labels, same job: make your site easy to find, easy to understand and easy to quote.</p>
+</div>
+<div class="table-wrap" role="region" aria-labelledby="compare-title" tabindex="0">
+<table class="cmp">
+<thead>
+<tr><th scope="col">Area</th><th scope="col">Traditional SEO</th><th scope="col">AI SEO</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">Goal</th><td data-label="Traditional SEO">Rank a page in Google's results</td><td data-label="AI SEO">Get your brand named and cited inside AI answers</td></tr>
+<tr><th scope="row">Where buyers see you</th><td data-label="Traditional SEO">The list of blue links</td><td data-label="AI SEO">ChatGPT, Perplexity, Google AI Overviews and the blue links</td></tr>
+<tr><th scope="row">Content format</th><td data-label="Traditional SEO">Long articles built around a keyword</td><td data-label="AI SEO">Direct answers, clear structure and facts worth quoting</td></tr>
+<tr><th scope="row">Technical focus</th><td data-label="Traditional SEO">Crawling, indexing and page speed</td><td data-label="AI SEO">All of that, plus schema, AI crawler access and llms.txt</td></tr>
+<tr><th scope="row">Authority signals</th><td data-label="Traditional SEO">Backlinks</td><td data-label="AI SEO">Backlinks, brand mentions and a clear entity</td></tr>
+<tr><th scope="row">What gets measured</th><td data-label="Traditional SEO">Rankings, clicks and traffic</td><td data-label="AI SEO">Citations and AI-feature impressions, plus rankings and traffic</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-line">AI SEO does not replace traditional SEO. It sits on top of it, which is why we never sell one without the other.</p>
+</section>
+<section class="wrap why" id="why" aria-labelledby="why-title">
+<div class="center">
+<span class="eyebrow eyebrow-teal">Why QualiPulse</span>
+<h2 class="h2" id="why-title" style="max-width:22ch">Why Software Companies Pick Us as Their AI SEO Agency</h2>
+<p class="lede">There is no best AI SEO agency for everyone. For a software company, the best AI SEO agency is one that understands your product well enough to write answers your engineers would sign off on.</p>
+</div>
+<div class="why-grid">
+<article class="card why-card">
+<h3>Practitioner review on every page</h3>
+<p>George Ukkuru spent 26 years in software engineering, wrote <i>Software Test Estimation Simplified</i> and hosts the Automation Hangout podcast. A practitioner reviews every page before it ships. AI search rewards first-hand detail, and you can't fake that.</p>
+</article>
+<article class="card why-card">
+<h3>Technical depth, not just keywords</h3>
+<p>We read your docs, your release notes and your robots.txt. Schema, crawl issues and site structure are part of the job, not an upsell. Most AI SEO company pitches lead with dashboards. We lead with the pages.</p>
+</article>
+<article class="card why-card">
+<h3>Proven before we pitch it</h3>
+<p>Every method on this page has already earned AI citations and AI Overview impressions on a site we manage. You saw the numbers above. We only sell what we have watched work.</p>
+</article>
+</div>
+<p class="note-line center-note">Every engagement is led by George, so you work with an AI SEO consultant who has done the job, not an account manager reading a script. Want the people who find you in AI search to keep hearing from you? Pair this with <a href="https://qualipulse.tech/ai-email-marketing/">AI email marketing</a>.</p>
+</section>
+<section class="wrap why" id="aeo-saas" aria-labelledby="aeo-agency-for-b2b-saas">
+<div class="center">
+<span class="eyebrow eyebrow-teal">For B2B SaaS</span>
+<h2 class="h2" id="aeo-agency-for-b2b-saas" style="max-width:22ch">AEO Agency for B2B SaaS</h2>
+<p class="lede">An AEO agency gets your product named when buyers ask AI tools for a shortlist. For B2B SaaS, that means answering the questions buyers ask late in an evaluation, not just the definitions at the top of the funnel.</p>
+</div>
+<div class="why-grid">
+<article class="card why-card">
+<h3>Prompts mapped to the buying committee</h3>
+<p>A SaaS deal has an engineer testing the product, a manager comparing tools and someone signing the contract. We build a prompt set for each of them: "best tool for this job", "Tool A vs Tool B", "does it integrate with our stack", plus the security and pricing questions that come up before procurement.</p>
+</article>
+<article class="card why-card">
+<h3>Pages AI tools can quote</h3>
+<p>Comparison pages, integration pages, use case guides and FAQs that answer in the first two sentences. A practitioner checks every technical claim, because AI answers repeat what you publish, mistakes included.</p>
+</article>
+<article class="card why-card">
+<h3>Mentions where SaaS buyers look</h3>
+<p>AI tools lean on review sites, comparison articles and community threads. We work to get your product described the same way across those sources, so the description AI repeats is the one you want buyers to hear.</p>
+</article>
+</div>
+<p class="note-line center-note">How we approach it: audit the prompts first, fix the technical base, rewrite the pages closest to a buying decision, then track citations every month. Plans are $400 for 6 pages and 20 prompts, $949 for 12 pages and 30 prompts, and $1,349 for 20 pages and 40 prompts.</p>
+</section>
+<section class="wrap compare" id="tools-vs-agency" aria-labelledby="tools-vs-agency-title">
+<div class="compare-head">
+<h2 class="h2" id="tools-vs-agency-title">Self-serve AEO Tools vs a Full-Service Agency</h2>
+<p class="lede">AEO tracking tools are useful, and some teams don't need an agency at all. Here is an honest look at the trade-off.</p>
+</div>
+<div class="table-wrap" role="region" aria-labelledby="tools-vs-agency-title" tabindex="0">
+<table class="cmp">
+<thead>
+<tr><th scope="col">Area</th><th scope="col">Self-serve AEO tool</th><th scope="col">Full-service AEO agency</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">What you get</th><td data-label="Self-serve AEO tool">Dashboards that show where your brand is cited or missing across AI platforms, often with suggestions</td><td data-label="Full-service AEO agency">Tracking plus the work itself: technical fixes, rewritten and new pages, schema and mention building</td></tr>
+<tr><th scope="row">Who does the work</th><td data-label="Self-serve AEO tool">Your team reads the reports and makes every change</td><td data-label="Full-service AEO agency">The agency makes the changes, and your team reviews and approves them</td></tr>
+<tr><th scope="row">Cost model</th><td data-label="Self-serve AEO tool">A software subscription, usually tiered by how much you track</td><td data-label="Full-service AEO agency">A fee set by scope. Ours is priced by pages and prompts, starting at $400 for 6 pages and 20 prompts</td></tr>
+<tr><th scope="row">Best for</th><td data-label="Self-serve AEO tool">Teams with a writer, an SEO lead and engineering time to act on the data</td><td data-label="Full-service AEO agency">Teams that know AI search matters but have nobody free to do the work</td></tr>
+<tr><th scope="row">Main risk</th><td data-label="Self-serve AEO tool">Data that nobody acts on</td><td data-label="Full-service AEO agency">Paying for pages that don't match your product, so check the agency's technical depth first</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note-line">Some teams use both: a tool for ongoing tracking and an agency for the fixes and pages. If you already pay for a tracker, ask any agency you talk to, us included, to work from its data instead of adding another dashboard.</p>
+</section>
+<section class="wrap faq" id="faq" aria-labelledby="faq-title">
+<div class="faq-intro">
+<h2 id="faq-title">Questions About AI SEO</h2>
+<p class="faq-more">New to the topic? Start with our guide: <a href="https://qualipulse.tech/ai-seo-service-what-is/">What is an AI SEO service?</a></p>
+<a href="https://qualipulse.tech/blog/">More on our blog →</a>
+</div>
+<div class="faq-list">
+<details open><summary>What are AI SEO services?</summary><p>AI SEO services make your website easy for ChatGPT, Perplexity and Google AI Overviews to find, understand and cite. The work combines technical SEO, schema markup, AI crawler access, answer-ready content and brand mentions, then tracks how often AI search names you.</p></details>
+<details><summary>How is an AI SEO agency different from a regular SEO agency?</summary><p>A regular SEO agency works to rank your pages in Google&#x27;s results. An AI SEO agency also works to get your brand quoted inside AI answers. That adds prompt testing, AI crawler checks, schema, entity building and citation tracking on top of classic SEO.</p></details>
+<details><summary>How long until AI search cites us?</summary><p>There is no fixed date, and anyone who gives you one is guessing. Technical fixes can show up once your pages are recrawled. Citations take longer because they depend on your authority and on how crowded your topic is. We report what changes every month so you can judge progress for yourself.</p></details>
+<details><summary>Do you guarantee AI citations?</summary><p>No. Nobody controls what ChatGPT, Perplexity or Google choose to cite, so no honest agency can guarantee it. What we can promise is the work: a clean technical base, pages worth quoting and monthly tracking that shows exactly where you stand.</p></details>
+<details><summary>What is answer engine optimization?</summary><p>Answer engine optimization (AEO) means shaping your content so AI tools and search features can lift a direct answer from it. In practice: a clear question, a short answer up top, supporting detail below and structured data. It is one part of our AI SEO services.</p></details>
+<details><summary>Do I still need traditional SEO?</summary><p>Yes. AI search tools lean on pages that are already crawlable, indexed and trusted, and Google&#x27;s AI Overviews only draw on pages in its index. If your technical SEO is weak, AI SEO has nothing to build on.</p></details>
+<details><summary>When should you hire an AEO consultant?</summary><p>Hire an AEO consultant when AI tools name your competitors and not you, and nobody on your team has the time or the know-how to fix it. Other good triggers are a product launch, a move into a new category, organic leads dropping while rankings hold steady, or a tracking tool full of data nobody acts on. If you already have an SEO lead and writers with spare capacity, a self-serve tool may be enough to start.</p></details>
+</div>
+</section>
+<section class="cta" aria-labelledby="cta-title">
+<div class="wrap cta-inner">
+<h2 id="cta-title">Find out where AI search leaves you out.</h2>
+<p>Get a free AI SEO audit. We will test the prompts your buyers use and show you who gets cited today, and why it isn't you yet.</p>
+<div class="hero-ctas">
+<a class="btn btn-mint" href="https://qualipulse.tech/contact/">Get a free AI SEO audit</a>
+<a class="btn btn-ghost-dark" href="https://qualipulse.tech/technical-seo-case-study/">Read the technical SEO case study</a>
+</div>
+</div>
+</section>
+</main>
+<!-- /wp:html -->
