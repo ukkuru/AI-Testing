@@ -1,0 +1,26 @@
+<!-- wp:html -->
+<script>
+/* Table of contents: open on desktop, collapsed on mobile, highlight the current section */
+(function () {
+  var toc = document.querySelector('.toc');
+  var mq = window.matchMedia('(min-width: 981px)');
+  function sync() { toc.open = mq.matches; }
+  sync();
+  if (mq.addEventListener) mq.addEventListener('change', sync);
+  toc.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { if (!mq.matches) toc.open = false; });
+  });
+  if (!('IntersectionObserver' in window)) return;
+  var links = {};
+  toc.querySelectorAll('a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        Object.keys(links).forEach(function (k) { links[k].classList.toggle('is-active', k === e.target.id); });
+      }
+    });
+  }, {rootMargin: '-90px 0px -70% 0px'});
+  document.querySelectorAll('.post-body h2[id]').forEach(function (h) { io.observe(h); });
+})();
+</script>
+<!-- /wp:html -->

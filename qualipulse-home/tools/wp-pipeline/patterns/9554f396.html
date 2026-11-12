@@ -1,0 +1,13 @@
+<!-- wp:html -->
+<script>
+/* Close desktop dropdowns when clicking elsewhere or opening another */
+document.querySelectorAll('.menu details').forEach(function (d) {
+  d.addEventListener('toggle', function () {
+    if (d.open) document.querySelectorAll('.menu details').forEach(function (o) { if (o !== d) o.open = false; });
+  });
+});
+document.addEventListener('click', function (e) {
+  document.querySelectorAll('.menu details[open], .burger[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
+});
+</script>
+<!-- /wp:html -->
