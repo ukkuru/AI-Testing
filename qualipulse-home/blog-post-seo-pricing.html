@@ -521,6 +521,22 @@ main p{max-width:38em}
 .qa ul,.qa ol{font-size:17px}
 @media (max-width:600px){.inline-related img{width:56px;height:56px}.post-body .callout{padding:16px 18px}}
 .post-body h4,.post-body h5,.post-body h6,article h4,article h5,article h6{font-family:var(--f-head)}</style>
+<!-- Google Preferred Sources button: footer strip on every page, card above the author box on blog posts -->
+<style>.qp-pref-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:20px;border-top:1px solid var(--navy-line,#23406A);color:var(--on-navy,#C9D4E3);font-size:14.5px}.qp-pref-foot p{margin:0;max-width:none}.qp-pref-foot b{color:#fff}.qp-pref-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin:32px 0 24px;padding:20px 22px;background:var(--white,#fff);border:1px solid var(--line,#E2E8F0);border-radius:18px}.qp-pref-card p{margin:0;max-width:34em;color:var(--body,#475569);font-size:15.5px}.qp-pref-card b{color:var(--navy,#0A2240)}.qp-pref-link{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid currentColor}.qp-pref-foot .qp-pref-link{color:#fff}.qp-pref-card .qp-pref-link{color:var(--teal-ink,#00695C)}[google-add-preferred-source-btn]{min-height:40px}</style>
+<script>(function(){
+var DEEP='https://www.google.com/preferences/source?q=qualipulse.tech';
+function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
+function fallback(box,light){var b=box.querySelector('[google-add-preferred-source-btn]');setTimeout(function(){var r=b.getBoundingClientRect();if(!b.shadowRoot&&!b.firstElementChild&&r.height<20){b.outerHTML='<a class="qp-pref-link" href="'+DEEP+'" target="_blank" rel="noopener">Add QualiPulse as a preferred source on Google</a>';}},4000);}
+function run(){
+ if(document.querySelector('.qp-pref-foot'))return;
+ var foot=document.querySelector('footer .wrap.foot');
+ if(foot){var s=el('<div class="wrap qp-pref-foot"><p><b>Follow QualiPulse on Google.</b> Add us as a preferred source and our articles are more likely to show up for you in Top Stories.</p><div google-add-preferred-source-btn data-theme="dark" data-lang="en"></div></div>');foot.parentNode.insertBefore(s,foot.nextSibling);fallback(s);}
+ var author=document.querySelector('article .author-box, .author-box');
+ if(author&&author.closest('article')){var c=el('<div class="qp-pref-card"><p><b>Want more practitioner-led articles like this?</b> Add QualiPulse as a preferred source and our stories are more likely to show up for you in Google Top Stories.</p><div google-add-preferred-source-btn data-theme="light" data-lang="en"></div></div>');author.parentNode.insertBefore(c,author);fallback(c);}
+ if(!document.querySelector('script[src*="swg/js/v1/publisher.js"]')){var sc=document.createElement('script');sc.async=true;sc.src='https://news.google.com/swg/js/v1/publisher.js';document.head.appendChild(sc);}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
