@@ -52,3 +52,9 @@ Update the page, purge the LiteSpeed cache, then test on desktop and phone:
 - Empty submit shows required-field errors
 - A gmail.com address is refused
 - A valid submission arrives in your inbox with the company name and the chosen service
+
+## Step-by-step form (live since 12 November 2026)
+
+The Contact page now uses the 4-step form in `contact.html` (service, goal, contact details, company). It still submits through Elementor Pro form 1a30517 on page 100, with the company sent as `form_fields[message]`.
+
+When uploading this page to WordPress, the page's inline scripts must be sent as `<script src="data:text/javascript;base64,...">`. WordPress text formatting rewrites `&&` to `&#038;&#038;` inside scripts that contain bracket selectors such as `input[type=radio]`, which breaks the form. Encoding the script keeps it intact.
