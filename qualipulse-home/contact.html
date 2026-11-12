@@ -470,7 +470,13 @@ main p{max-width:38em}
 .book-card small{font-size:13px;color:var(--on-navy)}
 .hero,.hub-hero,.hub-head{text-align:left}.hero>h1,.hero>p,.hero>span,.hero>.eyebrow,.hero>.founder-pill,.hub-hero>*,.hub-head>*{margin-left:0!important;margin-right:auto!important}.hero .hero-ctas{justify-content:flex-start!important;margin-left:0!important;margin-right:auto!important}.crumbs ol{justify-content:flex-start}</style>
 <!-- Google Preferred Sources button: footer strip on every page, card above the author box on blog posts -->
-<style>.qp-pref-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:20px;border-top:1px solid var(--navy-line,#23406A);color:var(--on-navy,#C9D4E3);font-size:14.5px}.qp-pref-foot p{margin:0;max-width:none}.qp-pref-foot b{color:#fff}.qp-pref-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin:32px 0 24px;padding:20px 22px;background:var(--white,#fff);border:1px solid var(--line,#E2E8F0);border-radius:18px}.qp-pref-card p{margin:0;max-width:34em;color:var(--body,#475569);font-size:15.5px}.qp-pref-card b{color:var(--navy,#0A2240)}.qp-pref-link{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid currentColor}.qp-pref-foot .qp-pref-link{color:#fff}.qp-pref-card .qp-pref-link{color:var(--teal-ink,#00695C)}[google-add-preferred-source-btn]{min-height:40px}</style>
+<style>.qp-pref-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:20px;border-top:1px solid var(--navy-line,#23406A);color:var(--on-navy,#C9D4E3);font-size:14.5px}.qp-pref-foot p{margin:0;max-width:none}.qp-pref-foot b{color:#fff}.qp-pref-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin:32px 0 24px;padding:20px 22px;background:var(--white,#fff);border:1px solid var(--line,#E2E8F0);border-radius:18px}.qp-pref-card p{margin:0;max-width:34em;color:var(--body,#475569);font-size:15.5px}.qp-pref-card b{color:var(--navy,#0A2240)}.qp-pref-link{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14.5px;text-decoration:none;border:1.5px solid currentColor}.qp-pref-foot .qp-pref-link{color:#fff}.qp-pref-card .qp-pref-link{color:var(--teal-ink,#00695C)}[google-add-preferred-source-btn]{min-height:40px}.step-count{margin:0;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-ink)}.step-bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}.step-bar span{display:block;height:100%;width:25%;background:var(--teal);border-radius:99px;transition:width .35s ease}
+.qp-steps fieldset{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:16px}.qp-steps fieldset[hidden]{display:none}.step-title{padding:0;font-family:var(--f-head);font-size:clamp(22px,2.4vw,28px);font-weight:700;letter-spacing:-.025em;color:var(--navy);outline:none}.step-sub{margin:-6px 0 0;color:var(--body);font-size:15.5px}
+.step.is-active{animation:stepIn .3s ease}@keyframes stepIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.step.is-active{animation:none}.step-bar span{transition:none}}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}.choice{position:relative;display:block;cursor:pointer}.choice input{position:absolute;opacity:0;pointer-events:none}.choice span{display:flex;flex-direction:column;gap:4px;height:100%;padding:16px 18px;border:1.5px solid var(--line-2);border-radius:16px;background:var(--white);transition:border-color .15s,box-shadow .15s,background .15s}.choice b{font-family:var(--f-head);font-size:16.5px;color:var(--navy)}.choice small{font-size:14px;color:var(--body);line-height:1.45}.choice:hover span{border-color:#B3C0CE}.choice input:focus-visible+span{box-shadow:0 0 0 4px rgba(0,137,123,.25);border-color:var(--teal)}.choice input:checked+span{border-color:var(--teal);background:var(--teal-bg);box-shadow:inset 0 0 0 1px var(--teal)}.choice-wide{grid-column:1/-1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:8px 14px;border:1.5px solid var(--line-2);border-radius:999px;background:var(--white);font:600 14px var(--f-body);color:var(--navy);cursor:pointer}.chip:hover,.chip:focus-visible{border-color:var(--teal);color:var(--teal-ink);outline:none}
+.step-nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.step-nav .btn{min-height:52px;padding:13px 28px;font:700 16px var(--f-body);cursor:pointer}.step-next,.btn-submit{margin-left:auto}.step-note{margin:0;font-size:14px;color:var(--muted)}.step-error{display:none}.step-error.show{display:block}
+.review{display:grid;gap:8px;padding:16px 18px;border-radius:14px;background:var(--mist);border:1px solid var(--line);font-size:15px}.review div{display:flex;gap:10px;flex-wrap:wrap}.review dt{min-width:110px;font-weight:600;color:var(--muted)}.review dd{margin:0;color:var(--navy)}.review button{margin-left:auto;background:none;border:0;padding:0;font:600 14px var(--f-body);color:var(--teal-ink);cursor:pointer;text-decoration:underline}.step-nav [hidden],.qp-steps [hidden]{display:none!important}.field.is-invalid .field-hint{display:none}.qp-steps .field-error,.qp-steps .step-error{color:#B42318}</style>
 <script>(function(){
 var DEEP='https://www.google.com/preferences/source?q=qualipulse.tech';
 function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstChild;}
@@ -567,70 +573,82 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
     <div class="card form-card" id="inquiry">
       <div class="form-head">
-        <h2 id="form-title">Send your inquiry</h2>
-        <p>Fields marked <span class="req" aria-hidden="true">*</span><span class="sr">with an asterisk</span> are required.</p>
+        <p class="step-count" id="step-count" aria-live="polite">Step 1 of 4</p>
+        <div class="step-bar" aria-hidden="true"><span id="step-bar-fill"></span></div>
       </div>
-
-      <!-- Mirrors the live Elementor Pro form (form_id 1a30517, post 100): same field names, types, required flags, labels and options. -->
-      <form class="qp-form" id="qp-contact-form" action="https://qualipulse.tech/contact/" method="post" novalidate aria-labelledby="form-title">
+      <form class="qp-form qp-steps" id="qp-contact-form" action="https://qualipulse.tech/contact/" method="post" novalidate>
         <input type="hidden" name="post_id" value="100">
         <input type="hidden" name="form_id" value="1a30517">
         <input type="hidden" name="referer_title" value="Contact QualiPulse | Book a Content Strategy Call">
         <input type="hidden" name="queried_id" value="100">
 
-        <div class="field-row">
+        <fieldset class="step is-active" data-step="1" aria-labelledby="s1-title">
+          <legend class="step-title" id="s1-title" tabindex="-1">What can we help you with?</legend>
+          <p class="step-sub">Pick the closest match. You can change it later.</p>
+          <div class="choice-grid" role="radiogroup" aria-labelledby="s1-title">
+            <label class="choice"><input type="radio" name="form_fields[field_d85bd0b]" value="Content Engine" required><span><b>Content Engine</b><small>SEO articles that rank and earn trust</small></span></label>
+            <label class="choice"><input type="radio" name="form_fields[field_d85bd0b]" value="LinkedIn Content"><span><b>LinkedIn Content</b><small>Ghostwritten posts for founders and leaders</small></span></label>
+            <label class="choice"><input type="radio" name="form_fields[field_d85bd0b]" value="AI SEO Services"><span><b>AI SEO Services</b><small>Get cited in ChatGPT and AI Overviews</small></span></label>
+            <label class="choice"><input type="radio" name="form_fields[field_d85bd0b]" value="AI Email Marketing"><span><b>AI Email Marketing</b><small>Managed outbound that books meetings</small></span></label>
+            <label class="choice"><input type="radio" name="form_fields[field_d85bd0b]" value="Product Value Assurance"><span><b>Product Value Assurance</b><small>Check your product delivers what you promise</small></span></label>
+            <label class="choice"><input type="radio" name="form_fields[field_d85bd0b]" value="Career Positioning"><span><b>Career Positioning</b><small>Resume and LinkedIn for engineers</small></span></label>
+            <label class="choice choice-wide"><input type="radio" name="form_fields[field_d85bd0b]" value="Not sure yet"><span><b>Not sure yet</b><small>Tell us the problem and we will point you to the right fit</small></span></label>
+          </div>
+          <p class="field-error step-error" id="err-service" aria-live="polite"></p>
+        </fieldset>
+
+        <fieldset class="step" data-step="2" aria-labelledby="s2-title" hidden>
+          <legend class="step-title" id="s2-title" tabindex="-1">What are you trying to achieve?</legend>
+          <p class="step-sub">A sentence or two is plenty. It helps us prepare before we reply.</p>
+          <div class="chips" aria-label="Examples you can use">
+            <button type="button" class="chip">More qualified inbound leads</button>
+            <button type="button" class="chip">Rank for buyer keywords</button>
+            <button type="button" class="chip">Show up in AI search answers</button>
+            <button type="button" class="chip">A stronger founder presence on LinkedIn</button>
+          </div>
           <div class="field">
-            <label for="form-field-name">Full Name <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="form-field-name" name="form_fields[name]" placeholder="Full Name" required autocomplete="name" aria-describedby="err-name">
+            <label for="form-field-field_f516cf7">Your goal <span class="opt">(optional)</span></label>
+            <textarea id="form-field-field_f516cf7" name="form_fields[field_f516cf7]" rows="4" placeholder="For example: we publish every week but get almost no demo requests from the blog."></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="step" data-step="3" aria-labelledby="s3-title" hidden>
+          <legend class="step-title" id="s3-title" tabindex="-1">Where can we reach you?</legend>
+          <p class="step-sub">We reply within one business day. No newsletters, no sales sequence.</p>
+          <div class="field">
+            <label for="form-field-name">Full name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="form-field-name" name="form_fields[name]" placeholder="Your full name" required autocomplete="name" aria-describedby="err-name">
             <p class="field-error" id="err-name" aria-live="polite"></p>
           </div>
           <div class="field">
-            <label for="form-field-email">Business Email <span class="req" aria-hidden="true">*</span></label>
+            <label for="form-field-email">Business email <span class="req" aria-hidden="true">*</span></label>
             <input type="email" id="form-field-email" name="form_fields[email]" placeholder="you@yourcompany.com" required autocomplete="email" inputmode="email" aria-describedby="hint-email err-email">
             <p class="field-hint" id="hint-email">Use your work email. Gmail, Yahoo, Outlook and other personal addresses are not accepted.</p>
             <p class="field-error" id="err-email" aria-live="polite"></p>
           </div>
-        </div>
+        </fieldset>
 
-        <div class="field-row">
+        <fieldset class="step" data-step="4" aria-labelledby="s4-title" hidden>
+          <legend class="step-title" id="s4-title" tabindex="-1">Last step: your company</legend>
           <div class="field">
-            <label for="form-field-company">Company Name <span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="form-field-company" name="form_fields[company]" placeholder="Company Name" required autocomplete="organization" aria-describedby="err-company">
+            <label for="form-field-company">Company name <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="form-field-company" name="form_fields[company]" placeholder="Company name" required autocomplete="organization" aria-describedby="err-company">
             <p class="field-error" id="err-company" aria-live="polite"></p>
           </div>
           <div class="field">
-            <label for="form-field-field_a49e78f">Website URL <span class="opt">(optional)</span></label>
-            <input type="url" id="form-field-field_a49e78f" name="form_fields[field_a49e78f]" placeholder="Website URL" autocomplete="url" inputmode="url" aria-describedby="err-url">
+            <label for="form-field-field_a49e78f">Website <span class="opt">(optional)</span></label>
+            <input type="url" id="form-field-field_a49e78f" name="form_fields[field_a49e78f]" placeholder="https://yourcompany.com" autocomplete="url" inputmode="url" aria-describedby="err-url">
             <p class="field-error" id="err-url" aria-live="polite"></p>
           </div>
-        </div>
+          <div class="review" id="review" aria-label="Your answers"></div>
+        </fieldset>
 
-        <div class="field">
-          <label for="form-field-field_d85bd0b">Service Interested In <span class="opt">(optional)</span></label>
-          <div class="select-wrap">
-            <select id="form-field-field_d85bd0b" name="form_fields[field_d85bd0b]">
-              <option value="" selected>Choose a service</option>
-              <option value="Content Engine">Content Engine</option>
-              <option value="LinkedIn Content">LinkedIn Content</option>
-              <option value="AI SEO Services">AI SEO Services</option>
-              <option value="AI Email Marketing">AI Email Marketing</option>
-              <option value="Product Value Assurance">Product Value Assurance</option>
-              <option value="Career Positioning">Career Positioning</option>
-              <option value="Not sure yet">Not sure yet</option>
-            </select>
-          </div>
+        <div class="step-nav">
+          <button type="button" class="btn btn-ghost step-back" id="step-back" hidden>Back</button>
+          <button type="button" class="btn btn-mint step-next" id="step-next">Continue</button>
+          <button type="submit" class="btn btn-mint btn-submit" id="step-send" hidden>Send my inquiry</button>
         </div>
-
-        <div class="field">
-          <label for="form-field-field_f516cf7">What You Are Trying to Achieve <span class="opt">(optional)</span></label>
-          <textarea id="form-field-field_f516cf7" name="form_fields[field_f516cf7]" rows="5" placeholder="Helps us prepare before the call."></textarea>
-        </div>
-
-        <div class="form-foot">
-          <button type="submit" class="btn btn-mint btn-submit">Send My Inquiry</button>
-          <p class="form-note">We respond to all inquiries within one business day.</p>
-        </div>
-
+        <p class="form-note step-note">Press Enter to continue. Takes under a minute.</p>
         <div class="form-status" id="form-status" role="status" aria-live="polite" hidden></div>
       </form>
     </div>
@@ -750,72 +768,82 @@ document.addEventListener('click', function (e) {
   document.querySelectorAll('.menu details[open], .burger[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
 });
 
-/* Validate inline, then submit through the live Elementor Pro form. */
+/* Step-by-step inquiry form. Submits through the live Elementor Pro form (post 100, form 1a30517). */
 (function () {
-  var form = document.getElementById('qp-contact-form');
-  if (!form) return;
-  var status = document.getElementById('form-status');
+  var form = document.getElementById('qp-contact-form'); if (!form) return;
+  var steps = [].slice.call(form.querySelectorAll('.step')), cur = 0, N = steps.length;
+  var back = document.getElementById('step-back'), next = document.getElementById('step-next'), send = document.getElementById('step-send');
+  var count = document.getElementById('step-count'), fill = document.getElementById('step-bar-fill'), status = document.getElementById('form-status');
   var FREE = ['gmail.com','googlemail.com','yahoo.com','yahoo.co.in','yahoo.co.uk','ymail.com','hotmail.com','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','proton.me','protonmail.com','gmx.com','gmx.net','mail.com','yandex.com','zoho.com','rediffmail.com','inbox.com','hey.com','fastmail.com','tutanota.com'];
-  var rules = [
-    { id: 'form-field-name', err: 'err-name', empty: 'Please enter your full name.' },
-    { id: 'form-field-email', err: 'err-email', empty: 'Please enter your business email.', bad: 'That email address does not look right. Check for a missing @ or domain.', business: 'Please use your work email. Personal addresses such as Gmail, Yahoo or Outlook are not accepted.' },
-    { id: 'form-field-company', err: 'err-company', empty: 'Please enter your company name.' },
-    { id: 'form-field-field_a49e78f', err: 'err-url', bad: 'Enter a full web address, starting with https://' }
-  ];
-  function check(r) {
-    var el = document.getElementById(r.id), box = el.closest('.field'), msg = '';
-    var v = el.value.trim();
-    if (el.required && !v) msg = r.empty;
-    else if (v && el.validity && el.validity.typeMismatch) msg = r.bad;
-    else if (v && r.business && FREE.indexOf((v.split('@')[1] || '').toLowerCase()) !== -1) msg = r.business;
-    document.getElementById(r.err).textContent = msg;
-    box.classList.toggle('is-invalid', !!msg);
-    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
-    return !msg;
-  }
-  rules.forEach(function (r) {
-    var el = document.getElementById(r.id);
-    el.addEventListener('blur', function () { if (el.value.trim() || el.closest('.field').classList.contains('is-invalid')) check(r); });
-    el.addEventListener('input', function () { if (el.closest('.field').classList.contains('is-invalid')) check(r); });
-  });
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var firstBad = null;
-    rules.forEach(function (r) { if (!check(r) && !firstBad) firstBad = document.getElementById(r.id); });
-    status.hidden = false;
-    if (firstBad) {
-      status.className = 'form-status is-err';
-      status.textContent = 'Please fix the highlighted fields and try again.';
-      firstBad.focus();
-      return;
+  function setErr(id, msg) { var e = document.getElementById(id); e.textContent = msg; var f = e.closest('.field'); if (f) f.classList.toggle('is-invalid', !!msg); else e.classList.toggle('show', !!msg); return !msg; }
+  function val(id) { return document.getElementById(id).value.trim(); }
+  var checks = {
+    1: function () { return setErr('err-service', form.querySelector('input[type=radio]:checked') ? '' : 'Pick the option closest to what you need.') || form.querySelector('.choice input'); },
+    2: function () { return true; },
+    3: function () {
+      var ok = true, first = null, n = val('form-field-name'), m = val('form-field-email');
+      if (!setErr('err-name', n ? '' : 'Please enter your full name.')) { ok = false; first = first || 'form-field-name'; }
+      var em = !m ? 'Please enter your business email.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m) ? 'That email address does not look right.' : FREE.indexOf(m.split('@')[1].toLowerCase()) !== -1 ? 'Please use your work email. Personal addresses such as Gmail are not accepted.' : '';
+      if (!setErr('err-email', em)) { ok = false; first = first || 'form-field-email'; }
+      return ok || document.getElementById(first);
+    },
+    4: function () {
+      var ok = true, first = null, u = val('form-field-field_a49e78f');
+      if (!setErr('err-company', val('form-field-company') ? '' : 'Please enter your company name.')) { ok = false; first = 'form-field-company'; }
+      if (!setErr('err-url', !u || /^https?:\/\/\S+\.\S+/.test(u) ? '' : 'Enter a full web address, starting with https://')) { ok = false; first = first || 'form-field-field_a49e78f'; }
+      return ok || document.getElementById(first);
     }
-    /* Send through the live Elementor Pro form (post 100, form 1a30517). Elementor still names the company field "message". */
-    var data = new FormData(form);
-    data.set('form_fields[message]', data.get('form_fields[company]') || '');
-    data.delete('form_fields[company]');
-    data.set('action', 'elementor_pro_forms_send_form');
-    data.set('referrer', location.href.split('?')[0]);
-    var btn = form.querySelector('[type="submit"]');
-    if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = 'Sending...'; }
-    status.className = 'form-status';
-    status.textContent = 'Sending your message...';
-    fetch('https://qualipulse.tech/wp-admin/admin-ajax.php', { method: 'POST', body: data, credentials: 'same-origin' })
-      .then(function (r) { return r.json(); })
-      .then(function (res) {
-        if (res && res.success) {
-          var go = res.data && res.data.data && res.data.data.redirect_url;
-          status.className = 'form-status is-ok';
-          status.textContent = 'Thank you. Your message has been sent.';
-          form.reset();
-          if (go) window.location.href = go;
-        } else { throw new Error('rejected'); }
-      })
-      .catch(function () {
-        status.className = 'form-status is-err';
-        status.innerHTML = 'Sorry, the message could not be sent. Please email <a href="mailto:reachus@qualipulse.tech">reachus@qualipulse.tech</a> or <a href="https://cal.com/qualipulse/30min" target="_blank" rel="noopener">book a call</a>.';
-      })
-      .then(function () { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label; } });
+  };
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function review() {
+    var svc = form.querySelector('input[type=radio]:checked'), goal = val('form-field-field_f516cf7');
+    document.getElementById('review').innerHTML =
+      '<div><dt>Service</dt><dd>' + esc(svc ? svc.value : '') + '</dd><button type="button" data-go="0">Change</button></div>' +
+      '<div><dt>Goal</dt><dd>' + (goal ? esc(goal.length > 90 ? goal.slice(0, 90) + '...' : goal) : 'Not given') + '</dd><button type="button" data-go="1">Change</button></div>' +
+      '<div><dt>Contact</dt><dd>' + esc(val('form-field-name')) + ', ' + esc(val('form-field-email')) + '</dd><button type="button" data-go="2">Change</button></div>';
+  }
+  function show(i, focus) {
+    steps[cur].hidden = true; steps[cur].classList.remove('is-active');
+    cur = i; steps[cur].hidden = false; steps[cur].classList.add('is-active');
+    count.textContent = 'Step ' + (cur + 1) + ' of ' + N; fill.style.width = ((cur + 1) / N * 100) + '%';
+    back.hidden = cur === 0; next.hidden = cur === N - 1; send.hidden = cur !== N - 1;
+    var note = form.querySelector('.step-note'); if (note) note.textContent = cur === N - 1 ? 'Press Enter to send. We reply within one business day.' : 'Press Enter to continue. Takes under a minute.';
+    if (cur === N - 1) review();
+    if (focus !== false) { var f = steps[cur].querySelector('input:not([type=radio]),textarea'); (f || steps[cur].querySelector('.step-title')).focus({ preventScroll: true }); }
+    form.closest('.form-card').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+  function go() { var r = checks[cur + 1](); if (r !== true) { if (r && r.focus) r.focus(); return; } if (cur < N - 1) show(cur + 1); else submit(); }
+  next.addEventListener('click', go);
+  back.addEventListener('click', function () { show(cur - 1); });
+  form.addEventListener('click', function (e) { var g = e.target.getAttribute && e.target.getAttribute('data-go'); if (g !== null && g !== undefined) show(+g); });
+  form.querySelectorAll('input[type=radio]').forEach(function (r) { r.addEventListener('change', function () { setErr('err-service', ''); setTimeout(function () { if (cur === 0) show(1); }, 220); }); });
+  form.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () { var t = document.getElementById('form-field-field_f516cf7'); t.value = t.value ? t.value.replace(/\s*$/, '') + '. ' + c.textContent : c.textContent; t.focus(); }); });
+  form.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' || e.target.tagName === 'BUTTON') return;
+    if (e.target.tagName === 'TEXTAREA' && !(e.ctrlKey || e.metaKey)) return;
+    e.preventDefault(); go();
   });
+  form.addEventListener('submit', function (e) { e.preventDefault(); go(); });
+  function submit() {
+    var data = new FormData(form);
+    data.set('form_fields[message]', data.get('form_fields[company]') || ''); data.delete('form_fields[company]');
+    data.set('action', 'elementor_pro_forms_send_form'); data.set('referrer', location.href.split('?')[0]);
+    send.disabled = true; send.textContent = 'Sending...';
+    status.hidden = false; status.className = 'form-status'; status.textContent = 'Sending your message...';
+    var demo = location.protocol === 'file:' || /[?&]prototype=1/.test(location.search);
+    var req = demo ? new Promise(function (ok) { setTimeout(function () { ok({ success: true, demo: true }); }, 700); })
+      : fetch('https://qualipulse.tech/wp-admin/admin-ajax.php', { method: 'POST', body: data, credentials: 'same-origin' }).then(function (r) { return r.json(); });
+    req.then(function (res) {
+      if (!res || !res.success) throw new Error('rejected');
+      var to = res.data && res.data.data && res.data.data.redirect_url;
+      status.className = 'form-status is-ok';
+      status.textContent = res.demo ? 'Prototype: this is where the message is sent and the visitor lands on the thank-you page.' : 'Thank you. Your message has been sent.';
+      if (to) window.location.href = to;
+    }).catch(function () {
+      status.className = 'form-status is-err';
+      status.innerHTML = 'Sorry, the message could not be sent. Please email <a href="mailto:reachus@qualipulse.tech">reachus@qualipulse.tech</a> or <a href="https://cal.com/qualipulse/30min" target="_blank" rel="noopener">book a call</a>.';
+    }).then(function () { send.disabled = false; send.textContent = 'Send my inquiry'; });
+  }
 })();
 </script>
 </body>

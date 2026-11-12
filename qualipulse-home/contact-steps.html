@@ -807,6 +807,7 @@ document.addEventListener('click', function (e) {
     cur = i; steps[cur].hidden = false; steps[cur].classList.add('is-active');
     count.textContent = 'Step ' + (cur + 1) + ' of ' + N; fill.style.width = ((cur + 1) / N * 100) + '%';
     back.hidden = cur === 0; next.hidden = cur === N - 1; send.hidden = cur !== N - 1;
+    var note = form.querySelector('.step-note'); if (note) note.textContent = cur === N - 1 ? 'Press Enter to send. We reply within one business day.' : 'Press Enter to continue. Takes under a minute.';
     if (cur === N - 1) review();
     if (focus !== false) { var f = steps[cur].querySelector('input:not([type=radio]),textarea'); (f || steps[cur].querySelector('.step-title')).focus({ preventScroll: true }); }
     form.closest('.form-card').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
