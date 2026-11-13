@@ -1,0 +1,18 @@
+# BEGIN QualiPulse Markdown for agents
+# Serves /md/<path>.md when a client sends "Accept: text/markdown". Browsers are unaffected.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP:Accept} text/markdown [NC]
+RewriteRule ^$ /md/index.md [L,E=Cache-Control:no-cache]
+RewriteCond %{HTTP:Accept} text/markdown [NC]
+RewriteCond %{DOCUMENT_ROOT}/md/$1.md -f
+RewriteRule ^(.+?)/?$ /md/$1.md [L,E=Cache-Control:no-cache]
+</IfModule>
+<IfModule mod_headers.c>
+<FilesMatch "\.md$">
+Header set Content-Type "text/markdown; charset=utf-8"
+Header set Vary "Accept"
+Header set X-Robots-Tag "noindex"
+</FilesMatch>
+</IfModule>
+# END QualiPulse Markdown for agents
