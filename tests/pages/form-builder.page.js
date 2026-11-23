@@ -1,51 +1,69 @@
+// Page object for the Form Builder screen.
+// It keeps all the "how to find things on the page" code in one place,
+// so the test file only has to describe what we are checking.
+
 const { test, expect } = require('@playwright/test');
 
 class FormBuilderPage {
   constructor(page) {
     this.page = page;
+
     this.formListHeading = page.getByRole('heading', { name: 'Form List' });
-    this.builderHeading = page.getByRole('heading', { name: 'Form Builder' });
+    this.formBuilderHeading = page.getByRole('heading', { name: 'Form Builder' });
+
+    // The category icons on the left (Basic, Advanced, Layout...).
+    // They have no name or label, so we find them by their position.
     this.categoryIcons = page.locator('.tool-icon');
-    // Only items the user can actually see. Hidden categories left in the DOM are ignored.
-    this.visibleItems = page.locator('[draggable="true"]:visible');
+
+    // Fields in the palette can be dragged, so we find them by draggable="true".
+    // ":visible" means: only the fields the user can see right now.
+    // Fields from other categories can still be on the page, just hidden.
+    this.visibleFields = page.locator('[draggable="true"]:visible');
   }
 
-  async gotoFormList() {
+  async goToFormList() {
     await test.step('Open the Form List page', async () => {
       await this.page.goto('/formbuilder-v2');
+
       await expect(
         this.formListHeading,
-        'The Form List page should load after login. If this fails, the user may be logged out or the page is down.',
+        'The Form List page should load. If not, the user may be logged out or the app is down.',
       ).toBeVisible();
     });
   }
 
-  async openFromScratch() {
-    await test.step('Create a new blank form ("+ Create Form" then "Start From Scratch")', async () => {
+  async createBlankForm() {
+    await test.step('Create a new blank form', async () => {
       await this.page.getByRole('button', { name: '+ Create Form' }).click();
       await this.page.getByText('Start From Scratch', { exact: true }).first().click();
+
       await expect(
-        this.builderHeading,
-        'The Form Builder should open after choosing "Start From Scratch".',
+        this.formBuilderHeading,
+        'The Form Builder should open after clicking "Start From Scratch".',
       ).toBeVisible();
     });
   }
 
-  item(name) {
+  // Finds one field in the palette by its name, for example "Text Field".
+  paletteField(fieldName) {
     return this.page.locator('[draggable="true"]').filter({
-      has: this.page.getByText(name, { exact: true }),
+      has: this.page.getByText(fieldName, { exact: true }),
     });
   }
 
-  // Click the icon AND wait until the category's first field is on screen,
-  // so no assertion ever runs against the previous category.
+  // Clicks a category icon and waits until that category's fields appear.
   async openCategory(category) {
-    await test.step(`Open the ${category.label} category in the field palette`, async () => {
+    await test.step(`Open the ${category.label} category`, async () => {
       await this.categoryIcons.nth(category.iconIndex).click();
+
+      // Wait for the first field to show up. The palette animates,
+      // and without this wait the test would check the old category.
+      const firstField = this.paletteField(category.fields[0]);
+
       await expect(
-        this.item(category.fields[0]),
-        `Clicking the ${category.label} icon should show the ${category.label} fields, starting with "${category.fields[0]}". ` +
-          'If this fails, the icon order may have changed or the palette did not switch.',
+        firstField,
+        `After clicking the ${category.label} icon, "${category.fields[0]}" should appear. ` +
+          'If not, the icon order may have changed.',
       ).toBeVisible();
     });
   }

@@ -1,51 +1,64 @@
-// spec: tests/formbuilder-testplan.md (3. Field Palette and Field Types Testing)
+// WHAT:    Checks that each palette category shows the right fields,
+//          and that switching between categories works.
+// RUN:     npx playwright test field-palette
+// LOGIN:   Happens once in tests/setup/auth.setup.js and is reused here.
+// ADD A CATEGORY OR FIELD: Edit tests/data/palette-categories.js. No code changes needed.
+// TEST PLAN: tests/formbuilder-testplan.md (section 3)
+
 const { test, expect } = require('@playwright/test');
 const { FormBuilderPage } = require('./pages/form-builder.page');
 const CATEGORIES = require('./data/palette-categories');
 
-test.describe('Field Palette', { tag: '@palette' }, () => {
-  let builder;
+test.describe('Field Palette', () => {
+  let formBuilder;
 
+  // Runs before every test: open the Form List and create a blank form.
   test.beforeEach(async ({ page }) => {
-    builder = new FormBuilderPage(page);
-    await builder.gotoFormList();
-    await builder.openFromScratch();
+    formBuilder = new FormBuilderPage(page);
+    await formBuilder.goToFormList();
+    await formBuilder.createBlankForm();
   });
 
-  // One test per category, generated from data. Add a category = add a row.
+  // This loop creates one test for each category in the data file.
   for (const category of CATEGORIES) {
-    test(`${category.label} category lists the expected fields in order`, { tag: '@smoke' }, async () => {
-      await builder.openCategory(category);
+    test(`${category.label} category shows the right fields`, async () => {
+      await formBuilder.openCategory(category);
 
-      await test.step(`Check the ${category.label} palette shows exactly: ${category.fields.join(', ')}`, async () => {
-        await expect(
-          builder.visibleItems,
-          `The ${category.label} palette should show these ${category.fields.length} fields in this order: ` +
-            `${category.fields.join(', ')}. The diff below shows which fields are missing, extra, renamed or out of order.`,
-        ).toHaveText(category.fields);
-      });
+      // toHaveText with a list checks three things at once:
+      // the number of fields, their names, and their order.
+      await expect(
+        formBuilder.visibleFields,
+        `The ${category.label} category should show: ${category.fields.join(', ')}`,
+      ).toHaveText(category.fields);
     });
   }
 
-  test('switching categories shows exactly one category at a time', async () => {
-    // Visit every category, then come back to the first, to prove switching both ways.
-    for (const active of [...CATEGORIES, CATEGORIES[0]]) {
-      await test.step(`Switch to ${active.label} and confirm only its fields are shown`, async () => {
-        await builder.openCategory(active);
+  test('Only one category is shown at a time', async () => {
+    // Visit every category, then go back to the first one
+    // to check that switching back also works.
+    const visitOrder = [...CATEGORIES, CATEGORIES[0]];
 
-        await expect(
-          builder.visibleItems,
-          `With ${active.label} selected, the palette should show ${active.fields.length} fields. ` +
-            'A different number means fields from another category are leaking through, or some are missing.',
-        ).toHaveCount(active.fields.length);
+    for (const category of visitOrder) {
+      await formBuilder.openCategory(category);
 
-        for (const other of CATEGORIES.filter((c) => c !== active)) {
-          await expect.soft(
-            builder.item(other.fields[0]),
-            `"${other.fields[0]}" belongs to ${other.label} and should be hidden while ${active.label} is selected.`,
-          ).toBeHidden();
-        }
-      });
+      await expect(
+        formBuilder.visibleFields,
+        `The ${category.label} category should show exactly ${category.fields.length} fields`,
+      ).toHaveCount(category.fields.length);
+
+      // Make sure fields from the other categories are hidden.
+      const otherCategories = CATEGORIES.filter((other) => other !== category);
+
+      for (const otherCategory of otherCategories) {
+        const fieldFromOtherCategory = formBuilder.paletteField(otherCategory.fields[0]);
+
+        // expect.soft records the failure but keeps going,
+        // so one run shows every problem instead of stopping at the first.
+        await expect.soft(
+          fieldFromOtherCategory,
+          `"${otherCategory.fields[0]}" (${otherCategory.label}) should be hidden while ${category.label} is open`,
+        ).toBeHidden();
+      }
     }
   });
 });
