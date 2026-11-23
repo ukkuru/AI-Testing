@@ -3,6 +3,7 @@
 // so the test file only has to describe what we are checking.
 
 const { test, expect } = require('@playwright/test');
+const ROUTES = require('../data/routes');
 
 class FormBuilderPage {
   constructor(page) {
@@ -23,7 +24,7 @@ class FormBuilderPage {
 
   async goToFormList() {
     await test.step('Open the Form List page', async () => {
-      await this.page.goto('/formbuilder-v2');
+      await this.page.goto(ROUTES.formList);
 
       await expect(
         this.formListHeading,

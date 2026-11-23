@@ -1,0 +1,13 @@
+{
+  "name": "ai-testing",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:palette": "playwright test field-palette",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "dotenv": "^16.4.5"
+  }
+}
