@@ -2,13 +2,8 @@
 
 const { defineConfig } = require('@playwright/test');
 
-// Load settings from the .env file (website address, username, password).
-require('dotenv').config();
-
-// Stop early with a clear message if the website address is missing.
-if (!process.env.BASE_URL) {
-  throw new Error('BASE_URL is missing. Copy .env.example to .env and fill in the website address.');
-}
+// Settings from the .env file. Fails early with a clear message if BASE_URL is missing.
+const env = require('./tests/common/env');
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -34,7 +29,7 @@ module.exports = defineConfig({
 
   use: {
     // Every page.goto('/something') starts from this address.
-    baseURL: process.env.BASE_URL,
+    baseURL: env.baseUrl(),
     viewport: { width: 1440, height: 900 },
 
     // Keep a trace and a screenshot only when a test fails, to help debugging.

@@ -1,39 +1,86 @@
-# Field Palette Tests: Scripts and Setup
+# Playwright Tests: Scripts and Setup
 
-This file holds every script for the field palette tests plus the steps to set them up and run them. It is written for developers who are new to Playwright with JavaScript.
+This file holds every script for the Playwright tests plus the steps to set them up and run them. It is written for developers who are new to Playwright with JavaScript.
 
-## How the pieces fit together
+## How the project is organised
 
-1. **`.env`** holds the website address and login. It changes per server and is never committed.
-2. **`playwright.config.js`** reads `.env` and sets the shared settings.
-3. **`tests/setup/auth.setup.js`** logs in once and saves the session.
-4. **`tests/data/`** holds what the app should show (fields) and where pages live (paths).
-5. **`tests/pages/form-builder.page.js`** knows how to find and click things on the page.
-6. **`tests/field-palette.spec.js`** holds the tests. It reads the data and uses the page object.
+The tests are split by **module**, one folder for each part of the app (Form Builder, User Management, Reports and so on). Code that every module needs lives in one shared folder called **common**.
 
-**Simple rule:** if it changes between servers or is a secret, it goes in `.env`. If it is the same everywhere, it goes in a code file.
+1. **`tests/common/`** is the shared library: login, settings, report labels and app wide paths.
+2. **`tests/modules/<module-name>/`** holds everything for one part of the app: its pages, data, paths and tests.
+3. **`tests/setup/`** logs in once before any test runs.
+4. **`playwright.config.js`** holds the shared Playwright settings.
+5. **`.env`** holds the website address and login. It changes per server and is never committed.
 
 ## Project layout
 
 ```
 AI-Testing/
-  .env.example                  Template for your .env file (safe to commit)
-  .env                          Your real settings (never commit)
+  .env.example                    Template for your .env file (safe to commit)
+  .env                            Your real settings (never commit)
   .gitignore
   package.json
   playwright.config.js
-  helpers/
-    auth.js                     Your login function (you add this)
   tests/
-    field-palette.spec.js
-    data/
-      palette-categories.js
-      routes.js
-    pages/
-      form-builder.page.js
+    common/                       Shared library, used by every module
+      auth.js                     Logs a user in
+      env.js                      Reads settings from .env in one place
+      reporting.js                Allure labels (module, feature, severity)
+      routes.js                   App wide paths, such as the page after login
     setup/
-      auth.setup.js
+      auth.setup.js               Logs in once before all tests
+    modules/
+      form-builder/               One folder per module
+        routes.js                 Paths for this module only
+        data/
+          palette-categories.js   Test data for this module
+        pages/
+          form-builder.page.js    How to find and use things on this module's pages
+        specs/
+          field-palette.spec.js   The tests
+      user-management/            Example of the next module (same shape)
+        routes.js
+        data/
+        pages/
+        specs/
 ```
+
+Every module has the **same four parts**. Once you know one module, you know them all.
+
+## Rules for modules and the common library
+
+These rules keep the project tidy as it grows. Break them and the common folder turns into a junk drawer.
+
+1. **Start inside the module.** New code always goes in the module that needs it.
+2. **Move to common only when a second module needs it.** Not before. Guessing what might be shared leads to code nobody uses.
+3. **A module never imports from another module.** If Form Builder needs something from User Management, that thing belongs in common.
+4. **Common never imports from a module.** Common must work without knowing any module exists.
+5. **Common holds tools, not tests.** No `.spec.js` files in `tests/common/`.
+6. **One job per common file.** `auth.js` logs in. `env.js` reads settings. Do not create a `utils.js` that does everything.
+
+### What goes where
+
+* **Login, settings, report labels:** `tests/common/`
+* **A UI part used on many pages, such as a date picker or a confirm dialog:** `tests/common/components/` (create it when you need it)
+* **The page after login and other app wide paths:** `tests/common/routes.js`
+* **Paths for one module:** `tests/modules/<module>/routes.js`
+* **Fields, names, expected values for one module:** `tests/modules/<module>/data/`
+* **Website address, username, password:** `.env`
+
+### Short import paths for common
+
+Files deep inside a module would normally need long paths like `../../../common/auth`. To avoid that, `package.json` has a shortcut:
+```json
+"imports": {
+  "#common/*": "./tests/common/*.js"
+}
+```
+So from any file you can write:
+```js
+const { login } = require('#common/auth');
+const { labelTest } = require('#common/reporting');
+```
+Files inside the same module still use short relative paths such as `../pages/form-builder.page`.
 
 ## Setup instructions
 
@@ -53,14 +100,23 @@ cp .env.example .env
 ```
 Open `.env` and fill in the website address and a test account. Never use your personal account.
 
-### Step 4: Add the login helper
-Create `helpers/auth.js` with a `login(page)` function. It must read `process.env.TEST_USER` and `process.env.TEST_PASSWORD`. It must not hold the website address.
+### Step 4: Check the login selectors
+Open `tests/common/auth.js`. The labels `Email`, `Password` and the `Log in` button are a starting point. Change them to match your real login page.
 
 ### Step 5: Run the tests
+Run everything:
+```
+npm test
+```
+Run one module:
+```
+npm run test:form-builder
+```
+Run one test file:
 ```
 npm run test:palette
 ```
-To run against another server without editing any file:
+Run against another server without editing any file:
 ```
 BASE_URL=https://staging.yourapp.com npm test
 ```
@@ -116,19 +172,16 @@ Remove it to switch Allure off. The terminal output and the Playwright HTML repo
 ### Keep reports out of Git
 `allure-results/` and `allure-report/` are in `.gitignore`. They are created fresh on every run and can be large, so never commit them.
 
-### Optional: group tests by feature
-Allure can group tests under an epic and feature. Add these lines at the start of a test:
+### Group tests by module and feature
+The common library has a helper that labels each test, so Allure groups them by module. Call it in `beforeEach`:
 ```js
-const allure = require('allure-js-commons');
+const { labelTest } = require('#common/reporting');
 
-test('Basic category shows the right fields', async () => {
-  await allure.epic('Form Builder');
-  await allure.feature('Field Palette');
-  await allure.severity('critical');
-  // ... rest of the test
+test.beforeEach(async () => {
+  await labelTest({ module: 'Form Builder', feature: 'Field Palette', severity: 'critical' });
 });
 ```
-`allure-js-commons` comes with `allure-playwright`, so no extra install is needed.
+In the report, open the **Behaviors** tab to see tests grouped by module, then by feature.
 
 ### On a CI server
 Run the same four commands, but skip `allure:open`. Save the `allure-report/` folder as a build artifact so the team can download and open it.
@@ -152,6 +205,9 @@ TEST_PASSWORD=
 .env
 allure-results/
 allure-report/
+node_modules/
+test-results/
+playwright-report/
 ```
 
 ### `package.json`
@@ -166,13 +222,18 @@ allure-report/
     "report": "playwright show-report",
     "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
     "allure:generate": "allure generate ./allure-results --clean",
-    "allure:open": "allure open ./allure-report"
+    "allure:open": "allure open ./allure-report",
+    "test:form-builder": "playwright test tests/modules/form-builder"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "allure": "^3.33.0",
     "allure-playwright": "^3.15.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "allure-js-commons": "^3.15.0"
+  },
+  "imports": {
+    "#common/*": "./tests/common/*.js"
   }
 }
 ```
@@ -184,13 +245,8 @@ allure-report/
 
 const { defineConfig } = require('@playwright/test');
 
-// Load settings from the .env file (website address, username, password).
-require('dotenv').config();
-
-// Stop early with a clear message if the website address is missing.
-if (!process.env.BASE_URL) {
-  throw new Error('BASE_URL is missing. Copy .env.example to .env and fill in the website address.');
-}
+// Settings from the .env file. Fails early with a clear message if BASE_URL is missing.
+const env = require('./tests/common/env');
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -216,7 +272,7 @@ module.exports = defineConfig({
 
   use: {
     // Every page.goto('/something') starts from this address.
-    baseURL: process.env.BASE_URL,
+    baseURL: env.baseUrl(),
     viewport: { width: 1440, height: 900 },
 
     // Keep a trace and a screenshot only when a test fails, to help debugging.
@@ -238,7 +294,119 @@ module.exports = defineConfig({
 });
 ```
 
-### `tests/data/palette-categories.js`
+### `tests/common/env.js`
+
+```js
+// Reads settings from the .env file in one place.
+// Every other file asks this file for settings instead of reading process.env directly,
+// so a missing value fails early with a clear message.
+
+require('dotenv').config();
+
+function required(name) {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`${name} is missing. Copy .env.example to .env and fill it in.`);
+  }
+  return value;
+}
+
+module.exports = {
+  baseUrl: () => required('BASE_URL'),
+  testUser: () => required('TEST_USER'),
+  testPassword: () => required('TEST_PASSWORD'),
+};
+```
+
+### `tests/common/auth.js`
+
+```js
+// Logs a user into the app. Used by tests/setup/auth.setup.js before any test runs.
+// TODO: The selectors below are a starting point. Check them against your real login page.
+
+const { test, expect } = require('@playwright/test');
+const env = require('./env');
+
+async function login(page) {
+  await test.step('Fill in the login form and sign in', async () => {
+    await page.getByLabel('Email').fill(env.testUser());
+    await page.getByLabel('Password').fill(env.testPassword());
+    await page.getByRole('button', { name: 'Log in' }).click();
+
+    await expect(
+      page.getByLabel('Password'),
+      'The login form should close after signing in. If it is still showing, the username or password is wrong.',
+    ).toBeHidden();
+  });
+}
+
+module.exports = { login };
+```
+
+### `tests/common/reporting.js`
+
+```js
+// Labels for the Allure report, so tests are grouped by module and feature.
+// Call this at the start of a test or in beforeEach.
+
+const allure = require('allure-js-commons');
+
+async function labelTest({ module, feature, severity = 'normal' }) {
+  await allure.epic(module);
+  await allure.feature(feature);
+  await allure.severity(severity);
+}
+
+module.exports = { labelTest };
+```
+
+### `tests/common/routes.js`
+
+```js
+// App-wide paths that every module uses, such as where the user lands after login.
+// Paths that belong to one module live in that module's own routes.js.
+module.exports = {
+  home: '/formbuilder-v2',
+};
+```
+
+### `tests/setup/auth.setup.js`
+
+```js
+// Logs in once per run and saves the session. Every spec reuses it.
+const { test: setup, expect } = require('@playwright/test');
+const { login } = require('#common/auth');
+const ROUTES = require('#common/routes');
+
+setup('Log in once and save the session for all tests', async ({ page }) => {
+  await setup.step('Log in with the test account', async () => {
+    await page.goto(ROUTES.home);
+    await login(page);
+  });
+
+  await setup.step('Confirm login worked and save the session', async () => {
+    await page.goto(ROUTES.home);
+    await expect(
+      page.getByRole('heading', { name: 'Form List' }),
+      'Login failed or did not land on Form List. Check the test credentials in the environment variables and that the app is up. Every other test depends on this step.',
+    ).toBeVisible();
+    await page.context().storageState({ path: '.auth/user.json' });
+  });
+});
+```
+
+### `tests/modules/form-builder/routes.js`
+
+```js
+// Page paths in the app.
+// The website address (https://...) is NOT here. It comes from BASE_URL in the .env file,
+// so the same tests can run on dev, QA or staging without changing any code.
+module.exports = {
+  formList: '/formbuilder-v2',
+};
+```
+
+### `tests/modules/form-builder/data/palette-categories.js`
 
 ```js
 // Single source of truth for what each palette category must show.
@@ -272,18 +440,7 @@ module.exports = [
 ];
 ```
 
-### `tests/data/routes.js`
-
-```js
-// Page paths in the app.
-// The website address (https://...) is NOT here. It comes from BASE_URL in the .env file,
-// so the same tests can run on dev, QA or staging without changing any code.
-module.exports = {
-  formList: '/formbuilder-v2',
-};
-```
-
-### `tests/pages/form-builder.page.js`
+### `tests/modules/form-builder/pages/form-builder.page.js`
 
 ```js
 // Page object for the Form Builder screen.
@@ -291,7 +448,7 @@ module.exports = {
 // so the test file only has to describe what we are checking.
 
 const { test, expect } = require('@playwright/test');
-const ROUTES = require('../data/routes');
+const ROUTES = require('../routes');
 
 class FormBuilderPage {
   constructor(page) {
@@ -361,50 +518,28 @@ class FormBuilderPage {
 module.exports = { FormBuilderPage };
 ```
 
-### `tests/setup/auth.setup.js`
-
-```js
-// Logs in once per run and saves the session. Every spec reuses it.
-const { test: setup, expect } = require('@playwright/test');
-const { login } = require('../../helpers/auth');
-const ROUTES = require('../data/routes');
-
-setup('Log in once and save the session for all tests', async ({ page }) => {
-  await setup.step('Log in with the test account', async () => {
-    await page.goto(ROUTES.formList);
-    await login(page); // must read TEST_USER and TEST_PASSWORD from process.env
-  });
-
-  await setup.step('Confirm login worked and save the session', async () => {
-    await page.goto(ROUTES.formList);
-    await expect(
-      page.getByRole('heading', { name: 'Form List' }),
-      'Login failed or did not land on Form List. Check the test credentials in the environment variables and that the app is up. Every other test depends on this step.',
-    ).toBeVisible();
-    await page.context().storageState({ path: '.auth/user.json' });
-  });
-});
-```
-
-### `tests/field-palette.spec.js`
+### `tests/modules/form-builder/specs/field-palette.spec.js`
 
 ```js
 // WHAT:    Checks that each palette category shows the right fields,
 //          and that switching between categories works.
 // RUN:     npx playwright test field-palette
 // LOGIN:   Happens once in tests/setup/auth.setup.js and is reused here.
-// ADD A CATEGORY OR FIELD: Edit tests/data/palette-categories.js. No code changes needed.
+// ADD A CATEGORY OR FIELD: Edit ../data/palette-categories.js. No code changes needed.
 // TEST PLAN: tests/formbuilder-testplan.md (section 3)
 
 const { test, expect } = require('@playwright/test');
-const { FormBuilderPage } = require('./pages/form-builder.page');
-const CATEGORIES = require('./data/palette-categories');
+const { labelTest } = require('#common/reporting');
+const { FormBuilderPage } = require('../pages/form-builder.page');
+const CATEGORIES = require('../data/palette-categories');
 
 test.describe('Field Palette', () => {
   let formBuilder;
 
   // Runs before every test: open the Form List and create a blank form.
   test.beforeEach(async ({ page }) => {
+    await labelTest({ module: 'Form Builder', feature: 'Field Palette', severity: 'critical' });
+
     formBuilder = new FormBuilderPage(page);
     await formBuilder.goToFormList();
     await formBuilder.createBlankForm();
@@ -457,8 +592,16 @@ test.describe('Field Palette', () => {
 
 ## Common tasks
 
+### Add a new module
+1. Create a folder under `tests/modules/`, for example `tests/modules/user-management/`.
+2. Inside it, create `pages/`, `data/`, `specs/` and a `routes.js` file. Copy the shape of `form-builder`.
+3. Add a run command to `package.json`, for example `"test:user-management": "playwright test tests/modules/user-management"`.
+4. Call `labelTest({ module: 'User Management', ... })` in each spec so Allure groups it.
+
+Login and settings already work for the new module. You do not need to touch the setup or config.
+
 ### Add a field to a category
-Open `tests/data/palette-categories.js` and add the name to the right list, in the order it appears on screen.
+Open `tests/modules/form-builder/data/palette-categories.js` and add the name to the right list, in the order it appears on screen.
 
 ### Add a new category
 Add a new block to the same file with `label`, `iconIndex` (icon position, counting from 0) and `fields`. A test for it appears automatically.

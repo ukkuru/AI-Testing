@@ -1,5 +1,7 @@
 # Field Palette Tests: Review and Setup Guide
 
+> **Note:** The file paths in Parts 4 to 6 are from before the project was split into modules. For the current layout and setup steps, see `docs/playwright-tests-guide.md`. This file is kept as a record of why each change was made.
+
 This guide explains what was wrong with the original field palette script, what we changed, and how to set up and run the new version. It is written for developers who are new to Playwright with JavaScript.
 
 ## Part 1: What was wrong with the original script

@@ -2,18 +2,21 @@
 //          and that switching between categories works.
 // RUN:     npx playwright test field-palette
 // LOGIN:   Happens once in tests/setup/auth.setup.js and is reused here.
-// ADD A CATEGORY OR FIELD: Edit tests/data/palette-categories.js. No code changes needed.
+// ADD A CATEGORY OR FIELD: Edit ../data/palette-categories.js. No code changes needed.
 // TEST PLAN: tests/formbuilder-testplan.md (section 3)
 
 const { test, expect } = require('@playwright/test');
-const { FormBuilderPage } = require('./pages/form-builder.page');
-const CATEGORIES = require('./data/palette-categories');
+const { labelTest } = require('#common/reporting');
+const { FormBuilderPage } = require('../pages/form-builder.page');
+const CATEGORIES = require('../data/palette-categories');
 
 test.describe('Field Palette', () => {
   let formBuilder;
 
   // Runs before every test: open the Form List and create a blank form.
   test.beforeEach(async ({ page }) => {
+    await labelTest({ module: 'Form Builder', feature: 'Field Palette', severity: 'critical' });
+
     formBuilder = new FormBuilderPage(page);
     await formBuilder.goToFormList();
     await formBuilder.createBlankForm();

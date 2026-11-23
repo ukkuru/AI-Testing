@@ -3,7 +3,7 @@
 // so the test file only has to describe what we are checking.
 
 const { test, expect } = require('@playwright/test');
-const ROUTES = require('../data/routes');
+const ROUTES = require('../routes');
 
 class FormBuilderPage {
   constructor(page) {
