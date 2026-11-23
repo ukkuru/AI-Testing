@@ -2,8 +2,9 @@
 // Keep all the "how to find things on the page" code here,
 // so the specs only describe what we are checking.
 
-const { test, expect } = require('@playwright/test');
-const ROUTES = require('../routes');
+// When you add methods, bring in what they need, for example:
+// const { test, expect } = require('@playwright/test');
+// const ROUTES = require('../routes');
 
 class UserManagementPage {
   constructor(page) {

@@ -33,6 +33,9 @@ class FormBuilderPage {
     });
   }
 
+  // TODO: If "Start From Scratch" saves a draft, every run leaves a form behind.
+  // Once you know how to delete a form (API or UI), give the form a name with
+  // uniqueName('Form') from #common/test-data and register its deletion with the cleanup fixture.
   async createBlankForm() {
     await test.step('Create a new blank form', async () => {
       await this.page.getByRole('button', { name: '+ Create Form' }).click();

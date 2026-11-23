@@ -1,13 +1,12 @@
-// Logs a user into the app. Used by tests/setup/auth.setup.js before any test runs.
+// Logs a user into View 360. Used by tests/setup/auth.setup.js before any test runs.
 // TODO: The selectors below are a starting point. Check them against your real login page.
 
 const { test, expect } = require('@playwright/test');
-const env = require('./env');
 
-async function login(page) {
+async function login(page, { username, password }) {
   await test.step('Fill in the login form and sign in', async () => {
-    await page.getByLabel('Email').fill(env.testUser());
-    await page.getByLabel('Password').fill(env.testPassword());
+    await page.getByLabel('Email').fill(username);
+    await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();
 
     await expect(

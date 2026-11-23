@@ -1,45 +1,65 @@
 # View 360 Playwright Tests: Scripts and Setup
 
-This file holds every script for the View 360 Playwright tests plus the steps to set them up and run them. It is written for developers who are new to Playwright with JavaScript.
+This guide explains how the View 360 test project is organised, how to set it up, and how to write and run tests. It is written for developers who are new to Playwright with JavaScript. Every script is copied in full at the end.
 
 ## How the project is organised
 
 The tests are split by **module**, one folder for each part of View 360: User Management, Form Builder, Workflow Builder, Templates and Notifications. Code that every module needs lives in one shared folder called **common**.
 
-1. **`tests/common/`** is the shared library: login, settings, report labels and app wide paths.
-2. **`tests/modules/<module-name>/`** holds everything for one part of the app: its pages, data, paths and tests.
-3. **`tests/setup/`** logs in once before any test runs.
+1. **`tests/common/`** is the shared library: login, settings, roles, fixtures, API calls, test data, report labels.
+2. **`tests/modules/<module-name>/`** holds everything for one part of the app: its pages, data, paths, fixtures and tests.
+3. **`tests/setup/`** logs in once for each role before any test runs.
 4. **`playwright.config.js`** holds the shared Playwright settings.
-5. **`.env`** holds the website address and login. It changes per server and is never committed.
+5. **`.env` files** hold website addresses and logins. They are never committed.
+6. **`.github/workflows/`** runs the tests on GitHub automatically.
+7. **`docs/`** holds this guide and one test plan per module.
 
 ## Project layout
 
 ```
-view-360/                         Your project folder
-  .env.example                    Template for your .env file (safe to commit)
-  .env                            Your real settings (never commit)
-  .gitignore
-  package.json
-  playwright.config.js
+view-360/                             Your project folder
+  README.md                           Short intro and quick start
+  .env.example                        Template for your .env files (safe to commit)
+  .env                                Your real settings (never commit)
+  .env.qa, .env.staging               Settings for other servers (never commit)
+  .nvmrc                              The Node.js version everyone uses
+  .prettierrc.json                    Formatting rules
+  eslint.config.js                    Code checker rules
+  package.json                        Packages and run commands
+  playwright.config.js                Playwright settings
+  .github/
+    workflows/
+      playwright.yml                  Runs tests on GitHub
+  docs/
+    playwright-tests-guide.md         This guide
+    test-plans/                       One test plan per module
+  tools/
+    build-guide.js                    Copies the code into this guide
   tests/
-    common/                       Shared library, used by every module
-      auth.js                     Logs a user in
-      env.js                      Reads settings from .env in one place
-      modules.js                  Module names, spelled the same everywhere
-      reporting.js                Allure labels (module, feature, severity)
-      routes.js                   App wide paths, such as the page after login
+    common/                           Shared library, used by every module
+      api/
+        api-client.js                 Calls the View 360 API
+      auth.js                         Fills in the login form
+      env.js                          Reads settings from .env files
+      fixtures.js                     Shared fixtures: role, api, cleanup
+      modules.js                      Module names, spelled the same everywhere
+      reporting.js                    Allure labels (module, feature, severity)
+      roles.js                        User roles and where their sessions are saved
+      routes.js                       App wide paths, such as the page after login
+      test-data.js                    Unique names for test data
     setup/
-      auth.setup.js               Logs in once before all tests
+      auth.setup.js                   Logs in once per role
     modules/
       user-management/
-      form-builder/               The first module with real tests
-        routes.js                 Paths for this module only
+      form-builder/                   The first module with real tests
+        fixtures.js                   This module's page objects as fixtures
+        routes.js                     Paths for this module only
         data/
-          palette-categories.js   Test data for this module
+          palette-categories.js       Test data for this module
         pages/
-          form-builder.page.js    How to find and use things on this module's pages
+          form-builder.page.js        How to find and use things on this module's pages
         specs/
-          field-palette.spec.js   The tests
+          field-palette.spec.js       The tests
       workflow-builder/
       templates/
       notifications/
@@ -47,72 +67,84 @@ view-360/                         Your project folder
 
 **Module folder names** are lower case with hyphens (`user-management`), because spaces in folder names break commands. **Module display names** in reports use normal spelling (`User Management`) and come from `tests/common/modules.js`.
 
-The four new modules (User Management, Workflow Builder, Templates, Notifications) are empty starters. Each has a `routes.js`, a page object, and empty `data/` and `specs/` folders ready for tests.
-
-Every module has the **same four parts**. Once you know one module, you know them all.
+The four modules without tests yet are starters. Each has a `fixtures.js`, a `routes.js`, a page object, and empty `data/` and `specs/` folders.
 
 ## Rules for modules and the common library
 
 These rules keep the project tidy as it grows. Break them and the common folder turns into a junk drawer.
 
 1. **Start inside the module.** New code always goes in the module that needs it.
-2. **Move to common only when a second module needs it.** Not before. Guessing what might be shared leads to code nobody uses.
-3. **A module never imports from another module.** If Form Builder needs something from User Management, that thing belongs in common.
+2. **Move to common only when a second module needs it.** Not before.
+3. **A module never imports from another module.** If two modules need the same thing, it belongs in common.
 4. **Common never imports from a module.** Common must work without knowing any module exists.
 5. **Common holds tools, not tests.** No `.spec.js` files in `tests/common/`.
-6. **One job per common file.** `auth.js` logs in. `env.js` reads settings. Do not create a `utils.js` that does everything.
+6. **One job per common file.** Do not create a `utils.js` that does everything.
 
 ### What goes where
 
-* **Login, settings, report labels, module names:** `tests/common/`
-* **A UI part used on many pages, such as a date picker or a confirm dialog:** `tests/common/components/` (create it when you need it)
-* **The page after login and other app wide paths:** `tests/common/routes.js`
-* **Paths for one module:** `tests/modules/<module>/routes.js`
-* **Fields, names, expected values for one module:** `tests/modules/<module>/data/`
-* **Website address, username, password:** `.env`
+- **Login, settings, roles, fixtures, API calls, report labels:** `tests/common/`
+- **A UI part used on many pages, such as a date picker:** `tests/common/components/` (create it when you need it)
+- **App wide paths:** `tests/common/routes.js`
+- **Paths for one module:** `tests/modules/<module>/routes.js`
+- **Test data for one module:** `tests/modules/<module>/data/`
+- **Website address, usernames, passwords:** `.env` files and GitHub Secrets
 
 ### Short import paths for common
 
-Files deep inside a module would normally need long paths like `../../../common/auth`. To avoid that, `package.json` has a shortcut:
-```json
-"imports": {
-  "#common/*": "./tests/common/*.js"
-}
-```
-So from any file you can write:
+`package.json` has a shortcut so files deep inside a module do not need paths like `../../../common/auth`:
+
 ```js
-const { login } = require('#common/auth');
 const { labelTest } = require('#common/reporting');
+const MODULES = require('#common/modules');
 ```
-Files inside the same module still use short relative paths such as `../pages/form-builder.page`.
+
+Files inside the same module use short relative paths such as `../fixtures`.
 
 ## Setup instructions
 
 ### Step 1: Install Node.js
-Install Node.js 18 or newer from nodejs.org. Check it with `node -v`.
+
+Install the version listed in `.nvmrc` (Node.js 22) from nodejs.org. Check it with `node -v`. If you use nvm, just run `nvm use` in the project folder.
 
 ### Step 2: Install the packages
-From the project folder:
+
 ```
 npm install
 npx playwright install chromium
 ```
 
 ### Step 3: Create your `.env` file
+
 ```
 cp .env.example .env
 ```
-Open `.env` and fill in the website address and a test account. Never use your personal account.
+
+Fill in the website address and one login per role. Use test accounts only, never a personal account. A role you leave empty is skipped.
 
 ### Step 4: Check the login selectors
-Open `tests/common/auth.js`. The labels `Email`, `Password` and the `Log in` button are a starting point. Change them to match your real login page.
 
-### Step 5: Run the tests
-Run everything:
+Open `tests/common/auth.js`. The labels `Email`, `Password` and the `Log in` button are a starting point. Change them to match the real View 360 login page.
+
+### Step 5: Check the roles
+
+Open `tests/common/roles.js`. It lists Admin, Editor and Viewer. Change the list to match the real roles in View 360.
+
+### Step 6: Run the tests
+
 ```
-npm test
+npm run test:smoke
 ```
-Run one module:
+
+## Running tests
+
+### By tag
+
+- `npm run test:smoke`: quick checks of the most important features. Runs on every pull request.
+- `npm run test:regression`: the deeper checks.
+- `npm test`: everything. Runs every night.
+
+### By module
+
 ```
 npm run test:user-management
 npm run test:form-builder
@@ -120,68 +152,166 @@ npm run test:workflow-builder
 npm run test:templates
 npm run test:notifications
 ```
-Run one test file:
-```
-npm run test:palette
-```
-Run against another server without editing any file:
-```
-BASE_URL=https://staging.yourapp.com npm test
+
+### By environment
+
+- `npm test` uses `.env`.
+- `npm run test:qa` uses `.env.qa`.
+- `npm run test:staging` uses `.env.staging`.
+
+Create each file by copying `.env.example`. If you ask for an environment with no file, the run stops with a message telling you which file to create.
+
+## Tags: smoke and regression
+
+Every test should have exactly one tag:
+
+```js
+test('Basic category shows the right fields', { tag: '@smoke' }, async ({ formBuilderPage }) => { ... });
 ```
 
-### Step 6: Read the Playwright report
+- **`@smoke`:** the checks that tell you the feature works at all. Keep the whole smoke run under 10 minutes.
+- **`@regression`:** everything else.
+
+Ask yourself: "If this broke, should we stop the release?" If yes, it is smoke.
+
+## Fixtures
+
+A fixture is something a test asks for by name, and Playwright prepares it. Instead of setting things up by hand, the test lists what it needs:
+
+```js
+test('...', async ({ formBuilderPage, api, cleanup }) => { ... });
+```
+
+### Shared fixtures (every module has these)
+
+- **`role`:** which user the test runs as. Admin unless you change it.
+- **`api`:** calls the View 360 API as the same user.
+- **`cleanup`:** removes test data after the test, even when the test fails.
+
+### Module fixtures
+
+Each module's `fixtures.js` adds its page objects, for example `formBuilderPage`. **Specs always import from their module's fixtures**, never from `@playwright/test`:
+
+```js
+const { test, expect } = require('../fixtures');
+```
+
+## User roles
+
+Each role logs in once before the tests start, and its session is saved in `.auth/`. Tests run as Admin unless they ask for another role:
+
+```js
+test.describe('Viewer permissions', () => {
+  test.use({ role: 'viewer' });
+
+  test('Viewer cannot delete a form', { tag: '@regression' }, async ({ formBuilderPage }) => {
+    // ...
+  });
+});
+```
+
+If a role has no login in `.env`, any test that uses it fails with a message telling you which settings to add.
+
+### Add a role
+
+1. Add it to `tests/common/roles.js`, for example `manager: { label: 'Manager', envPrefix: 'MANAGER' }`.
+2. Add `MANAGER_USER` and `MANAGER_PASSWORD` to your `.env` files and to the GitHub Secrets.
+3. Add the two secrets to the `env:` list in `.github/workflows/playwright.yml`.
+
+## Test data and clean-up
+
+Two rules stop tests from clashing with each other and filling the app with junk.
+
+### 1. Give every record a unique name
+
+```js
+const { uniqueName } = require('#common/test-data');
+
+const formName = uniqueName('Form'); // AUTO Form 20261123-142501-w0-4821
+```
+
+Names start with `AUTO`, so leftover test data is easy to find and delete by hand.
+
+### 2. Register the clean-up as soon as you create something
+
+```js
+test('Rename a form', { tag: '@regression' }, async ({ api, cleanup }) => {
+  const form = await api.post('/api/forms', { name: uniqueName('Form') });
+  cleanup.add('Delete the test form', () => api.delete(`/api/forms/${form.id}`));
+
+  // ... the actual test
+});
+```
+
+Clean-up steps run after the test, newest first, even when the test fails. They appear in the report as "Clean up: Delete the test form".
+
+### Use the API for setup, the UI for the thing you are testing
+
+Creating data by clicking through the UI is slow and is itself a source of failures. If you are testing "rename a form", create the form through the API and only use the UI for the rename. The API paths above are examples. Ask the developers for the real ones.
+
+## Code checker and formatting
+
+```
+npm run check
+```
+
+Run this before every commit. It does two things:
+
+- **ESLint** finds bugs, above all a missing `await`. A missing `await` makes a test pass without checking anything, so the checker treats it as an error.
+- **Prettier** checks that the code is formatted the same way everywhere.
+
+To fix most problems automatically:
+
+```
+npm run lint:fix
+npm run format
+```
+
+The CI server runs `npm run check` first. If it fails, the tests do not run.
+
+## Running on GitHub (CI)
+
+The file `.github/workflows/playwright.yml` runs the tests on GitHub:
+
+- **Every pull request:** code check, then `@smoke` tests on QA.
+- **Every night:** code check, then all tests on QA.
+- **By hand:** open the **Actions** tab, choose **Playwright Tests**, click **Run workflow**, then pick the suite and the environment.
+
+### One time setup on GitHub
+
+1. Go to **Settings**, **Environments**, and create two environments: `qa` and `staging`.
+2. In each one, add these **Environment secrets**: `BASE_URL`, `API_URL`, `ADMIN_USER`, `ADMIN_PASSWORD`, `EDITOR_USER`, `EDITOR_PASSWORD`, `VIEWER_USER`, `VIEWER_PASSWORD`.
+3. Leave `API_URL` empty if the API is on the same address as the website.
+
+### Reading the results
+
+Open the run in the **Actions** tab. At the bottom, under **Artifacts**, download `allure-report` or `playwright-report`. Unzip it and open the report as described below. Reports are kept for 14 days.
+
+## Reports
+
+### Playwright report
+
 ```
 npm run report
 ```
+
 Click a failed test to see the step that failed, a plain message explaining what should have happened, a screenshot and a trace.
 
-For the Allure report, see the next section.
+### Allure report
 
-## Allure report
+Allure adds test history, charts and grouping by module. It runs on Node.js, so you do not need Java.
 
-Allure gives you a richer report than Playwright's own: test history, charts, grouping by feature, and every step with its plain message. The tests already write Allure results. You only need to turn them into a report.
+1. Clear old results: `npm run allure:clean`
+2. Run the tests: `npm test`
+3. Build the report: `npm run allure:generate`
+4. Open it: `npm run allure:open`
 
-### What you need
-Nothing extra. Allure 3 runs on Node.js, so you do not need Java. The two packages are already in `package.json`:
-* **`allure-playwright`** collects results while the tests run and saves them in `allure-results/`.
-* **`allure`** turns those results into a report you can open in the browser.
+Always clear old results first. Otherwise results from old runs mix with new ones.
 
-### Step 1: Clear old results
-```
-npm run allure:clean
-```
-Do this before each run. Otherwise results from old runs mix with new ones and the report shows tests that no longer exist.
+### Group tests by module in Allure
 
-### Step 2: Run the tests
-```
-npm test
-```
-This fills the `allure-results/` folder.
+Call `labelTest` in `beforeEach`:
 
-### Step 3: Build the report
-```
-npm run allure:generate
-```
-This creates the `allure-report/` folder. It replaces the old report each time.
-
-### Step 4: Open the report
-```
-npm run allure:open
-```
-The report opens in your browser. Click a failed test to see each step, the plain message for the check that failed, the screenshot and the trace.
-
-### Where Allure is switched on
-In `playwright.config.js`, the `reporter` list has this line:
-```js
-['allure-playwright', { resultsDir: 'allure-results' }],
-```
-Remove it to switch Allure off. The terminal output and the Playwright HTML report keep working either way.
-
-### Keep reports out of Git
-`allure-results/` and `allure-report/` are in `.gitignore`. They are created fresh on every run and can be large, so never commit them.
-
-### Group tests by module and feature
-The common library has a helper that labels each test, so Allure groups them by module. Call it in `beforeEach`:
 ```js
 const { labelTest } = require('#common/reporting');
 const MODULES = require('#common/modules');
@@ -190,36 +320,111 @@ test.beforeEach(async () => {
   await labelTest({ module: MODULES.FORM_BUILDER, feature: 'Field Palette', severity: 'critical' });
 });
 ```
-Always use `MODULES.SOMETHING` instead of typing the name. A typo such as `'Form builder'` would create a second, separate group in the report.
-In the report, open the **Behaviors** tab to see tests grouped by module, then by feature.
 
-### On a CI server
-Run the same four commands, but skip `allure:open`. Save the `allure-report/` folder as a build artifact so the team can download and open it.
+Always use `MODULES.SOMETHING` instead of typing the name. A typo would create a second, separate group. In the report, open the **Behaviors** tab to see tests grouped by module, then by feature.
+
+## Test plans
+
+Each module has a test plan in `docs/test-plans/`, for example `docs/test-plans/form-builder.md`. Each scenario has an ID, the expected result and its tag. Put the plan path at the top of each spec, so anyone can go from a failing test to the scenario it covers.
+
+## Common tasks
+
+### Write the first test for an empty module
+
+1. Add the module's paths to its `routes.js`, for example `list: '/users'`.
+2. Add headings, buttons and fields to its page object in `pages/`.
+3. Put test data in `data/`.
+4. Write the scenarios in its test plan in `docs/test-plans/`.
+5. Create a file in `specs/` ending in `.spec.js`. Import `test` and `expect` from `../fixtures`, add a tag to each test, and call `labelTest` in `beforeEach`.
+6. Delete the `.gitkeep` file in any folder that now has real files.
+7. Run `npm run check`.
+
+### Add a new module
+
+1. Create a folder under `tests/modules/` in lower case with hyphens, for example `tests/modules/reports/`.
+2. Copy `fixtures.js`, `routes.js`, `pages/`, `data/` and `specs/` from `form-builder`, and rename the page object.
+3. Add its display name to `tests/common/modules.js`, for example `REPORTS: 'Reports'`.
+4. Add a run command to `package.json`, for example `"test:reports": "playwright test tests/modules/reports"`.
+5. Add a test plan in `docs/test-plans/reports.md`.
+
+### Add a field to a palette category
+
+Open `tests/modules/form-builder/data/palette-categories.js` and add the name to the right list, in the order it appears on screen.
+
+### A test fails after a UI change
+
+1. Read the message in the report. It says what was expected.
+2. Look at the diff or screenshot to see what changed.
+3. If the app changed on purpose, update the data file or page object. If not, report a bug.
+
+### Update the scripts in this guide
+
+After changing any code, run:
+
+```
+npm run docs:build
+```
+
+This copies the current code into the section below, so the guide never goes out of date.
+
+## Still to do
+
+1. **Ask developers for test ids on the category icons.** Finding icons by position is the weakest part of these tests.
+2. **Check the login selectors and the roles** in `tests/common/auth.js` and `tests/common/roles.js`.
+3. **Get the real API paths** for creating and deleting forms, then add clean-up to `createBlankForm`.
+4. **Check exact text matching** in the palette tests. If items show extra text, match only the label element.
+5. **Add drag and drop tests** and **test the Template category**.
+6. **Set up the GitHub environments and secrets** so CI can run.
+
+## Quick check for clarity
+
+Give this project to a junior developer and ask them to add one test to an empty module and run it. If they can do it using only this guide, the setup is clear enough.
 
 ## The scripts
 
-These are the files with real code. The four empty modules follow the same shape as `form-builder`.
+These are copied from the real files by `npm run docs:build`. Do not edit them here.
+
+<!-- SCRIPTS:START -->
 
 ### `.env.example`
 
 ```text
-# Copy this file to .env and fill in the values.
-# Never commit the real .env file. It holds your password.
+# Copy this file to .env (or .env.qa, .env.staging) and fill in the values.
+# Never commit the real files. They hold passwords.
+
+# Website address
 BASE_URL=https://qa.yourapp.com
-TEST_USER=
-TEST_PASSWORD=
+
+# API address. Leave empty if the API is on the same address as the website.
+API_URL=
+
+# One login per role. A role with no login is skipped.
+# Use test accounts only, never a personal account.
+ADMIN_USER=
+ADMIN_PASSWORD=
+EDITOR_USER=
+EDITOR_PASSWORD=
+VIEWER_USER=
+VIEWER_PASSWORD=
 ```
 
 ### `.gitignore`
 
 ```text
+# Saved login sessions
 .auth/
+
+# Settings files hold passwords. Only the example is committed.
 .env
-allure-results/
-allure-report/
+.env.*
+!.env.example
+
+# Created on every run
 node_modules/
 test-results/
 playwright-report/
+allure-results/
+allure-report/
 ```
 
 ### `package.json`
@@ -229,28 +434,48 @@ playwright-report/
   "name": "view-360",
   "description": "Playwright tests for the View 360 application",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "imports": {
+    "#common/*": "./tests/common/*.js"
+  },
   "scripts": {
     "test": "playwright test",
-    "test:palette": "playwright test field-palette",
-    "report": "playwright show-report",
-    "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
-    "allure:generate": "allure generate ./allure-results --clean",
-    "allure:open": "allure open ./allure-report",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:qa": "cross-env TEST_ENV=qa playwright test",
+    "test:staging": "cross-env TEST_ENV=staging playwright test",
     "test:user-management": "playwright test tests/modules/user-management",
     "test:form-builder": "playwright test tests/modules/form-builder",
     "test:workflow-builder": "playwright test tests/modules/workflow-builder",
     "test:templates": "playwright test tests/modules/templates",
-    "test:notifications": "playwright test tests/modules/notifications"
+    "test:notifications": "playwright test tests/modules/notifications",
+    "test:palette": "playwright test field-palette",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run format:check",
+    "report": "playwright show-report",
+    "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
+    "allure:generate": "allure generate ./allure-results --clean",
+    "allure:open": "allure open ./allure-report",
+    "docs:build": "node tools/build-guide.js"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.49.0",
     "allure": "^3.33.0",
+    "allure-js-commons": "^3.15.0",
     "allure-playwright": "^3.15.0",
+    "cross-env": "^10.1.0",
     "dotenv": "^16.4.5",
-    "allure-js-commons": "^3.15.0"
-  },
-  "imports": {
-    "#common/*": "./tests/common/*.js"
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.12.2",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1"
   }
 }
 ```
@@ -258,11 +483,11 @@ playwright-report/
 ### `playwright.config.js`
 
 ```js
-// Playwright settings for the whole project.
+// Playwright settings for the whole View 360 project.
 
 const { defineConfig } = require('@playwright/test');
 
-// Settings from the .env file. Fails early with a clear message if BASE_URL is missing.
+// Settings from .env (or .env.qa, .env.staging). Fails early with a clear message if BASE_URL is missing.
 const env = require('./tests/common/env');
 
 module.exports = defineConfig({
@@ -277,6 +502,9 @@ module.exports = defineConfig({
   // On the CI server, retry a failed test twice. On your laptop, never retry.
   retries: process.env.CI ? 2 : 0,
 
+  // Stop the CI run if someone leaves test.only in the code by mistake.
+  forbidOnly: Boolean(process.env.CI),
+
   // Reports:
   // list    = prints results in the terminal while tests run
   // html    = Playwright's own report (npm run report)
@@ -284,7 +512,7 @@ module.exports = defineConfig({
   reporter: [
     ['list'],
     ['html', { open: 'never' }],
-    ['allure-playwright', { resultsDir: 'allure-results' }],
+    ['allure-playwright', { resultsDir: 'allure-results', environmentInfo: { Environment: env.envName } }],
   ],
 
   use: {
@@ -298,56 +526,258 @@ module.exports = defineConfig({
   },
 
   projects: [
-    // Step 1: log in once and save the session.
+    // Step 1: log in once for each role and save the sessions.
     { name: 'setup', testMatch: /.*\.setup\.js/ },
 
-    // Step 2: run the tests using the saved session, so no test has to log in again.
+    // Step 2: run the tests. Each test loads the saved session for its role
+    // (see the storageState fixture in tests/common/fixtures.js).
     {
       name: 'chromium',
       dependencies: ['setup'],
-      use: { storageState: '.auth/user.json' },
     },
   ],
 });
 ```
 
+### `eslint.config.js`
+
+```js
+// Code checker settings. Run with: npm run lint
+// The Playwright plugin catches the most common test bugs, such as a missing await.
+
+const js = require('@eslint/js');
+const globals = require('globals');
+const playwright = require('eslint-plugin-playwright');
+const prettier = require('eslint-config-prettier');
+
+module.exports = [
+  { ignores: ['node_modules/', 'playwright-report/', 'test-results/', 'allure-results/', 'allure-report/'] },
+
+  js.configs.recommended,
+
+  {
+    languageOptions: { ecmaVersion: 2022, sourceType: 'commonjs', globals: globals.node },
+  },
+
+  {
+    files: ['tests/**/*.js'],
+    ...playwright.configs['flat/recommended'],
+    // The login setup file names its test "setup". Tell the checker it is a test.
+    settings: { playwright: { globalAliases: { test: ['setup'] } } },
+    rules: {
+      ...playwright.configs['flat/recommended'].rules,
+      // Playwright fixtures need ({}) when they use no other fixture.
+      'no-empty-pattern': 'off',
+      // Our checks live in page objects and loops, which this rule cannot see.
+      'playwright/expect-expect': 'off',
+      // Loops that create one test per data row are on purpose.
+      'playwright/valid-title': 'off',
+      // A missing await is the most common Playwright bug. Make it an error, not a warning.
+      'playwright/missing-playwright-await': 'error',
+      'playwright/no-focused-test': 'error',
+    },
+  },
+
+  // Turns off style rules that Prettier handles, so the two never disagree.
+  prettier,
+];
+```
+
+### `.github/workflows/playwright.yml`
+
+```yaml
+# Runs the View 360 tests on GitHub.
+#
+#   Pull request  -> code check + @smoke tests (fast feedback before merging)
+#   Every night   -> code check + all tests (full regression)
+#   By hand       -> Actions tab, "Playwright Tests", "Run workflow", pick the suite and environment
+#
+# Logins and addresses come from GitHub Secrets, set per environment:
+#   Settings > Environments > qa (or staging) > Environment secrets
+#   BASE_URL, API_URL, ADMIN_USER, ADMIN_PASSWORD, EDITOR_USER, EDITOR_PASSWORD, VIEWER_USER, VIEWER_PASSWORD
+
+name: Playwright Tests
+
+on:
+  pull_request:
+  schedule:
+    # 01:17 UTC every day
+    - cron: '17 1 * * *'
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: Which tests to run
+        type: choice
+        options: [smoke, regression, all]
+        default: smoke
+      environment:
+        description: Which server to test
+        type: choice
+        options: [qa, staging]
+        default: qa
+
+jobs:
+  check:
+    name: Code check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+
+  test:
+    name: Tests (${{ inputs.suite || (github.event_name == 'schedule' && 'all') || 'smoke' }} on ${{ inputs.environment || 'qa' }})
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: ${{ inputs.environment || 'qa' }}
+    env:
+      CI: true
+      TEST_ENV: ${{ inputs.environment || 'qa' }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      API_URL: ${{ secrets.API_URL }}
+      ADMIN_USER: ${{ secrets.ADMIN_USER }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      EDITOR_USER: ${{ secrets.EDITOR_USER }}
+      EDITOR_PASSWORD: ${{ secrets.EDITOR_PASSWORD }}
+      VIEWER_USER: ${{ secrets.VIEWER_USER }}
+      VIEWER_PASSWORD: ${{ secrets.VIEWER_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: |
+          SUITE="${{ inputs.suite || (github.event_name == 'schedule' && 'all') || 'smoke' }}"
+          case "$SUITE" in
+            smoke) npm run test:smoke ;;
+            regression) npm run test:regression ;;
+            all) npm test ;;
+          esac
+
+      - name: Build Allure report
+        if: always()
+        run: npm run allure:generate
+
+      - name: Save Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 14
+
+      - name: Save Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+```
+
 ### `tests/common/env.js`
 
 ```js
-// Reads settings from the .env file in one place.
-// Every other file asks this file for settings instead of reading process.env directly,
-// so a missing value fails early with a clear message.
+// Reads settings in one place. Every other file asks this file for settings.
+//
+// Which settings file is used:
+//   npm test                    -> .env
+//   TEST_ENV=qa npm test        -> .env.qa
+//   TEST_ENV=staging npm test   -> .env.staging
+//
+// On the CI server there is no file. Settings come from GitHub Secrets instead,
+// and values that are already set are never overwritten by a file.
 
-require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
+
+const envName = process.env.TEST_ENV;
+const fileName = envName ? `.env.${envName}` : '.env';
+const filePath = path.resolve(__dirname, '..', '..', fileName);
+
+if (fs.existsSync(filePath)) {
+  dotenv.config({ path: filePath, quiet: true });
+} else if (envName && !process.env.CI) {
+  // On a laptop, asking for an environment that has no file is always a mistake, so stop here.
+  // On CI there is no file on purpose: settings come from GitHub Secrets.
+  throw new Error(`TEST_ENV is "${envName}" but ${fileName} does not exist. Copy .env.example to ${fileName}.`);
+}
 
 function required(name) {
   const value = process.env[name];
   if (!value) {
-    throw new Error(`${name} is missing. Copy .env.example to .env and fill it in.`);
+    throw new Error(`${name} is missing. Add it to ${fileName} (copy .env.example) or to the CI secrets.`);
   }
   return value;
 }
 
 module.exports = {
+  envName: envName || 'default',
   baseUrl: () => required('BASE_URL'),
-  testUser: () => required('TEST_USER'),
-  testPassword: () => required('TEST_PASSWORD'),
+  // API address. Most apps serve the API from the same address, so this falls back to BASE_URL.
+  apiUrl: () => process.env.API_URL || required('BASE_URL'),
+  // Reads one role's login, for example credentialsFor('ADMIN') reads ADMIN_USER and ADMIN_PASSWORD.
+  credentialsFor: (envPrefix) => ({
+    username: required(`${envPrefix}_USER`),
+    password: required(`${envPrefix}_PASSWORD`),
+  }),
+  hasCredentialsFor: (envPrefix) => Boolean(process.env[`${envPrefix}_USER`] && process.env[`${envPrefix}_PASSWORD`]),
 };
+```
+
+### `tests/common/roles.js`
+
+```js
+// The user roles in View 360. Each role logs in once and gets its own saved session.
+//
+// To add a role:
+//   1. Add it below.
+//   2. Add <PREFIX>_USER and <PREFIX>_PASSWORD to your .env file and to the CI secrets.
+//
+// TODO: Check these match the real roles in View 360.
+
+const path = require('path');
+
+const ROLES = {
+  admin: { label: 'Admin', envPrefix: 'ADMIN' },
+  editor: { label: 'Editor', envPrefix: 'EDITOR' },
+  viewer: { label: 'Viewer', envPrefix: 'VIEWER' },
+};
+
+// The role every test uses unless it asks for another one.
+const DEFAULT_ROLE = 'admin';
+
+// Where a role's saved login session is stored.
+function sessionFile(roleName) {
+  return path.resolve(__dirname, '..', '..', '.auth', `${roleName}.json`);
+}
+
+module.exports = { ROLES, DEFAULT_ROLE, sessionFile };
 ```
 
 ### `tests/common/auth.js`
 
 ```js
-// Logs a user into the app. Used by tests/setup/auth.setup.js before any test runs.
+// Logs a user into View 360. Used by tests/setup/auth.setup.js before any test runs.
 // TODO: The selectors below are a starting point. Check them against your real login page.
 
 const { test, expect } = require('@playwright/test');
-const env = require('./env');
 
-async function login(page) {
+async function login(page, { username, password }) {
   await test.step('Fill in the login form and sign in', async () => {
-    await page.getByLabel('Email').fill(env.testUser());
-    await page.getByLabel('Password').fill(env.testPassword());
+    await page.getByLabel('Email').fill(username);
+    await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Log in' }).click();
 
     await expect(
@@ -358,6 +788,140 @@ async function login(page) {
 }
 
 module.exports = { login };
+```
+
+### `tests/common/fixtures.js`
+
+```js
+// Shared fixtures for every module.
+//
+// A fixture is something a test can ask for by name, and Playwright prepares it.
+// Instead of setting things up in beforeEach, a test just lists what it needs:
+//
+//   test('...', async ({ page, api, cleanup }) => { ... });
+//
+// Each module has its own fixtures.js that adds its page objects on top of these.
+
+const fs = require('fs');
+const base = require('@playwright/test');
+const env = require('./env');
+const { ApiClient } = require('./api/api-client');
+const { DEFAULT_ROLE, ROLES, sessionFile } = require('./roles');
+
+const test = base.test.extend({
+  // Which user the test runs as. Change it in a spec with: test.use({ role: 'viewer' });
+  role: [DEFAULT_ROLE, { option: true }],
+
+  // Loads the saved login for the chosen role.
+  storageState: async ({ role }, use) => {
+    if (!ROLES[role]) {
+      throw new Error(`Unknown role "${role}". Known roles: ${Object.keys(ROLES).join(', ')}.`);
+    }
+    const file = sessionFile(role);
+    if (!fs.existsSync(file)) {
+      throw new Error(
+        `No saved login for ${ROLES[role].label}. Add ${ROLES[role].envPrefix}_USER and ` +
+          `${ROLES[role].envPrefix}_PASSWORD to your .env file, then run the tests again.`,
+      );
+    }
+    await use(file);
+  },
+
+  // Calls the View 360 API as the same user the test runs as.
+  api: async ({ playwright, storageState }, use) => {
+    const request = await playwright.request.newContext({ baseURL: env.apiUrl(), storageState });
+    await use(new ApiClient(request));
+    await request.dispose();
+  },
+
+  // Collects clean-up steps and runs them after the test, even when the test fails.
+  // Usage inside a test:
+  //   cleanup.add('Delete the test form', () => api.delete(`/api/forms/${id}`));
+  cleanup: async ({}, use) => {
+    const steps = [];
+    await use({ add: (description, action) => steps.push({ description, action }) });
+
+    // Run newest first, so things are removed in the reverse order they were created.
+    for (const step of steps.reverse()) {
+      await base.test.step(`Clean up: ${step.description}`, async () => {
+        try {
+          await step.action();
+        } catch (error) {
+          // Report it, but keep going so one failed clean-up does not leave the rest behind.
+          console.warn(`Clean-up failed: ${step.description}. ${error.message}`);
+        }
+      });
+    }
+  },
+});
+
+module.exports = { test, expect: base.expect };
+```
+
+### `tests/common/api/api-client.js`
+
+```js
+// A small wrapper around Playwright's API requests.
+// Use it to create and delete test data directly, which is much faster
+// and more stable than clicking through the UI.
+//
+// Every call checks the response and fails with a plain message if the server says no.
+
+const { expect } = require('@playwright/test');
+
+class ApiClient {
+  constructor(request) {
+    this.request = request;
+  }
+
+  async get(url) {
+    return this.#send('GET', url);
+  }
+
+  async post(url, data) {
+    return this.#send('POST', url, data);
+  }
+
+  async put(url, data) {
+    return this.#send('PUT', url, data);
+  }
+
+  async delete(url) {
+    return this.#send('DELETE', url);
+  }
+
+  async #send(method, url, data) {
+    const response = await this.request.fetch(url, { method, data });
+
+    expect(
+      response.ok(),
+      `${method} ${url} should succeed but returned ${response.status()}: ${await response.text()}`,
+    ).toBe(true);
+
+    const body = await response.text();
+    return body ? JSON.parse(body) : null;
+  }
+}
+
+module.exports = { ApiClient };
+```
+
+### `tests/common/test-data.js`
+
+```js
+// Helpers for creating test data that never clashes with other tests or old runs.
+
+// Makes a name that is unique to this moment and this test worker,
+// for example uniqueName('Form') -> 'Form 20261123-142501-w0-4821'.
+// The "AUTO" word at the start makes leftover test data easy to find and delete by hand.
+function uniqueName(prefix) {
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace('T', '-').slice(0, 15);
+  const worker = process.env.TEST_WORKER_INDEX || '0';
+  const random = Math.floor(Math.random() * 10000);
+  return `AUTO ${prefix} ${stamp}-w${worker}-${random}`;
+}
+
+module.exports = { uniqueName };
 ```
 
 ### `tests/common/modules.js`
@@ -405,26 +969,55 @@ module.exports = {
 ### `tests/setup/auth.setup.js`
 
 ```js
-// Logs in once per run and saves the session. Every spec reuses it.
+// Logs in once for each role and saves the session, so no test has to log in again.
+// A role is skipped if its username and password are not set.
+
 const { test: setup, expect } = require('@playwright/test');
 const { login } = require('#common/auth');
+const env = require('#common/env');
 const ROUTES = require('#common/routes');
+const { ROLES, sessionFile } = require('#common/roles');
 
-setup('Log in once and save the session for all tests', async ({ page }) => {
-  await setup.step('Log in with the test account', async () => {
+for (const [roleName, role] of Object.entries(ROLES)) {
+  setup(`Log in as ${role.label} and save the session`, async ({ page }) => {
+    // Skipping is on purpose here: a role with no login set is simply not used.
+    // eslint-disable-next-line playwright/no-skipped-test
+    setup.skip(
+      !env.hasCredentialsFor(role.envPrefix),
+      `No login set for ${role.label}. Add ${role.envPrefix}_USER and ${role.envPrefix}_PASSWORD to use this role.`,
+    );
+
     await page.goto(ROUTES.home);
-    await login(page);
-  });
+    await login(page, env.credentialsFor(role.envPrefix));
 
-  await setup.step('Confirm login worked and save the session', async () => {
     await page.goto(ROUTES.home);
     await expect(
       page.getByRole('heading', { name: 'Form List' }),
-      'Login failed or did not land on Form List. Check the test credentials in the environment variables and that the app is up. Every other test depends on this step.',
+      `${role.label} login did not reach the home page. Check ${role.envPrefix}_USER and ${role.envPrefix}_PASSWORD, and that the app is up.`,
     ).toBeVisible();
-    await page.context().storageState({ path: '.auth/user.json' });
+
+    await page.context().storageState({ path: sessionFile(roleName) });
   });
+}
+```
+
+### `tests/modules/form-builder/fixtures.js`
+
+```js
+// Fixtures for the Form Builder module.
+// Adds this module's page objects on top of the shared fixtures in tests/common/fixtures.js.
+// Specs in this module import test and expect from here, not from @playwright/test.
+
+const { test: base, expect } = require('#common/fixtures');
+const { FormBuilderPage } = require('./pages/form-builder.page');
+
+const test = base.extend({
+  formBuilderPage: async ({ page }, use) => {
+    await use(new FormBuilderPage(page));
+  },
 });
+
+module.exports = { test, expect };
 ```
 
 ### `tests/modules/form-builder/routes.js`
@@ -450,8 +1043,18 @@ module.exports = [
     label: 'Basic',
     iconIndex: 0, // TODO: replace with data-testid once dev adds one
     fields: [
-      'Text Field', 'Number', 'Textarea', 'Select', 'Checkbox', 'Radio',
-      'Checkbox Group', 'Date & Time', 'Password', 'Button', 'HTML Element', 'Image',
+      'Text Field',
+      'Number',
+      'Textarea',
+      'Select',
+      'Checkbox',
+      'Radio',
+      'Checkbox Group',
+      'Date & Time',
+      'Password',
+      'Button',
+      'HTML Element',
+      'Image',
     ],
   },
   {
@@ -459,8 +1062,19 @@ module.exports = [
     label: 'Advanced',
     iconIndex: 1,
     fields: [
-      'File Upload', 'Image Upload', 'Signature', 'Address', 'Data Grid', 'Data Table',
-      'Sub Form', 'Modal', 'Hidden Field', 'Generator', 'Scanner', 'Map', 'Recaptcha',
+      'File Upload',
+      'Image Upload',
+      'Signature',
+      'Address',
+      'Data Grid',
+      'Data Table',
+      'Sub Form',
+      'Modal',
+      'Hidden Field',
+      'Generator',
+      'Scanner',
+      'Map',
+      'Recaptcha',
     ],
   },
   {
@@ -510,6 +1124,9 @@ class FormBuilderPage {
     });
   }
 
+  // TODO: If "Start From Scratch" saves a draft, every run leaves a form behind.
+  // Once you know how to delete a form (API or UI), give the form a name with
+  // uniqueName('Form') from #common/test-data and register its deletion with the cleanup fixture.
   async createBlankForm() {
     await test.step('Create a new blank form', async () => {
       await this.page.getByRole('button', { name: '+ Create Form' }).click();
@@ -555,53 +1172,49 @@ module.exports = { FormBuilderPage };
 ```js
 // WHAT:    Checks that each palette category shows the right fields,
 //          and that switching between categories works.
-// RUN:     npx playwright test field-palette
-// LOGIN:   Happens once in tests/setup/auth.setup.js and is reused here.
-// ADD A CATEGORY OR FIELD: Edit ../data/palette-categories.js. No code changes needed.
-// TEST PLAN: tests/formbuilder-testplan.md (section 3)
+// RUN:     npm run test:form-builder
+// DATA:    ../data/palette-categories.js. Add a field or category there. No code changes needed.
+// PLAN:    docs/test-plans/form-builder.md (section 3, Field Palette)
+// TAGS:    @smoke runs on every pull request. @regression runs every night.
 
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require('../fixtures');
 const { labelTest } = require('#common/reporting');
 const MODULES = require('#common/modules');
-const { FormBuilderPage } = require('../pages/form-builder.page');
 const CATEGORIES = require('../data/palette-categories');
 
 test.describe('Field Palette', () => {
-  let formBuilder;
-
   // Runs before every test: open the Form List and create a blank form.
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ formBuilderPage }) => {
     await labelTest({ module: MODULES.FORM_BUILDER, feature: 'Field Palette', severity: 'critical' });
 
-    formBuilder = new FormBuilderPage(page);
-    await formBuilder.goToFormList();
-    await formBuilder.createBlankForm();
+    await formBuilderPage.goToFormList();
+    await formBuilderPage.createBlankForm();
   });
 
   // This loop creates one test for each category in the data file.
   for (const category of CATEGORIES) {
-    test(`${category.label} category shows the right fields`, async () => {
-      await formBuilder.openCategory(category);
+    test(`${category.label} category shows the right fields`, { tag: '@smoke' }, async ({ formBuilderPage }) => {
+      await formBuilderPage.openCategory(category);
 
       // toHaveText with a list checks three things at once:
       // the number of fields, their names, and their order.
       await expect(
-        formBuilder.visibleFields,
+        formBuilderPage.visibleFields,
         `The ${category.label} category should show: ${category.fields.join(', ')}`,
       ).toHaveText(category.fields);
     });
   }
 
-  test('Only one category is shown at a time', async () => {
+  test('Only one category is shown at a time', { tag: '@regression' }, async ({ formBuilderPage }) => {
     // Visit every category, then go back to the first one
     // to check that switching back also works.
     const visitOrder = [...CATEGORIES, CATEGORIES[0]];
 
     for (const category of visitOrder) {
-      await formBuilder.openCategory(category);
+      await formBuilderPage.openCategory(category);
 
       await expect(
-        formBuilder.visibleFields,
+        formBuilderPage.visibleFields,
         `The ${category.label} category should show exactly ${category.fields.length} fields`,
       ).toHaveCount(category.fields.length);
 
@@ -609,29 +1222,32 @@ test.describe('Field Palette', () => {
       const otherCategories = CATEGORIES.filter((other) => other !== category);
 
       for (const otherCategory of otherCategories) {
-        const fieldFromOtherCategory = formBuilder.paletteField(otherCategory.fields[0]);
+        const fieldFromOtherCategory = formBuilderPage.paletteField(otherCategory.fields[0]);
 
         // expect.soft records the failure but keeps going,
         // so one run shows every problem instead of stopping at the first.
-        await expect.soft(
-          fieldFromOtherCategory,
-          `"${otherCategory.fields[0]}" (${otherCategory.label}) should be hidden while ${category.label} is open`,
-        ).toBeHidden();
+        await expect
+          .soft(
+            fieldFromOtherCategory,
+            `"${otherCategory.fields[0]}" (${otherCategory.label}) should be hidden while ${category.label} is open`,
+          )
+          .toBeHidden();
       }
     }
   });
 });
 ```
 
-### `tests/modules/user-management/pages/user-management.page.js` (starter, same for every empty module)
+### `tests/modules/user-management/pages/user-management.page.js` (starter page object, same shape in every empty module)
 
 ```js
 // Page object for the User Management module.
 // Keep all the "how to find things on the page" code here,
 // so the specs only describe what we are checking.
 
-const { test, expect } = require('@playwright/test');
-const ROUTES = require('../routes');
+// When you add methods, bring in what they need, for example:
+// const { test, expect } = require('@playwright/test');
+// const ROUTES = require('../routes');
 
 class UserManagementPage {
   constructor(page) {
@@ -643,43 +1259,4 @@ class UserManagementPage {
 module.exports = { UserManagementPage };
 ```
 
-## Common tasks
-
-### Write the first test for an empty module
-1. Add the module's paths to its `routes.js`, for example `list: '/users'`.
-2. Add headings, buttons and fields to its page object in `pages/`.
-3. Put test data in `data/`.
-4. Create a file in `specs/` ending in `.spec.js`. Call `labelTest({ module: MODULES.USER_MANAGEMENT, ... })` in `beforeEach`.
-5. Delete the `.gitkeep` file in any folder that now has real files.
-
-### Add a new module
-1. Create a folder under `tests/modules/` in lower case with hyphens, for example `tests/modules/reports/`.
-2. Inside it, create `pages/`, `data/`, `specs/` and a `routes.js` file. Copy the shape of `form-builder`.
-3. Add its display name to `tests/common/modules.js`, for example `REPORTS: 'Reports'`.
-4. Add a run command to `package.json`, for example `"test:reports": "playwright test tests/modules/reports"`.
-
-Login and settings already work for the new module. You do not need to touch the setup or config.
-
-### Add a field to a category
-Open `tests/modules/form-builder/data/palette-categories.js` and add the name to the right list, in the order it appears on screen.
-
-### Add a new category
-Add a new block to the same file with `label`, `iconIndex` (icon position, counting from 0) and `fields`. A test for it appears automatically.
-
-### A category test fails after a UI change
-1. Read the message in the report. It lists the fields that were expected.
-2. Look at the diff to see which field is missing, extra, renamed or moved.
-3. If the app changed on purpose, update the data file. If not, report a bug.
-
-## Still to do
-
-1. **Ask developers for test ids on the category icons.** Finding icons by position is the weakest part of these tests.
-2. **Check exact text matching.** If palette items show extra text, the list check may fail. Match only the label element if that happens.
-3. **Confirm whether field order matters.** If not, sort both lists before comparing.
-4. **Add drag and drop tests.** Drag the first field of each category onto the form and check it appears.
-5. **Clean up test forms.** If "Start From Scratch" saves a draft, delete it after each test.
-6. **Test the Template category.** It is not in the data file yet.
-
-## Quick check for clarity
-
-Give this project to a junior developer and ask them to add one field to the Basic list and run the tests. If they can do it using only this file, the setup is clear enough.
+<!-- SCRIPTS:END -->

@@ -1,7 +1,14 @@
+# Saved login sessions
 .auth/
+
+# Settings files hold passwords. Only the example is committed.
 .env
-allure-results/
-allure-report/
+.env.*
+!.env.example
+
+# Created on every run
 node_modules/
 test-results/
 playwright-report/
+allure-results/
+allure-report/

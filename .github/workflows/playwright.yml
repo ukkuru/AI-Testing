@@ -1,0 +1,97 @@
+# Runs the View 360 tests on GitHub.
+#
+#   Pull request  -> code check + @smoke tests (fast feedback before merging)
+#   Every night   -> code check + all tests (full regression)
+#   By hand       -> Actions tab, "Playwright Tests", "Run workflow", pick the suite and environment
+#
+# Logins and addresses come from GitHub Secrets, set per environment:
+#   Settings > Environments > qa (or staging) > Environment secrets
+#   BASE_URL, API_URL, ADMIN_USER, ADMIN_PASSWORD, EDITOR_USER, EDITOR_PASSWORD, VIEWER_USER, VIEWER_PASSWORD
+
+name: Playwright Tests
+
+on:
+  pull_request:
+  schedule:
+    # 01:17 UTC every day
+    - cron: '17 1 * * *'
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: Which tests to run
+        type: choice
+        options: [smoke, regression, all]
+        default: smoke
+      environment:
+        description: Which server to test
+        type: choice
+        options: [qa, staging]
+        default: qa
+
+jobs:
+  check:
+    name: Code check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+
+  test:
+    name: Tests (${{ inputs.suite || (github.event_name == 'schedule' && 'all') || 'smoke' }} on ${{ inputs.environment || 'qa' }})
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: ${{ inputs.environment || 'qa' }}
+    env:
+      CI: true
+      TEST_ENV: ${{ inputs.environment || 'qa' }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      API_URL: ${{ secrets.API_URL }}
+      ADMIN_USER: ${{ secrets.ADMIN_USER }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      EDITOR_USER: ${{ secrets.EDITOR_USER }}
+      EDITOR_PASSWORD: ${{ secrets.EDITOR_PASSWORD }}
+      VIEWER_USER: ${{ secrets.VIEWER_USER }}
+      VIEWER_PASSWORD: ${{ secrets.VIEWER_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: |
+          SUITE="${{ inputs.suite || (github.event_name == 'schedule' && 'all') || 'smoke' }}"
+          case "$SUITE" in
+            smoke) npm run test:smoke ;;
+            regression) npm run test:regression ;;
+            all) npm test ;;
+          esac
+
+      - name: Build Allure report
+        if: always()
+        run: npm run allure:generate
+
+      - name: Save Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 14
+
+      - name: Save Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

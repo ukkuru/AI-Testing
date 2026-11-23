@@ -1,8 +1,8 @@
-// Playwright settings for the whole project.
+// Playwright settings for the whole View 360 project.
 
 const { defineConfig } = require('@playwright/test');
 
-// Settings from the .env file. Fails early with a clear message if BASE_URL is missing.
+// Settings from .env (or .env.qa, .env.staging). Fails early with a clear message if BASE_URL is missing.
 const env = require('./tests/common/env');
 
 module.exports = defineConfig({
@@ -17,6 +17,9 @@ module.exports = defineConfig({
   // On the CI server, retry a failed test twice. On your laptop, never retry.
   retries: process.env.CI ? 2 : 0,
 
+  // Stop the CI run if someone leaves test.only in the code by mistake.
+  forbidOnly: Boolean(process.env.CI),
+
   // Reports:
   // list    = prints results in the terminal while tests run
   // html    = Playwright's own report (npm run report)
@@ -24,7 +27,7 @@ module.exports = defineConfig({
   reporter: [
     ['list'],
     ['html', { open: 'never' }],
-    ['allure-playwright', { resultsDir: 'allure-results' }],
+    ['allure-playwright', { resultsDir: 'allure-results', environmentInfo: { Environment: env.envName } }],
   ],
 
   use: {
@@ -38,14 +41,14 @@ module.exports = defineConfig({
   },
 
   projects: [
-    // Step 1: log in once and save the session.
+    // Step 1: log in once for each role and save the sessions.
     { name: 'setup', testMatch: /.*\.setup\.js/ },
 
-    // Step 2: run the tests using the saved session, so no test has to log in again.
+    // Step 2: run the tests. Each test loads the saved session for its role
+    // (see the storageState fixture in tests/common/fixtures.js).
     {
       name: 'chromium',
       dependencies: ['setup'],
-      use: { storageState: '.auth/user.json' },
     },
   ],
 });
