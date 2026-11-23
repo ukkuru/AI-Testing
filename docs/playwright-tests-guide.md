@@ -108,10 +108,105 @@ Install the version listed in `.nvmrc` (Node.js 22) from nodejs.org. Check it wi
 
 ### Step 2: Install the packages
 
+From the project folder, run these two commands:
+
 ```
 npm install
 npx playwright install chromium
 ```
+
+**What these do:**
+
+1. `npm install` reads `package.json` and installs every package listed under `devDependencies` into a `node_modules/` folder. That includes Playwright, ESLint, Prettier and Allure. You do not install them one by one.
+2. `npx playwright install chromium` downloads the Chromium browser that Playwright drives. Playwright does not include browsers, so this step is separate.
+
+The exact versions are locked in `package-lock.json`, so everyone on the team gets the same versions. Always commit `package-lock.json`.
+
+### What gets installed
+
+**Testing**
+
+- `@playwright/test`: runs the tests and drives the browser.
+- `dotenv`: reads settings from the `.env` files.
+- `cross-env`: lets `npm run test:qa` and `npm run test:staging` work on Windows, Mac and Linux.
+
+**Code checker (ESLint)**
+
+- `eslint`: the code checker.
+- `@eslint/js`: the standard JavaScript rules.
+- `eslint-plugin-playwright`: Playwright rules, such as catching a missing `await`.
+- `globals`: tells ESLint about Node.js names like `process` and `__dirname`.
+- `eslint-config-prettier`: turns off ESLint style rules that would clash with Prettier.
+
+**Formatting**
+
+- `prettier`: formats the code the same way for everyone.
+
+**Allure report**
+
+- `allure-playwright`: collects results while tests run and saves them in `allure-results/`.
+- `allure-js-commons`: lets tests add labels such as module, feature and severity.
+- `allure`: turns the results into a report you can open. It runs on Node.js, so you do not need Java.
+
+### Check everything installed
+
+Run each command. Each one should print a version number:
+
+```
+node -v
+npx playwright --version
+npx eslint --version
+npx prettier --version
+npx allure --version
+```
+
+Then run the code checker on the whole project:
+
+```
+npm run check
+```
+
+It should finish with `All matched files use Prettier code style!` and no errors.
+
+### Editor setup (VS Code)
+
+Install these extensions so problems show up while you type, not only when you run `npm run check`:
+
+- **ESLint** (by Microsoft): underlines code checker problems in red.
+- **Prettier, Code formatter** (by Prettier): formats the file when you save.
+- **Playwright Test for VS Code** (by Microsoft): run and debug single tests from the editor.
+
+To format on save, open Settings, search for **Format On Save** and tick it, then set **Default Formatter** to Prettier.
+
+### Starting a new project from nothing
+
+You only need this if you are building a new test project instead of cloning this one. It installs the same packages this project uses:
+
+```
+npm init -y
+npm install -D @playwright/test dotenv cross-env
+npm install -D eslint @eslint/js eslint-plugin-playwright globals eslint-config-prettier prettier
+npm install -D allure allure-playwright allure-js-commons
+npx playwright install chromium
+```
+
+Then copy these files from this project, since they hold the settings: `playwright.config.js`, `eslint.config.js`, `.prettierrc.json`, `.prettierignore`, `.gitignore`, `.env.example`, `.nvmrc`, and the `imports` and `scripts` sections of `package.json`.
+
+### Adding a new package later
+
+```
+npm install -D package-name
+```
+
+The `-D` saves it under `devDependencies`, which is right for anything used only by tests. Commit both `package.json` and `package-lock.json` afterwards.
+
+### Install problems
+
+- **`npm` is not recognised:** Node.js is not installed, or the terminal was open before you installed it. Close and reopen the terminal.
+- **`Executable doesn't exist` when running tests:** the browser is missing. Run `npx playwright install chromium`.
+- **On Linux or CI, the browser fails to start:** it is missing system libraries. Run `npx playwright install --with-deps chromium` instead.
+- **Strange errors after pulling new code:** someone added or changed a package. Run `npm install` again.
+- **Still broken:** delete the `node_modules/` folder and run `npm install` again.
 
 ### Step 3: Create your `.env` file
 
@@ -465,7 +560,7 @@ allure-report/
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
-    "@playwright/test": "^1.49.0",
+    "@playwright/test": "^1.65.1",
     "allure": "^3.33.0",
     "allure-js-commons": "^3.15.0",
     "allure-playwright": "^3.15.0",
