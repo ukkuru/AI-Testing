@@ -1,10 +1,10 @@
-# Playwright Tests: Scripts and Setup
+# View 360 Playwright Tests: Scripts and Setup
 
-This file holds every script for the Playwright tests plus the steps to set them up and run them. It is written for developers who are new to Playwright with JavaScript.
+This file holds every script for the View 360 Playwright tests plus the steps to set them up and run them. It is written for developers who are new to Playwright with JavaScript.
 
 ## How the project is organised
 
-The tests are split by **module**, one folder for each part of the app (Form Builder, User Management, Reports and so on). Code that every module needs lives in one shared folder called **common**.
+The tests are split by **module**, one folder for each part of View 360: User Management, Form Builder, Workflow Builder, Templates and Notifications. Code that every module needs lives in one shared folder called **common**.
 
 1. **`tests/common/`** is the shared library: login, settings, report labels and app wide paths.
 2. **`tests/modules/<module-name>/`** holds everything for one part of the app: its pages, data, paths and tests.
@@ -15,7 +15,7 @@ The tests are split by **module**, one folder for each part of the app (Form Bui
 ## Project layout
 
 ```
-AI-Testing/
+view-360/                         Your project folder
   .env.example                    Template for your .env file (safe to commit)
   .env                            Your real settings (never commit)
   .gitignore
@@ -226,7 +226,8 @@ playwright-report/
 
 ```json
 {
-  "name": "ai-testing",
+  "name": "view-360",
+  "description": "Playwright tests for the View 360 application",
   "private": true,
   "scripts": {
     "test": "playwright test",

@@ -1,5 +1,6 @@
 {
-  "name": "ai-testing",
+  "name": "view-360",
+  "description": "Playwright tests for the View 360 application",
   "private": true,
   "scripts": {
     "test": "playwright test",
