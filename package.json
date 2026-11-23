@@ -8,7 +8,11 @@
     "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
     "allure:generate": "allure generate ./allure-results --clean",
     "allure:open": "allure open ./allure-report",
-    "test:form-builder": "playwright test tests/modules/form-builder"
+    "test:user-management": "playwright test tests/modules/user-management",
+    "test:form-builder": "playwright test tests/modules/form-builder",
+    "test:workflow-builder": "playwright test tests/modules/workflow-builder",
+    "test:templates": "playwright test tests/modules/templates",
+    "test:notifications": "playwright test tests/modules/notifications"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",

@@ -7,6 +7,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { labelTest } = require('#common/reporting');
+const MODULES = require('#common/modules');
 const { FormBuilderPage } = require('../pages/form-builder.page');
 const CATEGORIES = require('../data/palette-categories');
 
@@ -15,7 +16,7 @@ test.describe('Field Palette', () => {
 
   // Runs before every test: open the Form List and create a blank form.
   test.beforeEach(async ({ page }) => {
-    await labelTest({ module: 'Form Builder', feature: 'Field Palette', severity: 'critical' });
+    await labelTest({ module: MODULES.FORM_BUILDER, feature: 'Field Palette', severity: 'critical' });
 
     formBuilder = new FormBuilderPage(page);
     await formBuilder.goToFormList();

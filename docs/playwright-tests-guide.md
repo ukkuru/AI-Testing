@@ -25,12 +25,14 @@ AI-Testing/
     common/                       Shared library, used by every module
       auth.js                     Logs a user in
       env.js                      Reads settings from .env in one place
+      modules.js                  Module names, spelled the same everywhere
       reporting.js                Allure labels (module, feature, severity)
       routes.js                   App wide paths, such as the page after login
     setup/
       auth.setup.js               Logs in once before all tests
     modules/
-      form-builder/               One folder per module
+      user-management/
+      form-builder/               The first module with real tests
         routes.js                 Paths for this module only
         data/
           palette-categories.js   Test data for this module
@@ -38,12 +40,14 @@ AI-Testing/
           form-builder.page.js    How to find and use things on this module's pages
         specs/
           field-palette.spec.js   The tests
-      user-management/            Example of the next module (same shape)
-        routes.js
-        data/
-        pages/
-        specs/
+      workflow-builder/
+      templates/
+      notifications/
 ```
+
+**Module folder names** are lower case with hyphens (`user-management`), because spaces in folder names break commands. **Module display names** in reports use normal spelling (`User Management`) and come from `tests/common/modules.js`.
+
+The four new modules (User Management, Workflow Builder, Templates, Notifications) are empty starters. Each has a `routes.js`, a page object, and empty `data/` and `specs/` folders ready for tests.
 
 Every module has the **same four parts**. Once you know one module, you know them all.
 
@@ -60,7 +64,7 @@ These rules keep the project tidy as it grows. Break them and the common folder 
 
 ### What goes where
 
-* **Login, settings, report labels:** `tests/common/`
+* **Login, settings, report labels, module names:** `tests/common/`
 * **A UI part used on many pages, such as a date picker or a confirm dialog:** `tests/common/components/` (create it when you need it)
 * **The page after login and other app wide paths:** `tests/common/routes.js`
 * **Paths for one module:** `tests/modules/<module>/routes.js`
@@ -110,7 +114,11 @@ npm test
 ```
 Run one module:
 ```
+npm run test:user-management
 npm run test:form-builder
+npm run test:workflow-builder
+npm run test:templates
+npm run test:notifications
 ```
 Run one test file:
 ```
@@ -176,17 +184,21 @@ Remove it to switch Allure off. The terminal output and the Playwright HTML repo
 The common library has a helper that labels each test, so Allure groups them by module. Call it in `beforeEach`:
 ```js
 const { labelTest } = require('#common/reporting');
+const MODULES = require('#common/modules');
 
 test.beforeEach(async () => {
-  await labelTest({ module: 'Form Builder', feature: 'Field Palette', severity: 'critical' });
+  await labelTest({ module: MODULES.FORM_BUILDER, feature: 'Field Palette', severity: 'critical' });
 });
 ```
+Always use `MODULES.SOMETHING` instead of typing the name. A typo such as `'Form builder'` would create a second, separate group in the report.
 In the report, open the **Behaviors** tab to see tests grouped by module, then by feature.
 
 ### On a CI server
 Run the same four commands, but skip `allure:open`. Save the `allure-report/` folder as a build artifact so the team can download and open it.
 
 ## The scripts
+
+These are the files with real code. The four empty modules follow the same shape as `form-builder`.
 
 ### `.env.example`
 
@@ -223,7 +235,11 @@ playwright-report/
     "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
     "allure:generate": "allure generate ./allure-results --clean",
     "allure:open": "allure open ./allure-report",
-    "test:form-builder": "playwright test tests/modules/form-builder"
+    "test:user-management": "playwright test tests/modules/user-management",
+    "test:form-builder": "playwright test tests/modules/form-builder",
+    "test:workflow-builder": "playwright test tests/modules/workflow-builder",
+    "test:templates": "playwright test tests/modules/templates",
+    "test:notifications": "playwright test tests/modules/notifications"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
@@ -341,6 +357,21 @@ async function login(page) {
 }
 
 module.exports = { login };
+```
+
+### `tests/common/modules.js`
+
+```js
+// The app's modules, spelled the same way everywhere.
+// Use these in labelTest() so the Allure report groups tests correctly.
+// A typo like 'Form builder' would create a second, separate group.
+module.exports = {
+  USER_MANAGEMENT: 'User Management',
+  FORM_BUILDER: 'Form Builder',
+  WORKFLOW_BUILDER: 'Workflow Builder',
+  TEMPLATES: 'Templates',
+  NOTIFICATIONS: 'Notifications',
+};
 ```
 
 ### `tests/common/reporting.js`
@@ -530,6 +561,7 @@ module.exports = { FormBuilderPage };
 
 const { test, expect } = require('@playwright/test');
 const { labelTest } = require('#common/reporting');
+const MODULES = require('#common/modules');
 const { FormBuilderPage } = require('../pages/form-builder.page');
 const CATEGORIES = require('../data/palette-categories');
 
@@ -538,7 +570,7 @@ test.describe('Field Palette', () => {
 
   // Runs before every test: open the Form List and create a blank form.
   test.beforeEach(async ({ page }) => {
-    await labelTest({ module: 'Form Builder', feature: 'Field Palette', severity: 'critical' });
+    await labelTest({ module: MODULES.FORM_BUILDER, feature: 'Field Palette', severity: 'critical' });
 
     formBuilder = new FormBuilderPage(page);
     await formBuilder.goToFormList();
@@ -590,13 +622,40 @@ test.describe('Field Palette', () => {
 });
 ```
 
+### `tests/modules/user-management/pages/user-management.page.js` (starter, same for every empty module)
+
+```js
+// Page object for the User Management module.
+// Keep all the "how to find things on the page" code here,
+// so the specs only describe what we are checking.
+
+const { test, expect } = require('@playwright/test');
+const ROUTES = require('../routes');
+
+class UserManagementPage {
+  constructor(page) {
+    this.page = page;
+    // TODO: Add the headings, buttons and fields this module's tests need.
+  }
+}
+
+module.exports = { UserManagementPage };
+```
+
 ## Common tasks
 
+### Write the first test for an empty module
+1. Add the module's paths to its `routes.js`, for example `list: '/users'`.
+2. Add headings, buttons and fields to its page object in `pages/`.
+3. Put test data in `data/`.
+4. Create a file in `specs/` ending in `.spec.js`. Call `labelTest({ module: MODULES.USER_MANAGEMENT, ... })` in `beforeEach`.
+5. Delete the `.gitkeep` file in any folder that now has real files.
+
 ### Add a new module
-1. Create a folder under `tests/modules/`, for example `tests/modules/user-management/`.
+1. Create a folder under `tests/modules/` in lower case with hyphens, for example `tests/modules/reports/`.
 2. Inside it, create `pages/`, `data/`, `specs/` and a `routes.js` file. Copy the shape of `form-builder`.
-3. Add a run command to `package.json`, for example `"test:user-management": "playwright test tests/modules/user-management"`.
-4. Call `labelTest({ module: 'User Management', ... })` in each spec so Allure groups it.
+3. Add its display name to `tests/common/modules.js`, for example `REPORTS: 'Reports'`.
+4. Add a run command to `package.json`, for example `"test:reports": "playwright test tests/modules/reports"`.
 
 Login and settings already work for the new module. You do not need to touch the setup or config.
 
