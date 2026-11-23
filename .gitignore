@@ -1,2 +1,4 @@
 .auth/
 .env
+allure-results/
+allure-report/

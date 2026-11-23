@@ -65,11 +65,73 @@ To run against another server without editing any file:
 BASE_URL=https://staging.yourapp.com npm test
 ```
 
-### Step 6: Read the report
+### Step 6: Read the Playwright report
 ```
 npm run report
 ```
 Click a failed test to see the step that failed, a plain message explaining what should have happened, a screenshot and a trace.
+
+For the Allure report, see the next section.
+
+## Allure report
+
+Allure gives you a richer report than Playwright's own: test history, charts, grouping by feature, and every step with its plain message. The tests already write Allure results. You only need to turn them into a report.
+
+### What you need
+Nothing extra. Allure 3 runs on Node.js, so you do not need Java. The two packages are already in `package.json`:
+* **`allure-playwright`** collects results while the tests run and saves them in `allure-results/`.
+* **`allure`** turns those results into a report you can open in the browser.
+
+### Step 1: Clear old results
+```
+npm run allure:clean
+```
+Do this before each run. Otherwise results from old runs mix with new ones and the report shows tests that no longer exist.
+
+### Step 2: Run the tests
+```
+npm test
+```
+This fills the `allure-results/` folder.
+
+### Step 3: Build the report
+```
+npm run allure:generate
+```
+This creates the `allure-report/` folder. It replaces the old report each time.
+
+### Step 4: Open the report
+```
+npm run allure:open
+```
+The report opens in your browser. Click a failed test to see each step, the plain message for the check that failed, the screenshot and the trace.
+
+### Where Allure is switched on
+In `playwright.config.js`, the `reporter` list has this line:
+```js
+['allure-playwright', { resultsDir: 'allure-results' }],
+```
+Remove it to switch Allure off. The terminal output and the Playwright HTML report keep working either way.
+
+### Keep reports out of Git
+`allure-results/` and `allure-report/` are in `.gitignore`. They are created fresh on every run and can be large, so never commit them.
+
+### Optional: group tests by feature
+Allure can group tests under an epic and feature. Add these lines at the start of a test:
+```js
+const allure = require('allure-js-commons');
+
+test('Basic category shows the right fields', async () => {
+  await allure.epic('Form Builder');
+  await allure.feature('Field Palette');
+  await allure.severity('critical');
+  // ... rest of the test
+});
+```
+`allure-js-commons` comes with `allure-playwright`, so no extra install is needed.
+
+### On a CI server
+Run the same four commands, but skip `allure:open`. Save the `allure-report/` folder as a build artifact so the team can download and open it.
 
 ## The scripts
 
@@ -88,6 +150,8 @@ TEST_PASSWORD=
 ```text
 .auth/
 .env
+allure-results/
+allure-report/
 ```
 
 ### `package.json`
@@ -99,10 +163,15 @@ TEST_PASSWORD=
   "scripts": {
     "test": "playwright test",
     "test:palette": "playwright test field-palette",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
+    "allure:generate": "allure generate ./allure-results --clean",
+    "allure:open": "allure open ./allure-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
+    "allure": "^3.33.0",
+    "allure-playwright": "^3.15.0",
     "dotenv": "^16.4.5"
   }
 }
@@ -135,7 +204,15 @@ module.exports = defineConfig({
   // On the CI server, retry a failed test twice. On your laptop, never retry.
   retries: process.env.CI ? 2 : 0,
 
-  reporter: [['html', { open: 'never' }], ['list']],
+  // Reports:
+  // list    = prints results in the terminal while tests run
+  // html    = Playwright's own report (npm run report)
+  // allure  = writes raw results to allure-results/ (npm run allure:generate turns them into a report)
+  reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['allure-playwright', { resultsDir: 'allure-results' }],
+  ],
 
   use: {
     // Every page.goto('/something') starts from this address.

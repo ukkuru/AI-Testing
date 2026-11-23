@@ -22,7 +22,15 @@ module.exports = defineConfig({
   // On the CI server, retry a failed test twice. On your laptop, never retry.
   retries: process.env.CI ? 2 : 0,
 
-  reporter: [['html', { open: 'never' }], ['list']],
+  // Reports:
+  // list    = prints results in the terminal while tests run
+  // html    = Playwright's own report (npm run report)
+  // allure  = writes raw results to allure-results/ (npm run allure:generate turns them into a report)
+  reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['allure-playwright', { resultsDir: 'allure-results' }],
+  ],
 
   use: {
     // Every page.goto('/something') starts from this address.

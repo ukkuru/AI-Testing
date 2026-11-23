@@ -4,10 +4,15 @@
   "scripts": {
     "test": "playwright test",
     "test:palette": "playwright test field-palette",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "allure:clean": "node -e \"require('fs').rmSync('allure-results',{recursive:true,force:true})\"",
+    "allure:generate": "allure generate ./allure-results --clean",
+    "allure:open": "allure open ./allure-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
+    "allure": "^3.33.0",
+    "allure-playwright": "^3.15.0",
     "dotenv": "^16.4.5"
   }
 }
