@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Testmetry Videos
  * Description: Video publishing for testmetry.com. A Videos post type for Dailymotion hosted videos (nothing is uploaded to the media library), a [tm_videos] library grid, a Latest Videos block for the homepage, a single video page with click to play embed, related videos and articles, VideoObject schema and a video sitemap. Deactivate to undo; video posts stay in the database.
- * Version: 1.0.3
+ * Version: 1.0.4
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'TMV_VER', '1.0.3' );
+define( 'TMV_VER', '1.0.4' );
 
 /* ------------------------------------------------------------------
  * Post type, taxonomies and fields
@@ -143,6 +143,19 @@ function tmv_fetch( $post_id ) {
 	if ( ! empty( $d['aspect_ratio'] ) ) { update_post_meta( $post_id, 'tm_dm_ratio', (float) $d['aspect_ratio'] ); }
 }
 
+// Dailymotion's keyless default player can refuse to load. A custom player ID from Dailymotion Studio is the supported route.
+function tmv_embed_base() {
+	$pid = preg_replace( '/[^a-z0-9]/i', '', (string) get_option( 'tmv_player_id', '' ) );
+	return $pid ? 'https://geo.dailymotion.com/player/' . $pid . '.html?' : 'https://geo.dailymotion.com/player.html?';
+}
+
+add_action( 'admin_init', function () {
+	register_setting( 'media', 'tmv_player_id', array( 'type' => 'string', 'sanitize_callback' => function ( $v ) { return preg_replace( '/[^a-z0-9]/i', '', (string) $v ); } ) );
+	add_settings_field( 'tmv_player_id', 'Dailymotion player ID (Videos)', function () {
+		echo '<input type="text" name="tmv_player_id" value="' . esc_attr( get_option( 'tmv_player_id', '' ) ) . '" class="regular-text" placeholder="e.g. xabc1"><p class="description">From Dailymotion Studio, Settings, Players. Leave empty to use the default player.</p>'; // phpcs:ignore
+	}, 'media' );
+} );
+
 function tmv_data( $post ) {
 	$post = get_post( $post );
 	$id   = get_post_meta( $post->ID, 'tm_dm_id', true );
@@ -171,7 +184,7 @@ function tmv_data( $post ) {
 		'thumb' => $thumb,
 		'w'     => $w,
 		'h'     => $h,
-		'embed' => $id ? 'https://geo.dailymotion.com/player.html?video=' . rawurlencode( $id ) : '',
+		'embed' => $id ? tmv_embed_base() . 'video=' . rawurlencode( $id ) : '',
 	);
 }
 
@@ -357,6 +370,8 @@ add_filter( 'the_content', function ( $content ) {
 		$o  .= '<noscript><iframe src="' . esc_url( $d['embed'] ) . '" title="' . esc_attr( $title ) . '" allow="fullscreen; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></noscript></div>';
 	}
 
+	if ( $d['id'] ) { $o .= '<p class="tmv-alt"><a href="' . esc_url( 'https://www.dailymotion.com/video/' . $d['id'] ) . '" target="_blank" rel="noopener">Video not loading? Watch it on Dailymotion</a></p>'; }
+
 	$bits = array( 'By ' . esc_html( get_the_author_meta( 'display_name', $post->post_author ) ), '<time datetime="' . esc_attr( get_the_date( 'c', $post ) ) . '">' . esc_html( get_the_date( 'j F Y', $post ) ) . '</time>' );
 	if ( $d['label'] ) { $bits[] = 'Duration ' . esc_html( $d['label'] ); }
 	$o .= '<p class="tmv-meta">' . implode( ' <span aria-hidden="true">&bull;</span> ', $bits ) . '</p>';
@@ -533,6 +548,7 @@ function tmv_css() {
 .tmv-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .tmv-facade{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#0b2a5b;cursor:pointer;display:block}
 .tmv-facade img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.tmv-alt{text-align:center;font-size:14px;margin:-8px 0 14px}.tmv-alt a{color:#5b6780}
 .tmv-meta{color:#5b6780;font-size:15px;margin:0 0 18px;text-align:center}
 .tmv-short{font-size:19px;line-height:1.6;color:#0b2a5b;margin:0 0 18px}
 .tmv-detail{margin-bottom:22px}
