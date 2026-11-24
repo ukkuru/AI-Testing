@@ -50,3 +50,7 @@ The video appears on `/videos/` and in the homepage Latest videos block straight
 1. Open the video page. Click the thumbnail. The Dailymotion player should load inside the page and play.
 2. Test the page URL in Google's Rich Results Test and look for **Video**.
 3. In Search Console use URL Inspection and request indexing for the new video page.
+
+## If the player shows "Forbidden"
+
+Dailymotion's default embed address can refuse to load. Create a player in Dailymotion Studio (Settings, Players), add `testmetry.com` and `www.testmetry.com` to its allowed domains, then paste its ID under **Videos > Settings** in WordPress. Every video page also carries a "Watch it on Dailymotion" link as a fallback.

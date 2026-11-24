@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Testmetry Videos
  * Description: Video publishing for testmetry.com. A Videos post type for Dailymotion hosted videos (nothing is uploaded to the media library), a [tm_videos] library grid, a Latest Videos block for the homepage, a single video page with click to play embed, related videos and articles, VideoObject schema and a video sitemap. Deactivate to undo; video posts stay in the database.
- * Version: 1.0.4
+ * Version: 1.0.5
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'TMV_VER', '1.0.4' );
+define( 'TMV_VER', '1.0.5' );
 
 /* ------------------------------------------------------------------
  * Post type, taxonomies and fields
@@ -150,10 +150,22 @@ function tmv_embed_base() {
 }
 
 add_action( 'admin_init', function () {
-	register_setting( 'media', 'tmv_player_id', array( 'type' => 'string', 'sanitize_callback' => function ( $v ) { return preg_replace( '/[^a-z0-9]/i', '', (string) $v ); } ) );
-	add_settings_field( 'tmv_player_id', 'Dailymotion player ID (Videos)', function () {
-		echo '<input type="text" name="tmv_player_id" value="' . esc_attr( get_option( 'tmv_player_id', '' ) ) . '" class="regular-text" placeholder="e.g. xabc1"><p class="description">From Dailymotion Studio, Settings, Players. Leave empty to use the default player.</p>'; // phpcs:ignore
-	}, 'media' );
+	register_setting( 'tmv_settings', 'tmv_player_id', array( 'type' => 'string', 'sanitize_callback' => function ( $v ) { return preg_replace( '/[^a-z0-9]/i', '', (string) $v ); } ) );
+} );
+
+add_action( 'admin_menu', function () {
+	add_submenu_page( 'edit.php?post_type=tm_video', 'Video settings', 'Settings', 'manage_options', 'tmv-settings', function () {
+		?>
+<div class="wrap"><h1>Video settings</h1>
+<form method="post" action="options.php">
+<?php settings_fields( 'tmv_settings' ); ?>
+<table class="form-table" role="presentation"><tr><th scope="row"><label for="tmv_player_id">Dailymotion player ID</label></th>
+<td><input type="text" id="tmv_player_id" name="tmv_player_id" value="<?php echo esc_attr( get_option( 'tmv_player_id', '' ) ); ?>" class="regular-text" placeholder="for example xabc1">
+<p class="description">Create a player in Dailymotion Studio under Settings, Players, add testmetry.com to its allowed domains, and paste its ID here. Leave empty to use Dailymotion's default player.</p></td></tr></table>
+<?php submit_button(); ?>
+</form></div>
+		<?php
+	} );
 } );
 
 function tmv_data( $post ) {
