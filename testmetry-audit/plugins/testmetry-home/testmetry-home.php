@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Testmetry Home
  * Description: The testmetry.com homepage, rendered by the [tm_home] shortcode with its own CSS. Deactivate and set the front page back to Elementor to undo.
- * Version: 1.6.1
+ * Version: 1.7.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
@@ -337,6 +337,7 @@ add_shortcode( 'tm_home', function () {
 <a href="#ai-guides">AI in QA</a>
 <a href="#fundamentals">Fundamentals</a>
 <a href="#tools">Tools</a>
+<a href="<?php echo $u( '/videos/' ); ?>">Videos</a>
 <a href="<?php echo $u( '/daily-software-testing-jobs/' ); ?>">Jobs</a>
 <a href="<?php echo $u( '/about-us/' ); ?>">About</a>
 </nav>
@@ -413,6 +414,8 @@ add_shortcode( 'tm_home', function () {
 </div>
 <?php endif; ?>
 </section>
+
+<?php if ( function_exists( 'tmv_home_section' ) ) { echo tmv_home_section( 6 ); /* phpcs:ignore */ } ?>
 
 <section class="tmh-wrap tmh-sec" id="fundamentals" aria-labelledby="h-fun">
 <h2 id="h-fun">Software testing fundamentals</h2>
