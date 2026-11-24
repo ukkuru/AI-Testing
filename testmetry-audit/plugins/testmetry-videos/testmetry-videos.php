@@ -2,11 +2,11 @@
 /**
  * Plugin Name: Testmetry Videos
  * Description: Video publishing for testmetry.com. A Videos post type for Dailymotion hosted videos (nothing is uploaded to the media library), a [tm_videos] library grid, a Latest Videos block for the homepage, a single video page with click to play embed, related videos and articles, VideoObject schema and a video sitemap. Deactivate to undo; video posts stay in the database.
- * Version: 1.0.2
+ * Version: 1.0.3
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'TMV_VER', '1.0.2' );
+define( 'TMV_VER', '1.0.3' );
 
 /* ------------------------------------------------------------------
  * Post type, taxonomies and fields
@@ -458,6 +458,7 @@ add_action( 'init', function () {
 	add_rewrite_rule( '^tm-video-map\.xml$', 'index.php?tmv_sitemap=1', 'top' );
 } );
 add_filter( 'query_vars', function ( $v ) { $v[] = 'tmv_sitemap'; return $v; } );
+add_filter( 'redirect_canonical', function ( $redirect ) { return get_query_var( 'tmv_sitemap' ) ? false : $redirect; } );
 add_action( 'template_redirect', function () {
 	if ( ! get_query_var( 'tmv_sitemap' ) ) { return; }
 	$videos = get_posts( array( 'post_type' => 'tm_video', 'post_status' => 'publish', 'posts_per_page' => 1000, 'no_found_rows' => true, 'meta_query' => array( 'relation' => 'OR', array( 'key' => 'tm_noindex', 'compare' => 'NOT EXISTS' ), array( 'key' => 'tm_noindex', 'value' => '1', 'compare' => '!=' ) ) ) );
