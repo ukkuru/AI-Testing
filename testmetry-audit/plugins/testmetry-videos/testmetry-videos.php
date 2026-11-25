@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name: Testmetry Videos
- * Description: Video publishing for testmetry.com. A Videos post type for Dailymotion hosted videos (nothing is uploaded to the media library), a [tm_videos] library grid, a Latest Videos block for the homepage, a single video page with click to play embed, related videos and articles, VideoObject schema and a video sitemap. Deactivate to undo; video posts stay in the database.
- * Version: 1.0.5
+ * Description: Video publishing for testmetry.com. A Videos post type for Vimeo hosted videos (nothing is uploaded to the media library), a [tm_videos] library grid, a Latest Videos block for the homepage, a single video page with click to play embed, related videos and articles, VideoObject schema and a video sitemap. Deactivate to undo; video posts stay in the database.
+ * Version: 2.0.0
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'TMV_VER', '1.0.5' );
+define( 'TMV_VER', '2.0.0' );
 
 /* ------------------------------------------------------------------
  * Post type, taxonomies and fields
@@ -100,15 +100,23 @@ add_filter( 'classic_editor_enabled_editors_for_post_type', function ( $editors,
 }, 10, 2 );
 
 /* ------------------------------------------------------------------
- * Dailymotion helpers
+ * Vimeo helpers
  * ---------------------------------------------------------------- */
 
-function tmv_parse_id( $url ) {
+// Accepts vimeo.com/ID, vimeo.com/ID/HASH (unlisted), player.vimeo.com/video/ID?h=HASH and share links with extra query text.
+function tmv_parse( $url ) {
 	$url = trim( (string) $url );
-	if ( preg_match( '~^x[0-9a-z]{4,}$~i', $url ) ) { return strtolower( $url ); }
-	if ( preg_match( '~(?:dai\.ly/|dailymotion\.com/(?:embed/)?video/|dailymotion\.com/[^?#]*[?&]video=|geo\.dailymotion\.com/[^?#]*[?&]video=)(x[0-9a-z]+)~i', $url, $m ) ) { return strtolower( $m[1] ); }
-	return '';
+	$out = array( 'id' => '', 'hash' => '' );
+	if ( preg_match( '~^\d{6,}$~', $url ) ) { $out['id'] = $url; return $out; }
+	if ( preg_match( '~vimeo\.com/(?:[^?#]*/)?(\d{6,})(?:/([0-9a-f]{8,}))?~i', $url, $m ) ) {
+		$out['id']   = $m[1];
+		$out['hash'] = isset( $m[2] ) ? strtolower( $m[2] ) : '';
+		if ( ! $out['hash'] && preg_match( '~[?&]h=([0-9a-f]{8,})~i', $url, $h ) ) { $out['hash'] = strtolower( $h[1] ); }
+	}
+	return $out;
 }
+
+function tmv_parse_id( $url ) { $p = tmv_parse( $url ); return $p['id']; }
 
 function tmv_seconds( $label ) {
 	$label = trim( (string) $label );
@@ -129,52 +137,30 @@ function tmv_label( $secs ) {
 	return $h ? sprintf( '%d:%02d:%02d', $h, $m, $s ) : sprintf( '%d:%02d', $m, $s );
 }
 
-// Ask Dailymotion for duration, thumbnail and shape when a video is saved, so the editor does not type them.
+// Ask Vimeo (oEmbed, no key needed) for duration, thumbnail and shape when a video is saved.
 function tmv_fetch( $post_id ) {
-	$id = tmv_parse_id( get_post_meta( $post_id, 'tm_video_url', true ) );
-	if ( ! $id ) { return; }
-	$res = wp_remote_get( 'https://api.dailymotion.com/video/' . rawurlencode( $id ) . '?fields=duration,thumbnail_720_url,aspect_ratio', array( 'timeout' => 8 ) );
+	$p = tmv_parse( get_post_meta( $post_id, 'tm_video_url', true ) );
+	if ( ! $p['id'] ) { return; }
+	update_post_meta( $post_id, 'tm_vm_id', $p['id'] );
+	update_post_meta( $post_id, 'tm_vm_hash', $p['hash'] );
+	$target = 'https://vimeo.com/' . $p['id'] . ( $p['hash'] ? '/' . $p['hash'] : '' );
+	$res    = wp_remote_get( 'https://vimeo.com/api/oembed.json?width=1280&url=' . rawurlencode( $target ), array( 'timeout' => 8 ) );
 	if ( is_wp_error( $res ) || 200 !== (int) wp_remote_retrieve_response_code( $res ) ) { return; }
 	$d = json_decode( wp_remote_retrieve_body( $res ), true );
 	if ( ! is_array( $d ) ) { return; }
-	update_post_meta( $post_id, 'tm_dm_id', $id );
-	if ( ! empty( $d['duration'] ) ) { update_post_meta( $post_id, 'tm_dm_seconds', (int) $d['duration'] ); }
-	if ( ! empty( $d['thumbnail_720_url'] ) ) { update_post_meta( $post_id, 'tm_dm_thumb', esc_url_raw( $d['thumbnail_720_url'] ) ); }
-	if ( ! empty( $d['aspect_ratio'] ) ) { update_post_meta( $post_id, 'tm_dm_ratio', (float) $d['aspect_ratio'] ); }
+	if ( ! empty( $d['duration'] ) ) { update_post_meta( $post_id, 'tm_vm_seconds', (int) $d['duration'] ); }
+	if ( ! empty( $d['thumbnail_url'] ) ) { update_post_meta( $post_id, 'tm_vm_thumb', esc_url_raw( $d['thumbnail_url'] ) ); }
+	if ( ! empty( $d['width'] ) && ! empty( $d['height'] ) ) { update_post_meta( $post_id, 'tm_vm_ratio', round( (float) $d['width'] / (float) $d['height'], 4 ) ); }
 }
-
-// Dailymotion's keyless default player can refuse to load. A custom player ID from Dailymotion Studio is the supported route.
-function tmv_embed_base() {
-	$pid = preg_replace( '/[^a-z0-9]/i', '', (string) get_option( 'tmv_player_id', '' ) );
-	return $pid ? 'https://geo.dailymotion.com/player/' . $pid . '.html?' : 'https://geo.dailymotion.com/player.html?';
-}
-
-add_action( 'admin_init', function () {
-	register_setting( 'tmv_settings', 'tmv_player_id', array( 'type' => 'string', 'sanitize_callback' => function ( $v ) { return preg_replace( '/[^a-z0-9]/i', '', (string) $v ); } ) );
-} );
-
-add_action( 'admin_menu', function () {
-	add_submenu_page( 'edit.php?post_type=tm_video', 'Video settings', 'Settings', 'manage_options', 'tmv-settings', function () {
-		?>
-<div class="wrap"><h1>Video settings</h1>
-<form method="post" action="options.php">
-<?php settings_fields( 'tmv_settings' ); ?>
-<table class="form-table" role="presentation"><tr><th scope="row"><label for="tmv_player_id">Dailymotion player ID</label></th>
-<td><input type="text" id="tmv_player_id" name="tmv_player_id" value="<?php echo esc_attr( get_option( 'tmv_player_id', '' ) ); ?>" class="regular-text" placeholder="for example xabc1">
-<p class="description">Create a player in Dailymotion Studio under Settings, Players, add testmetry.com to its allowed domains, and paste its ID here. Leave empty to use Dailymotion's default player.</p></td></tr></table>
-<?php submit_button(); ?>
-</form></div>
-		<?php
-	} );
-} );
 
 function tmv_data( $post ) {
 	$post = get_post( $post );
-	$id   = get_post_meta( $post->ID, 'tm_dm_id', true );
-	if ( ! $id ) { $id = tmv_parse_id( get_post_meta( $post->ID, 'tm_video_url', true ) ); }
+	$id   = get_post_meta( $post->ID, 'tm_vm_id', true );
+	$hash = get_post_meta( $post->ID, 'tm_vm_hash', true );
+	if ( ! $id ) { $p = tmv_parse( get_post_meta( $post->ID, 'tm_video_url', true ) ); $id = $p['id']; $hash = $p['hash']; }
 	$secs = tmv_seconds( get_post_meta( $post->ID, 'tm_duration', true ) );
-	if ( ! $secs ) { $secs = (int) get_post_meta( $post->ID, 'tm_dm_seconds', true ); }
-	$ratio = (float) get_post_meta( $post->ID, 'tm_dm_ratio', true );
+	if ( ! $secs ) { $secs = (int) get_post_meta( $post->ID, 'tm_vm_seconds', true ); }
+	$ratio = (float) get_post_meta( $post->ID, 'tm_vm_ratio', true );
 	if ( $ratio <= 0 ) { $ratio = 16 / 9; }
 	$thumb = '';
 	$w     = 0;
@@ -184,10 +170,13 @@ function tmv_data( $post ) {
 		if ( $img ) { $thumb = $img[0]; $w = $img[1]; $h = $img[2]; }
 	}
 	if ( ! $thumb ) {
-		$thumb = (string) get_post_meta( $post->ID, 'tm_dm_thumb', true );
-		$w     = 405;
-		$h     = 720;
+		$thumb = (string) get_post_meta( $post->ID, 'tm_vm_thumb', true );
+		$w     = 1280;
+		$h     = (int) round( 1280 / $ratio );
 	}
+	$play = $id ? 'https://player.vimeo.com/video/' . rawurlencode( $id ) . ( $hash ? '?h=' . rawurlencode( $hash ) : '' ) : '';
+	// Same form as Vimeo's own oEmbed code, which includes the app_id.
+	$embed = $id ? 'https://player.vimeo.com/video/' . rawurlencode( $id ) . '?' . ( $hash ? 'h=' . rawurlencode( $hash ) . '&' : '' ) . 'app_id=122963' : '';
 	return array(
 		'id'    => $id,
 		'secs'  => $secs,
@@ -196,7 +185,9 @@ function tmv_data( $post ) {
 		'thumb' => $thumb,
 		'w'     => $w,
 		'h'     => $h,
-		'embed' => $id ? tmv_embed_base() . 'video=' . rawurlencode( $id ) : '',
+		'embed' => $embed,
+		'play'  => $play,
+		'watch' => $id ? 'https://vimeo.com/' . $id . ( $hash ? '/' . $hash : '' ) : '',
 	);
 }
 
@@ -217,16 +208,16 @@ add_action( 'add_meta_boxes', function () {
 function tmv_box( $post ) {
 	wp_nonce_field( 'tmv_save', 'tmv_nonce' );
 	$g = function ( $k ) use ( $post ) { return get_post_meta( $post->ID, $k, true ); };
-	$auto = (int) $g( 'tm_dm_seconds' );
+	$auto = (int) $g( 'tm_vm_seconds' );
 	?>
 <style>.tmv-f p{margin:0 0 14px}.tmv-f label{display:block;font-weight:600;margin-bottom:4px}.tmv-f input[type=text],.tmv-f input[type=url],.tmv-f textarea{width:100%}.tmv-f small{color:#646970}</style>
 <div class="tmv-f">
-<p><label for="tm_video_url">Dailymotion video URL</label><input type="url" id="tm_video_url" name="tm_video_url" value="<?php echo esc_attr( $g( 'tm_video_url' ) ); ?>" placeholder="https://dai.ly/xbzhxle"><small>Paste the share link from Dailymotion. The player, thumbnail and duration are picked up when you save.</small></p>
-<p><label for="tm_duration">Duration</label><input type="text" id="tm_duration" name="tm_duration" value="<?php echo esc_attr( $g( 'tm_duration' ) ); ?>" placeholder="<?php echo $auto ? esc_attr( tmv_label( $auto ) . ' (found automatically)' ) : 'Filled in automatically, or type 3:45'; ?>"><small>Leave empty to use the length Dailymotion reports.</small></p>
+<p><label for="tm_video_url">Vimeo video URL</label><input type="url" id="tm_video_url" name="tm_video_url" value="<?php echo esc_attr( $g( 'tm_video_url' ) ); ?>" placeholder="https://vimeo.com/1237480616"><small>Paste the share link from Vimeo (the video must allow embedding). The player, thumbnail and duration are picked up when you save.</small></p>
+<p><label for="tm_duration">Duration</label><input type="text" id="tm_duration" name="tm_duration" value="<?php echo esc_attr( $g( 'tm_duration' ) ); ?>" placeholder="<?php echo $auto ? esc_attr( tmv_label( $auto ) . ' (found automatically)' ) : 'Filled in automatically, or type 3:45'; ?>"><small>Leave empty to use the length Vimeo reports.</small></p>
 <p><label for="tm_transcript">Transcript</label><textarea id="tm_transcript" name="tm_transcript" rows="10"><?php echo esc_textarea( $g( 'tm_transcript' ) ); ?></textarea><small>Plain text. It shows on the video page and helps the page rank.</small></p>
 <p><label for="tm_related_posts">Related articles (optional)</label><input type="text" id="tm_related_posts" name="tm_related_posts" value="<?php echo esc_attr( $g( 'tm_related_posts' ) ); ?>" placeholder="https://testmetry.com/some-article/, https://testmetry.com/another/"><small>Comma separated article links. Leave empty and the page picks blog articles that share a tag name with the video tags or category.</small></p>
 <p><label><input type="checkbox" name="tm_noindex" value="1" <?php checked( $g( 'tm_noindex' ), '1' ); ?>> Hide this video from search engines and the video sitemap</label></p>
-<p><small>Short description: use the Excerpt box. Detailed description: use the main editor. Thumbnail: use the Thumbnail panel. Leave it empty to use the Dailymotion thumbnail.</small></p>
+<p><small>Short description: use the Excerpt box. Detailed description (about 300 words): use the main editor. Thumbnail: use the Thumbnail panel. Leave it empty to use the Vimeo thumbnail.</small></p>
 </div>
 	<?php
 }
@@ -241,7 +232,7 @@ add_action( 'save_post_tm_video', function ( $post_id ) {
 	update_post_meta( $post_id, 'tm_transcript', sanitize_textarea_field( wp_unslash( $_POST['tm_transcript'] ?? '' ) ) );
 	update_post_meta( $post_id, 'tm_related_posts', sanitize_text_field( wp_unslash( $_POST['tm_related_posts'] ?? '' ) ) );
 	update_post_meta( $post_id, 'tm_noindex', ! empty( $_POST['tm_noindex'] ) ? '1' : '' );
-	if ( $old !== get_post_meta( $post_id, 'tm_video_url', true ) || ! get_post_meta( $post_id, 'tm_dm_id', true ) ) { tmv_fetch( $post_id ); }
+	if ( $old !== get_post_meta( $post_id, 'tm_video_url', true ) || ! get_post_meta( $post_id, 'tm_vm_id', true ) ) { tmv_fetch( $post_id ); }
 } );
 
 // Also fetch when a video is created or changed through the REST API (the block editor and automation).
@@ -253,10 +244,16 @@ add_action( 'rest_after_insert_tm_video', function ( $post ) { tmv_fetch( $post-
 
 function tmv_card( $post ) {
 	$d     = tmv_data( $post );
+	if ( false !== strpos( $d['thumb'], 'i.vimeocdn.com' ) ) {
+		// Cards only need a smaller picture than the video page does.
+		$d['thumb'] = preg_replace( '~-d_\d+~', '-d_640', $d['thumb'] );
+		$d['h']     = (int) round( 640 / max( 0.1, $d['ratio'] ) );
+		$d['w']     = 640;
+	}
 	$terms = get_the_terms( $post, 'tm_video_cat' );
 	$cat   = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
 	$title = get_the_title( $post );
-	$out   = '<a class="tmv-card" href="' . esc_url( get_permalink( $post ) ) . '"><span class="tmv-thumb' . ( $d['h'] > $d['w'] ? ' tmv-port' : '' ) . '">';
+	$out   = '<a class="tmv-card" href="' . esc_url( get_permalink( $post ) ) . '"><span class="tmv-thumb' . ( $d['h'] > $d['w'] ? ' tmv-port' : '' ) . '"' . ( ( $d['h'] > $d['w'] && $d['thumb'] ) ? ' style="--tmv-bg:url(' . esc_url( $d['thumb'] ) . ')"' : '' ) . '>';
 	if ( $d['thumb'] ) {
 		$out .= '<img src="' . esc_url( $d['thumb'] ) . '" width="' . (int) $d['w'] . '" height="' . (int) $d['h'] . '" alt="" loading="lazy" decoding="async">';
 	}
@@ -272,7 +269,7 @@ function tmv_latest( $n ) {
 	return get_posts( array( 'post_type' => 'tm_video', 'post_status' => 'publish', 'posts_per_page' => $n, 'orderby' => 'date', 'order' => 'DESC', 'no_found_rows' => true ) );
 }
 
-// Used by the homepage plugin. Cards only, no player, nothing from Dailymotion loads except thumbnails.
+// Used by the homepage plugin. Cards only, no player, nothing from Vimeo loads except thumbnails.
 function tmv_home_section( $n = 6 ) {
 	$videos = tmv_latest( $n );
 	if ( ! $videos ) { return ''; }
@@ -379,10 +376,10 @@ add_filter( 'the_content', function ( $content ) {
 		$o  .= '<button type="button" class="tmv-facade" aria-label="' . esc_attr( 'Play video: ' . $title ) . '">';
 		if ( $d['thumb'] ) { $o .= '<img src="' . esc_url( $d['thumb'] ) . '" width="' . (int) $d['w'] . '" height="' . (int) $d['h'] . '" alt="" decoding="async">'; }
 		$o  .= '<span class="tmv-play tmv-play-lg" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span></button>';
-		$o  .= '<noscript><iframe src="' . esc_url( $d['embed'] ) . '" title="' . esc_attr( $title ) . '" allow="fullscreen; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></noscript></div>';
+		$o  .= '<noscript><iframe src="' . esc_url( $d['embed'] ) . '" title="' . esc_attr( $title ) . '" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></noscript></div>';
 	}
 
-	if ( $d['id'] ) { $o .= '<p class="tmv-alt"><a href="' . esc_url( 'https://www.dailymotion.com/video/' . $d['id'] ) . '" target="_blank" rel="noopener">Video not loading? Watch it on Dailymotion</a></p>'; }
+	if ( $d['id'] ) { $o .= '<p class="tmv-alt"><a href="' . esc_url( $d['watch'] ) . '" target="_blank" rel="noopener">Video not loading? Watch it on Vimeo</a></p>'; }
 
 	$bits = array( 'By ' . esc_html( get_the_author_meta( 'display_name', $post->post_author ) ), '<time datetime="' . esc_attr( get_the_date( 'c', $post ) ) . '">' . esc_html( get_the_date( 'j F Y', $post ) ) . '</time>' );
 	if ( $d['label'] ) { $bits[] = 'Duration ' . esc_html( $d['label'] ); }
@@ -430,10 +427,10 @@ add_filter( 'the_content', function ( $content ) {
 	return $o . '</div>';
 }, 20 );
 
-// Click to play: the Dailymotion player only loads after the visitor asks for it.
+// Click to play: the Vimeo player only loads after the visitor asks for it.
 add_action( 'wp_footer', function () {
 	if ( ! is_singular( 'tm_video' ) ) { return; }
-	echo '<script id="tmv-js">document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".tmv-facade");if(!b){return}var w=b.parentNode,f=document.createElement("iframe");f.src=w.getAttribute("data-embed")+"&autoplay=1";f.title=w.getAttribute("data-title")||"Video";f.allow="autoplay; fullscreen; picture-in-picture; web-share";f.setAttribute("allowfullscreen","");f.setAttribute("frameborder","0");w.replaceChild(f,b)});</script>'; // phpcs:ignore
+	echo '<script id="tmv-js">document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".tmv-facade");if(!b){return}var w=b.parentNode,f=document.createElement("iframe");f.src=w.getAttribute("data-embed")+"&autoplay=1";f.title=w.getAttribute("data-title")||"Video";f.allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share";f.referrerPolicy="strict-origin-when-cross-origin";f.setAttribute("allowfullscreen","");f.setAttribute("frameborder","0");w.replaceChild(f,b)});</script>'; // phpcs:ignore
 }, 50 );
 
 /* ------------------------------------------------------------------
@@ -454,7 +451,7 @@ add_action( 'wp_head', function () {
 		'description'  => wp_strip_all_tags( $desc ),
 		'thumbnailUrl' => array_values( array_filter( array( $d['thumb'] ) ) ),
 		'uploadDate'   => get_the_date( 'c', $post ),
-		'embedUrl'     => $d['embed'],
+		'embedUrl'     => $d['play'],
 		'url'          => get_permalink( $post ),
 		'inLanguage'   => 'en',
 		'author'       => array( '@type' => 'Person', 'name' => get_the_author_meta( 'display_name', $post->post_author ) ),
@@ -498,7 +495,7 @@ add_action( 'template_redirect', function () {
 		if ( ! $d['embed'] || ! $d['thumb'] ) { continue; }
 		$desc = has_excerpt( $v ) ? get_the_excerpt( $v ) : wp_trim_words( wp_strip_all_tags( $v->post_content ), 40, '' );
 		if ( '' === trim( $desc ) ) { $desc = get_the_title( $v ); }
-		echo '<url><loc>' . esc_url( get_permalink( $v ) ) . '</loc><video:video><video:thumbnail_loc>' . esc_url( $d['thumb'] ) . '</video:thumbnail_loc><video:title>' . esc_html( get_the_title( $v ) ) . '</video:title><video:description>' . esc_html( mb_substr( wp_strip_all_tags( $desc ), 0, 2000 ) ) . '</video:description><video:player_loc>' . esc_url( $d['embed'] ) . '</video:player_loc>';
+		echo '<url><loc>' . esc_url( get_permalink( $v ) ) . '</loc><video:video><video:thumbnail_loc>' . esc_url( $d['thumb'] ) . '</video:thumbnail_loc><video:title>' . esc_html( get_the_title( $v ) ) . '</video:title><video:description>' . esc_html( mb_substr( wp_strip_all_tags( $desc ), 0, 2000 ) ) . '</video:description><video:player_loc>' . esc_url( $d['play'] ) . '</video:player_loc>';
 		if ( $d['secs'] ) { echo '<video:duration>' . (int) $d['secs'] . '</video:duration>'; }
 		echo '<video:publication_date>' . esc_html( get_the_date( 'c', $v ) ) . '</video:publication_date><video:family_friendly>yes</video:family_friendly></video:video></url>' . "\n";
 	}
@@ -535,7 +532,8 @@ function tmv_css() {
 .tmv-card:focus-visible,.tmv-facade:focus-visible{outline:3px solid #0b2a5b;outline-offset:3px}
 .tmv-thumb{position:relative;display:block;aspect-ratio:16/9;background:#0b2a5b;overflow:hidden}
 .tmv-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
-.tmv-port img{object-fit:contain;object-position:center}
+.tmv-port::before{content:"";position:absolute;inset:-12px;background:var(--tmv-bg) center/cover;filter:blur(16px) brightness(.65)}
+.tmv-port img{object-fit:contain;object-position:center;z-index:1}
 .tmv-play{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#f6cf4b;color:#0b2a5b;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);padding-left:3px;box-sizing:border-box}
 .tmv-play-lg{width:76px;height:76px;margin:-38px 0 0 -38px}
 .tmv-card:hover .tmv-play,.tmv-facade:hover .tmv-play{background:#ffe07a}
